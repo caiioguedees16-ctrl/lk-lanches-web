@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="logo.png">
+<meta name="description" content="LK Lanches - Hamburgueria artesanal em Acaú. Peça pelo WhatsApp.">
+<title>🍔 LK Lanches - Hamburgueria Artesanal</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- BOTÃO FLUTUANTE DO CARRINHO -->
+<div class="cart-btn" onclick="toggleCart()">
+🛒
+<div class="cart-count" id="cartCount">0</div>
+</div>
+
+<!-- PAINEL DO CARRINHO -->
+<div class="cart" id="cartPanel">
+<h2>Seu Pedido</h2>
+<button class="back-btn" onclick="toggleCart()">←</button>
+<div id="cartItems"></div>
+
+<p id="total">Total: R$ 0.00</p>
+
+<input type="text" id="address" placeholder="Digite seu endereço">
+
+<h3>Observações</h3>
+<textarea id="obs" placeholder="Ex: Pedra da Galé - Sem cebola, sem tomate..."></textarea>
+
+<h3>Forma de Pagamento</h3>
+
+<select id="payment" onchange="checkPayment()">
+<option value="">Selecione</option>
+<option value="Cartão - Débito">Cartão - Débito</option>
+<option value="Cartão - Crédito">Cartão - Crédito</option>
+<option value="PIX">PIX</option>
+<option value="Dinheiro">Dinheiro</option>
+</select>
+
+<div id="trocoArea" style="display:none;">
+<input type="number" id="troco" min="0" placeholder="Valor que vai pagar">
+</div>
+
+<button class="add-btn" onclick="sendWhatsApp()">
+Finalizar no WhatsApp
+</button>
+</div>
+
+<header>
+<div class="logo"> LK LANCHES</div>
+<nav>
+<a href="#artesanais">Artesanais</a>
+<a href="#tradicionais">Tradicionais</a>
+<a href="#sandubas">Sandubas</a>
+<a href="#combos-tradicionais">Combo Tradicional</a>
+<a href="#combos-artesanais">Combo Artesanal</a>
+<a href="#porcoes">Porções</a>
+<a href="#salgados">Salgados</a>
+<a href="#bebidas">Bebidas</a>
+</nav>
+</header>
+
+<section id="artesanais" class="section">
+<h2>🍔 Artesanais</h2>
+<div class="cards" id="artesanais-list"></div>
+</section>
+
+<section id="tradicionais" class="section">
+<h2>🔥 Tradicionais</h2>
+<div class="cards" id="tradicionais-list"></div>
+</section>
+
+<section id="sandubas" class="section">
+<h2>🌭 Sandubas 20cm</h2>
+<div class="cards" id="sanduba-list"></div>
+</section>
+
+<section id="combos-tradicionais" class="section">
+<h2>👨‍👩‍👧 Combos Tradicionais</h2>
+<div class="cards" id="combos-tradicionais-list"></div>
+</section>
+
+<section id="combos-artesanais" class="section">
+<h2>🍔 Combos Artesanais</h2>
+<div class="cards" id="combos-artesanais-list"></div>
+</section>
+
+<section id="pasteis" class="section">
+<h2>🥟 Pastéis</h2>
+<div class="cards" id="pasteis-list"></div>
+</section>
+
+<section id="porcoes" class="section">
+<h2>🍟 Porções</h2>
+<div class="cards" id="porcoes-list"></div>
+</section>
+
+<section id="mini-pasteis" class="section">
+<h2>🥟 Mini Pastéis</h2>
+<div class="cards" id="porcoespastel-list"></div>
+</section>
+
+<section id="salgados" class="section">
+<h2>🥟 Salgados</h2>
+<div class="cards" id="salgados-list"></div>
+</section>
+
+<section id="bebidas" class="section">
+<h2>🥤 Bebidas</h2>
+<div class="cards" id="bebidas-list"></div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
