@@ -808,5 +808,5 @@ function sendWhatsApp() {
 
 
   // Abre WhatsApp
-  window.open(`https://wa.me/5547997669037?text=${encodeURIComponent(msg)}`);
+  window.open(`https://wa.me/5583999963331?text=${encodeURIComponent(msg)}`);
 }
