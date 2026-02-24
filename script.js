@@ -391,51 +391,59 @@ Object.keys(produtos).forEach(cat => {
 // ENVIO PARA WHATSAPP
 // ===============================
 function sendWhatsApp() {
-    const name = document.getElementById("clientName").value.trim();
-    const address = document.getElementById("address").value.trim();
-    const payment = document.getElementById("payment").value;
-    const obs = document.getElementById("obs").value.trim();
+    // 1. Verificamos se os elementos existem antes de pegar o valor
+    const elName = document.getElementById("clientName");
+    const elAddress = document.getElementById("address");
+    const elPayment = document.getElementById("payment");
+    const elObs = document.getElementById("obs");
+    const elTroco = document.getElementById("troco");
 
-    const trocoElement = document.getElementById("troco");
-    const troco = trocoElement ? trocoElement.value : "";
-    
+    // 2. Pegamos os valores com segurança
+    const name = elName ? elName.value.trim() : "";
+    const address = elAddress ? elAddress.value.trim() : "";
+    const payment = elPayment ? elPayment.value : "";
+    const obs = elObs ? elObs.value.trim() : "";
+    const troco = elTroco ? elTroco.value : ""; // Se não existir, fica vazio sem dar erro
 
+    // 3. Validações
     if (cart.length === 0) return alert("Seu carrinho está vazio!");
     if (!name) return alert("Por favor, diga seu nome!");
     if (!address) return alert("Por favor, digite seu endereço!");
     if (!payment) return alert("Selecione a forma de pagamento!");
 
-    // Fluxo de confirmação PIX
+    // Fluxo PIX
     if (payment === "PIX") {
-        const confirmou = confirm(" Você copiou a chave e realizou o pagamento? Clique em OK para enviar seu pedido! ⚠️ O Pedido só será produzido após o envio do comprovante no WhatsApp. ⚠️");
+        const confirmou = confirm("Você copiou a chave e realizou o pagamento? Clique em OK para enviar seu pedido.");
         if(!confirmou) return;
     }
 
-    let msg = `🍔 *NOVO PEDIDO - LK LANCHES*\n`;
+    // 4. Montagem da Mensagem
+    let msg = `### **NOVO PEDIDO - LK LANCHES**\n`;
     msg += `──────────────────\n\n`;
-    msg += `👤 *Cliente: ${name}*\n`;
+    msg += `👤 **Cliente:** ${name}\n`;
     msg += `──────────────────\n\n`;
 
     let total = 0;
     cart.forEach(item => {
         const subtotal = item.price * item.qty;
-        msg += `✅ *${item.qty}x* ${item.name}\n`;
+        msg += `✅ **${item.qty}x** ${item.name}\n`;
         msg += `R$ ${subtotal.toFixed(2)}\n\n`;
         total += subtotal;
     });
 
     msg += `──────────────────\n`;
-    msg += `💰 *Total:* R$ ${total.toFixed(2)}\n`;
-    msg += `💳 *Pagamento:* ${payment}\n`;
-    msg += `📍 *Endereço:* ${address}\n`;
-    
-    if (obs) msg += `📝 *Obs:* ${obs}\n`;
+    msg += `💰 **Total:** R$ ${total.toFixed(2)}\n`;
+    msg += `💳 **Pagamento:** ${payment}\n`;
+    msg += `📍 **Endereço:** ${address}\n`;
 
+    if (obs) msg += `📝 **Obs:** ${obs}\n`;
+
+    // Lógica de Troco (apenas se for dinheiro e tiver valor)
     if (payment === "Dinheiro" && troco) {
         const vPago = parseFloat(troco.replace(',', '.'));
         if (!isNaN(vPago) && vPago > total) {
-            msg += `💵 *Valor pago:* R$ ${vPago.toFixed(2)}\n`;
-            msg += `🪙 *Troco:* R$ ${(vPago - total).toFixed(2)}\n`;
+            msg += `💵 **Valor pago:** R$ ${vPago.toFixed(2)}\n`;
+            msg += `🪙 **Troco:** R$ ${(vPago - total).toFixed(2)}\n`;
         }
     }
 
@@ -444,16 +452,21 @@ function sendWhatsApp() {
     }
 
     const fone = "5583999963331"; 
-    window.open(`https://wa.me/${fone}?text=${encodeURIComponent(msg)}`, '_blank');
-
-    cart = []; 
-
-    if (localStorage.getItem('cart')) {
-        localStorage.removeItem('cart');
-    }
-
-    updateCart(); 
-
-    alert("Pedido enviado! Seu carrinho foi esvaziado.");
     
+    // 5. Tentativa de envio
+    const link = `https://wa.me/${fone}?text=${encodeURIComponent(msg)}`;
+    
+    try {
+        window.open(link, '_blank');
+        
+        // Limpeza apenas se o link abrir
+        cart = []; 
+        if (localStorage.getItem('cart')) {
+            localStorage.removeItem('cart');
+        }
+        updateCart(); 
+        alert("Pedido enviado! Seu carrinho foi esvaziado.");
+    } catch (e) {
+        alert("Erro ao abrir o WhatsApp. Verifique se o navegador não bloqueou o pop-up.");
+    }
 }
