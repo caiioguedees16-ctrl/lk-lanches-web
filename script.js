@@ -383,7 +383,10 @@ function gerarCards(categoria, containerId) {
                                 <div class="extras-grid">
                                     ${adicionais.map(e => `
                                         <label class="extra-item">
-                                            <input type="checkbox" value="${e.preco}" data-nome="${e.nome}">
+                                            <input type="checkbox"
+                                            value="${e.preco}"
+                                            data-nome="${e.nome}">
+                                            onchange="atualizarPrecoTotalModal(this.closest('.modal-content'), 15.00)">
                                             <span>+ ${e.nome} (R$ ${e.preco.toFixed(2)})</span>
                                         </label>
                                     `).join("")}
@@ -423,6 +426,22 @@ Object.keys(produtos).forEach(cat => {
     let id = idMap[cat] || `${cat}-list`;
     gerarCards(cat, id);
 });
+
+function atualizarPrecoTotalModal(modalElement, precoBase) {
+    const checkboxes = modalElement.querySelectorAll('.extra-item input[type="checkbox"]:checked');
+    let totalAdicionais = 0;
+
+    checkboxes.forEach(input => {
+        totalAdicionais += parseFloat(input.value);
+    });
+
+    const precoFinal = precoBase + totalAdicionais;
+    const displayPreco = modalElement.querySelector('.preco-final-display'); 
+    
+    if (displayPreco) {
+        displayPreco.innerText = `R$ ${precoFinal.toFixed(2)}`;
+    }
+}
 
 // ===============================
 // ENVIO PARA WHATSAPP
