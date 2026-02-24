@@ -385,7 +385,7 @@ function gerarCards(categoria, containerId) {
                                         <label class="extra-item">
                                             <input type="checkbox"
                                             value="${e.preco}"
-                                            data-nome="${e.nome}">
+                                            data-nome="${e.nome}"
                                             onchange="atualizarPrecoTotalModal(this.closest('.card'), ${produto.preco})">
                                         <span>+ ${e.nome} (R$ ${e.preco.toFixed(2)})</span>
                                         </label>
