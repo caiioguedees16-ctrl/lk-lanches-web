@@ -253,14 +253,20 @@ function gerarCards(categoria, containerId) {
                 <div class="card">
                     <img src="${produto.img}" alt="${produto.nome}">
                     <h3>${produto.nome}</h3>
-                    ${produto.desc ? `<p>${produto.desc}</p>` : ""}
+                    ${produto.desc ? `<p class="desc-text">${produto.desc}</p>` : ""}
+        
+                    <div class="item-obs">
+                        <input type="text" placeholder="Observação (Ex: Sem cebola)" class="individual-obs">
+                    </div>
+
                     ${mostrarExtras ? `
                         <div class="extras-container">
                             <button class="btn-extras" onclick="toggleExtras(this)">➕ Adicionais</button>
                             <div class="extras-box" style="display:none;">
-                                <div class="extras-grid">${adicionais.map(e => `<label class="extra-item"><input type="checkbox" value="${e.preco}" data-nome="${e.nome}"><span>+ ${e.nome}</span><small>R$ ${e.preco.toFixed(2)}</small></label>`).join("")}</div>
+                                <div class="extras-grid">${adicionais.map(e => `<label class="extra-item"><input type="checkbox" value="${e.preco}" data-nome="${e.nome}"><span>+ ${e.nome}</span></label>`).join("")}</div>
                             </div>
                         </div>` : ""}
+        
                     <p class="price">R$ ${produto.preco.toFixed(2)}</p>
                     <div class="actions">
                         <div class="qty-control"><button onclick="changeQty(this,-1)">−</button><span>1</span><button onclick="changeQty(this,1)">+</button></div>
@@ -268,8 +274,7 @@ function gerarCards(categoria, containerId) {
                     </div>
                 </div>`;
         }
-    });
-}
+});
 
 // Inicializar vitrines
 Object.keys(produtos).forEach(cat => {
