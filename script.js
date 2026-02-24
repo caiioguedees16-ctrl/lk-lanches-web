@@ -42,6 +42,11 @@ function addToCart(name, price, qty) {
 function addToCartComExtras(button, nome, precoBase) {
     let card = button.closest(".card");
     let quantidade = parseInt(card.querySelector(".qty-control span").innerText);
+    
+    // Captura a observação específica deste lanche
+    let obsInput = card.querySelector(".individual-obs");
+    let observacao = obsInput ? obsInput.value.trim() : "";
+
     let totalExtras = 0;
     let nomesExtras = [];
 
@@ -52,20 +57,29 @@ function addToCartComExtras(button, nome, precoBase) {
     });
 
     let precoUnitario = precoBase + totalExtras;
-    let nomeFinal = nomesExtras.length > 0 ? `${nome} (${nomesExtras.join(", ")})` : nome;
+    
+    // Monta o nome final: Nome + Extras + Observação
+    let nomeFinal = nome;
+    if (nomesExtras.length > 0) {
+        nomeFinal += ` (${nomesExtras.join(", ")})`;
+    }
+    if (observacao) {
+        nomeFinal += ` [Nota: ${observacao}]`;
+    }
 
     addToCart(nomeFinal, precoUnitario, quantidade);
 
     // Reset visual do card
+    if (obsInput) obsInput.value = ""; // Limpa o campo de texto
     checkboxes.forEach(cb => cb.checked = false);
     card.querySelector(".qty-control span").innerText = 1;
+    
     let extrasBox = card.querySelector(".extras-box");
     if (extrasBox) {
         extrasBox.style.display = "none";
         card.querySelector(".btn-extras").innerHTML = "➕ Adicionais";
     }
 }
-
 // MINI PASTÉIS
 function addMiniPastel(btn, nome) {
     let card = btn.closest(".card");
