@@ -380,7 +380,14 @@ function gerarCards(categoria, containerId) {
                         <div class="extras-container">
                             <button class="btn-extras" onclick="toggleExtras(this)">➕ Adicionais</button>
                             <div class="extras-box" style="display:none;">
-                                <div class="extras-grid">${adicionais.map(e => `<label class="extra-item"><input type="checkbox" value="${e.preco}" data-nome="${e.nome}"><span>+ ${e.nome}</span></label>`).join("")}</div>
+                                <div class="extras-grid">
+                                    ${adicionais.map(e => `
+                                        <label class="extra-item">
+                                            <input type="checkbox" value="${e.preco}" data-nome="${e.nome}">
+                                            <span>+ ${e.nome} (R$ ${e.preco.toFixed(2)})</span>
+                                        </label>
+                                    `).join("")}
+                                </div>
                             </div>
                         </div>` : ""}
                         
