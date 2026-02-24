@@ -325,8 +325,8 @@ function sendWhatsApp() {
     }
 
     let msg = `🍔 *NOVO PEDIDO - LK LANCHES*\n`;
-    msg += `👤 *Cliente:* ${name}\n`;
-    msg += `────────────────────\n\n`;
+    msg += `👤 *Cliente: ${name}\n\n*`;
+    msg += `──────────────────\n\n`;
 
     let total = 0;
     cart.forEach(item => {
@@ -336,7 +336,7 @@ function sendWhatsApp() {
         total += subtotal;
     });
 
-    msg += `────────────────────\n`;
+    msg += `──────────────────\n`;
     msg += `💰 *Total:* R$ ${total.toFixed(2)}\n`;
     msg += `💳 *Pagamento:* ${payment}\n`;
     msg += `📍 *Endereço:* ${address}\n`;
