@@ -274,7 +274,8 @@ function gerarCards(categoria, containerId) {
                     </div>
                 </div>`;
         }
-});
+    });
+}
 
 // Inicializar vitrines
 Object.keys(produtos).forEach(cat => {
