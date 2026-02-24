@@ -82,41 +82,35 @@ grid-template-columns:1fr 1fr;
 gap:6px;
 }
 
-.extra-item{
-display:flex;
-justify-content:space-between;
-align-items:center;
-background:#1a1a1a;
-padding:6px 8px;
-border-radius:8px;
-font-size:12px;
-cursor:pointer;
-transition:0.2s;
+.extra-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Alinha checkbox à esquerda */
+    gap: 8px;
 }
 
 .extra-item:hover{
 background:#222;
 }
 
-.extra-item input{
-margin-right:6px;
+.extra-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent); /* Checkbox fica vermelho */
 }
 
 .extra-item small{
 color:#aaa;
 }
 
-.select-qtd,
-.select-sabor{
-width:100%;
-padding:10px;
-margin:10px 0;
-border-radius:8px;
-background:#111;
-color:white;
-border:1px solid #333;
+.select-qtd, .select-sabor {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' width='18px' height='18px'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    cursor: pointer;
+    border: 1px solid var(--border);
 }
-
 .cards{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -304,6 +298,34 @@ background:#111318;
 border:1px solid var(--border);
 color:var(--text);
 border-radius:6px;
+}
+
+/* --- BOTÃO DE FINALIZAR PEDIDO (WHATSAPP) --- */
+#sendOrderBtn {
+    background: #25D366; /* Verde oficial do WhatsApp */
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 30px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 15px;
+    width: 100%;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+#sendOrderBtn:hover {
+    background: #1eb954; /* Um verde um pouco mais escuro ao passar o mouse */
+    transform: scale(1.02);
+}
+
+#sendOrderBtn:active {
+    transform: scale(0.98);
 }
 
 /* TABLET */
