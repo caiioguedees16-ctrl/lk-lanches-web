@@ -358,8 +358,8 @@ function gerarCards(categoria, containerId) {
 Object.keys(produtos).forEach(cat => {
     let idMap = {
         "porcoespastel": "porcoespastel-list",
-        "tradicional": "tradicional-list",
-        "artesanal": "artesanal-list",
+        "tradicionais": "tradicionais-list",
+        "artesanais": "artesanais-list",
         "salgados": "salgados-list",
         "pasteis": "pasteis-list",
         "combosTradicionais": "combos-tradicionais-list",
