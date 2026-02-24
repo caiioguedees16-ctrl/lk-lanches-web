@@ -191,6 +191,7 @@ const produtos = {
     combosArtesanais: [
         { nome: "Solteirão", preco: 20, img: "img/combo5.png", desc: "1 Barra + Fritas Pequena", ingredientes: "Pão de Brioche, hambúrguer 130g, mussarela, alface, tomate, cebola." },
         { nome: "Casal", preco: 42, img: "img/combo6.png", desc: "2 Barra + Fritas Média com Calabresa e Cheddar", ingredientes: "Pão de Brioche, hambúrguer 130g, mussarela, alface, tomate, cebola." },
+        { nome: "Casal", preco: 50, img: "img/combocasalrefri.png", desc: "2 Barra + Fritas Média com Calabresa e Cheddar + Guaraná 1L ", ingredientes: "Pão de Brioche, hambúrguer 130g, mussarela, alface, tomate, cebola." },       
         { nome: "Amigos", preco: 55, img: "img/combo6.png", desc: "3 Barra + Fritas Média com Calabresa e Cheddar", ingredientes: "Pão de Brioche, hambúrguer 130g, mussarela, alface, tomate, cebola." },
         { nome: "Familia", preco: 78, img: "img/combo7.png", desc: "4 Barra + Fritas Grande com Calabresa e Cheddar", ingredientes: "Pão de Brioche, hambúrguer 130g, mussarela, alface, tomate, cebola." }
     ],
@@ -223,9 +224,10 @@ const produtos = {
     pasteis: [
         {nome:"Pastel Carne", preco:10, img:"img/pasteldecarne.png"}, {nome:"Pastel Frango", preco:10, img:"img/pasteldefrango.png"},
         {nome:"Pastel Calabresa", preco:10, img:"img/calabresa.png"}, {nome:"Pastel Pizza", preco:10, img:"img/pizza.png"},
-        {nome:"Pastel Presunto", preco:10, img:"img/presunto.png"}, {nome:"Pastel 3 Queijos", preco:14, img:"img/4queijos.png"},
-        {nome:"Pastel 4 Queijos", preco:14, img:"img/4queijos.png"}, {nome:"Pastel Charque", preco:14, img:"img/carnedesol.png"},
-        {nome:"Pastel Carne de Sol", preco:14, img:"img/carnedesol.png"}, {nome:"Pastel Frango com Bacon", preco:14, img:"img/frangocombacon.png"},
+        {nome:"Pastel Presunto", preco:10, img:"img/presunto.png"}, {nome:"Pastel Misto", preco:10, img:"img/pastelmisto.png"},
+        {nome:"Pastel 3 Queijos", preco:14, img:"img/4queijos.png"}, {nome:"Pastel 4 Queijos", preco:14, img:"img/4queijos.png"},
+        {nome:"Pastel Charque", preco:14, img:"img/carnedesol.png"}, {nome:"Pastel Carne de Sol", preco:14, img:"img/carnedesol.png"}, 
+        {nome:"Pastel Frango com Bacon", preco:14, img:"img/frangocombacon.png"}, {nome:"Pastel Queijo Coalho", preco:13, img:"img/queijocoalho.png"}, 
         {nome:"Pastel Chocolate", preco:14, img:"img/chocolate.png"}
     ],
     porcoespastel: [
