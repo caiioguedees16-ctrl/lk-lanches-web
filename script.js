@@ -391,82 +391,71 @@ Object.keys(produtos).forEach(cat => {
 // ENVIO PARA WHATSAPP
 // ===============================
 function sendWhatsApp() {
-    // 1. Verificamos se os elementos existem antes de pegar o valor
+    // 1. Captura dos elementos com segurança (sem alertas aqui)
     const elName = document.getElementById("clientName");
     const elAddress = document.getElementById("address");
     const elPayment = document.getElementById("payment");
     const elObs = document.getElementById("obs");
     const elTroco = document.getElementById("troco");
 
-    // 2. Pegamos os valores com segurança
+    // Pegamos os valores (usando as variáveis elName, etc, para evitar erro de duplicidade)
     const name = elName ? elName.value.trim() : "";
     const address = elAddress ? elAddress.value.trim() : "";
     const payment = elPayment ? elPayment.value : "";
     const obs = elObs ? elObs.value.trim() : "";
-    const troco = elTroco ? elTroco.value : ""; // Se não existir, fica vazio sem dar erro
+    const troco = elTroco ? elTroco.value : "";
 
-    // 3. Validações
-    if (cart.length === 0) return alert("Seu carrinho está vazio!");
-    if (!name) return alert("Por favor, diga seu nome!");
-    if (!address) return alert("Por favor, digite seu endereço!");
-    if (!payment) return alert("Selecione a forma de pagamento!");
+    // 2. Validações rápidas
+    if (cart.length === 0) { alert("Carrinho vazio!"); return; }
+    if (!name || !address || !payment) { alert("Preencha nome, endereço e pagamento!"); return; }
 
-    // Fluxo PIX
-    if (payment === "PIX") {
-        const confirmou = confirm("Você copiou a chave e realizou o pagamento? Clique em OK para enviar seu pedido.");
-        if(!confirmou) return;
-    }
-
-    // 4. Montagem da Mensagem
-    let msg = `### **NOVO PEDIDO - LK LANCHES**\n`;
+    // 3. Montagem da Mensagem
+    let msg = `🍔 *NOVO PEDIDO - LK LANCHES*\n`;
     msg += `──────────────────\n\n`;
-    msg += `👤 **Cliente:** ${name}\n`;
+    msg += `👤 *Cliente:* ${name}\n`;
     msg += `──────────────────\n\n`;
 
     let total = 0;
     cart.forEach(item => {
         const subtotal = item.price * item.qty;
-        msg += `✅ **${item.qty}x** ${item.name}\n`;
+        msg += `✅ *${item.qty}x* ${item.name}\n`;
         msg += `R$ ${subtotal.toFixed(2)}\n\n`;
         total += subtotal;
     });
 
     msg += `──────────────────\n`;
-    msg += `💰 **Total:** R$ ${total.toFixed(2)}\n`;
-    msg += `💳 **Pagamento:** ${payment}\n`;
-    msg += `📍 **Endereço:** ${address}\n`;
+    msg += `💰 *Total:* R$ ${total.toFixed(2)}\n`;
+    msg += `💳 *Pagamento:* ${payment}\n`;
+    msg += `📍 *Endereço:* ${address}\n`;
 
-    if (obs) msg += `📝 **Obs:** ${obs}\n`;
+    if (obs) msg += `📝 *Obs:* ${obs}\n`;
 
-    // Lógica de Troco (apenas se for dinheiro e tiver valor)
     if (payment === "Dinheiro" && troco) {
         const vPago = parseFloat(troco.replace(',', '.'));
         if (!isNaN(vPago) && vPago > total) {
-            msg += `💵 **Valor pago:** R$ ${vPago.toFixed(2)}\n`;
-            msg += `🪙 **Troco:** R$ ${(vPago - total).toFixed(2)}\n`;
+            msg += `💵 *Troco para:* R$ ${vPago.toFixed(2)}\n`;
+            msg += `🪙 *Valor do Troco:* R$ ${(vPago - total).toFixed(2)}\n`;
         }
     }
 
     if (payment === "PIX") {
-        msg += `\n⚠️ _Estou enviando o comprovante em anexo._`;
+        msg += `\n⚠️ _Enviarei o comprovante em seguida._`;
     }
 
+    // 4. ENVIO ANTI-BLOQUEIO
     const fone = "5583999963331"; 
+    const url = `https://wa.me/${fone}?text=${encodeURIComponent(msg)}`;
     
-    // 5. Tentativa de envio
-    const link = `https://wa.me/${fone}?text=${encodeURIComponent(msg)}`;
+    // Tenta abrir em nova aba
+    const novaAba = window.open(url, '_blank');
     
-    try {
-        window.open(link, '_blank');
-        
-        // Limpeza apenas se o link abrir
-        cart = []; 
-        if (localStorage.getItem('cart')) {
-            localStorage.removeItem('cart');
-        }
-        updateCart(); 
-        alert("Pedido enviado! Seu carrinho foi esvaziado.");
-    } catch (e) {
-        alert("Erro ao abrir o WhatsApp. Verifique se o navegador não bloqueou o pop-up.");
+    // Se a nova aba não abriu (bloqueada pelo celular), abre na mesma aba
+    if (!novaAba || novaAba.closed || typeof novaAba.closed == 'undefined') {
+        window.location.href = url; 
     }
+
+    // 5. Limpeza (Executa após o comando de abrir)
+    cart = []; 
+    if (localStorage.getItem('cart')) localStorage.removeItem('cart');
+    updateCart();
 }
