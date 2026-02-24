@@ -262,6 +262,20 @@ const produtos = {
         { nome: "Cachorro Quente", preco: 6, img: "img/cachorro-quente.png", desc: "Pão, carne, salsicha, vinagrete, milho e evilha, batata palha, queijo ralado e molhos." },
         { nome: "Misto Quente", preco: 7, img: "img/misto-quente.png", desc: "Queijo cremoso" }
     ],
+    sucos: [
+    { 
+        nome: "Suco Natural (500ml)", 
+        preco: 8, // Preço fixo
+        img: "img/suco-natural.png", 
+        sabores: ["Laranja", "Abacaxi", "Maracujá", "Goiaba"] 
+    },
+    { 
+        nome: "Suco com Leite (500ml)", 
+        preco: 10, // Preço fixo
+        img: "img/suco-leite.png", 
+        sabores: ["Morango", "Acerola", "Graviola"] 
+    }
+    ],
     bebidas: [
         { nome: "Mini Refri Guaraná", preco: 3, img: "img/minirefri.png", desc: "250ml" },
         { nome: "Coca-Cola Lata", preco: 7, img: "img/coca-lata.png", desc: "350ml" },
@@ -281,19 +295,30 @@ function gerarCards(categoria, containerId) {
     container.innerHTML = "";
 
     produtos[categoria].forEach(produto => {
-        if (produto.opcoes) {
+        // LÓGICA PARA MINI PASTÉIS E SUCOS (Itens com seletores)
+        if (produto.sabores) {
+            let isSuco = categoria === "sucos";
+            let selectQtdHTML = produto.opcoes 
+                ? `<select class="select-qtd">${produto.opcoes.map(op => `<option value="${op.preco}">${op.label} - R$ ${op.preco.toFixed(2)}</option>`).join("")}</select>`
+                : ""; // Sucos não tem esse select porque o preço é fixo
+
             container.innerHTML += `
                 <div class="card">
                     <img src="${produto.img}" alt="${produto.nome}">
                     <h3>${produto.nome}</h3>
-                    <select class="select-qtd">${produto.opcoes.map(op => `<option value="${op.preco}">${op.label} - R$ ${op.preco.toFixed(2)}</option>`).join("")}</select>
-                    <select class="select-sabor">${produto.sabores.map(s => `<option value="${s}">${s}</option>`).join("")}</select>
+                    ${selectQtdHTML}
+                    <select class="select-sabor">
+                        <option value="">Escolha o sabor...</option>
+                        ${produto.sabores.map(s => `<option value="${s}">${s}</option>`).join("")}
+                    </select>
                     <div class="actions">
                         <div class="qty-control"><button onclick="changeQty(this,-1)">−</button><span>1</span><button onclick="changeQty(this,1)">+</button></div>
-                        <button class="add-btn" onclick="addMiniPastel(this,'${produto.nome}')">Adicionar</button>
+                        <button class="add-btn" onclick="${isSuco ? `addSuco(this,'${produto.nome}',${produto.preco})` : `addMiniPastel(this,'${produto.nome}')`}">Adicionar</button>
                     </div>
                 </div>`;
-        } else {
+        } 
+        // LÓGICA PARA PRODUTOS NORMAIS (Lanches, Porções, etc)
+        else {
             let catComExtras = ["pasteis", "artesanais", "tradicionais", "porcoes", "sandubas"];
             let mostrarExtras = catComExtras.includes(categoria);
 
@@ -302,11 +327,9 @@ function gerarCards(categoria, containerId) {
                     <img src="${produto.img}" alt="${produto.nome}">
                     <h3>${produto.nome}</h3>
                     ${produto.desc ? `<p class="desc-text">${produto.desc}</p>` : ""}
-        
                     <div class="item-obs">
                         <input type="text" placeholder="Observação (Ex: Sem cebola)" class="individual-obs">
                     </div>
-
                     ${mostrarExtras ? `
                         <div class="extras-container">
                             <button class="btn-extras" onclick="toggleExtras(this)">➕ Adicionais</button>
@@ -314,7 +337,6 @@ function gerarCards(categoria, containerId) {
                                 <div class="extras-grid">${adicionais.map(e => `<label class="extra-item"><input type="checkbox" value="${e.preco}" data-nome="${e.nome}"><span>+ ${e.nome}</span></label>`).join("")}</div>
                             </div>
                         </div>` : ""}
-        
                     <p class="price">R$ ${produto.preco.toFixed(2)}</p>
                     <div class="actions">
                         <div class="qty-control"><button onclick="changeQty(this,-1)">−</button><span>1</span><button onclick="changeQty(this,1)">+</button></div>
