@@ -191,7 +191,7 @@ const produtos = {
     combosArtesanais: [
         { nome: "Solteirão", preco: 20, img: "img/combo5.png", desc: "1 Barra + Fritas Pequena", ingredientes: "Pão de Brioche, hambúrguer 130g, mussarela, alface, tomate, cebola." },
         { nome: "Casal", preco: 42, img: "img/combo6.png", desc: "2 Barra + Fritas Média com Calabresa e Cheddar", ingredientes: "Pão de Brioche, hambúrguer 130g, mussarela, alface, tomate, cebola." },
-        { nome: "Casal", preco: 50, img: "img/combocasalrefri.png", desc: "2 Barra + Fritas Média com Calabresa e Cheddar + Guaraná 1L ", ingredientes: "Pão de Brioche, hambúrguer 130g, mussarela, alface, tomate, cebola." },       
+        { nome: "Casal + Refri", preco: 50, img: "img/combocasalrefri.png", desc: "2 Barra + Fritas Média com Calabresa e Cheddar + Guaraná 1L ", ingredientes: "Pão de Brioche, hambúrguer 130g, mussarela, alface, tomate, cebola." },       
         { nome: "Amigos", preco: 55, img: "img/combo6.png", desc: "3 Barra + Fritas Média com Calabresa e Cheddar", ingredientes: "Pão de Brioche, hambúrguer 130g, mussarela, alface, tomate, cebola." },
         { nome: "Familia", preco: 78, img: "img/combo7.png", desc: "4 Barra + Fritas Grande com Calabresa e Cheddar", ingredientes: "Pão de Brioche, hambúrguer 130g, mussarela, alface, tomate, cebola." }
     ],
