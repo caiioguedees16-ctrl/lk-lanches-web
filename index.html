@@ -47,28 +47,39 @@
     </div>
 
     <div class="payment-info">
-        <label for="payment">Forma de Pagamento</label>
-        <select id="payment" onchange="checkPayment()">
-            <option value="">Selecione...</option>
-            <option value="Cartão - Débito">Cartão - Débito</option>
-            <option value="Cartão - Crédito">Cartão - Crédito</option>
-            <option value="PIX">PIX</option>
-            <option value="Dinheiro">Dinheiro</option>
-        </select>
+    <label for="payment">Forma de Pagamento</label>
+    <select id="payment" onchange="checkPayment()">
+        <option value="">Selecione...</option>
+        <option value="Cartão - Débito">Cartão - Débito</option>
+        <option value="Cartão - Crédito">Cartão - Crédito</option>
+        <option value="PIX">PIX</option>
+        <option value="Dinheiro">Dinheiro</option>
+    </select>
 
-        <div id="trocoArea" style="display:none; margin-top: 10px;">
-            <input type="number" id="troco" min="0" placeholder="Troco para quanto?">
-        </div>
-
-        <div id="pixArea" style="display:none; background: #1a1a1a; padding: 15px; border-radius: 8px; margin-top: 10px; border: 1px solid #00e676;">
-            <p style="color: #00e676; font-weight: bold; margin-bottom: 5px; font-size: 13px;">CHAVE PIX LK LANCHES:</p>
-            <p style="color: white; font-size: 14px; user-select: all; background: #333; padding: 8px; border-radius: 4px; border: 1px dashed #555;">
+    <div id="pixArea" style="display:none; background: #1a1a1a; padding: 15px; border-radius: 8px; margin-top: 10px; border: 1px solid #00e676; text-align: center;">
+        <p style="color: #00e676; font-weight: bold; margin-bottom: 5px; font-size: 13px; text-transform: uppercase;">
+            CHAVE PIX LK LANCHES:
+        </p>
+        
+        <div style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
+            <p id="chavePixValor" style="color: white; font-size: 16px; background: #333; padding: 10px; border-radius: 4px; border: 1px dashed #555; width: 100%; letter-spacing: 1px;">
                 83999963331
             </p>
-            <small style="color: #999; display: block; margin-top: 5px; line-height: 1.2;">
-                Copie a chave acima e pague no seu banco. Clique em finalizar para enviar o comprovante.
-                Obs: O pedido só será preparado mediante apresentação por comprovante, Por gentileza não esqueça de nos encaminhar.
+            
+            <button type="button" onclick="copiarPix()" style="background: #00e676; color: #000; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 14px; width: 100%;">
+                📋 COPIAR CHAVE PIX
+            </button>
+        </div>
+
+        <small style="color: #999; display: block; margin-top: 10px; line-height: 1.4; font-size: 11px;">
+            Copie a chave acima e pague no seu banco. Clique em finalizar para enviar o comprovante.<br>
+            <strong>O pedido só será preparado após o envio do comprovante.</strong>
         </small>
+    </div>
+
+    <div id="trocoArea" style="display:none; margin-top: 15px;">
+        <label for="troco">Troco para quanto?</label>
+        <input type="text" id="troco" placeholder="Ex: 50,00" style="width: 100%; padding: 12px; border-radius: 5px; border: 1px solid #ccc; background: #fff; color: #000;">
     </div>
 </div>
 
