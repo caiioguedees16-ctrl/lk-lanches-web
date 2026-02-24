@@ -293,8 +293,8 @@ function sendWhatsApp() {
     const troco = document.getElementById("troco").value;
 
     if (cart.length === 0) return alert("Seu carrinho está vazio!");
-    if (!address) return alert("Por favor, digite seu endereço!");
-    if (!payment) return alert("Por favor, selecione a forma de pagamento!");
+    if (!address) return alert("Digite seu endereço!");
+    if (!payment) return alert("Selecione a forma de pagamento!");
 
     localStorage.setItem("lk_address", address);
 
@@ -303,32 +303,24 @@ function sendWhatsApp() {
 
     cart.forEach(item => {
         const subtotal = item.price * item.qty;
-        // Removidos espaços especiais para evitar ícones estranhos
-        msg += `✅ *${item.qty}x* ${item.name}\n`;
-        msg += `R$ ${subtotal.toFixed(2)}\n\n`;
+        msg += `✅ *${item.qty}x* ${item.name}\n   R$ ${subtotal.toFixed(2)}\n\n`;
         total += subtotal;
     });
 
     msg += `💰 *Total:* R$ ${total.toFixed(2)}\n`;
     msg += `📍 *Endereço:* ${address}\n`;
     msg += `💳 *Pagamento:* ${payment}\n`;
-    
     if (obs) msg += `📝 *Obs:* ${obs}\n`;
 
     if (payment === "Dinheiro") {
         const vPago = parseFloat(troco);
-        if (isNaN(vPago) || vPago < total) {
-            return alert("Por favor, informe o valor que vai pagar para o troco!");
-        }
-        msg += `💵 *Valor Pago:* R$ ${vPago.toFixed(2)}\n`;
+        if (isNaN(vPago) || vPago < total) return alert("Informe o valor que vai pagar para calcularmos o troco!");
+        msg += `💵 *Pagamento:* R$ ${vPago.toFixed(2)}\n`;
         msg += `🪙 *Troco:* R$ ${(vPago - total).toFixed(2)}\n`;
     }
 
-    // Fecha o carrinho após o clique
+    // Fecha o carrinho após 1 segundo do clique
     setTimeout(() => toggleCart(), 1000);
     
-    // Altere para o seu número real se necessário
-    const fone = "5583999963331"; 
-    window.open(`https://wa.me/${fone}?text=${encodeURIComponent(msg)}`, '_blank');
-}
+    window.open(`https://wa.me/5583999963331?text=${encodeURIComponent(msg)}`);
 }
