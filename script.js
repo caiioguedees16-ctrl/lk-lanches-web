@@ -386,15 +386,15 @@ function gerarCards(categoria, containerId) {
                                             <input type="checkbox"
                                             value="${e.preco}"
                                             data-nome="${e.nome}">
-                                            onchange="atualizarPrecoTotalModal(this.closest('.modal-content'), 15.00)">
-                                            <span>+ ${e.nome} (R$ ${e.preco.toFixed(2)})</span>
+                                            onchange="atualizarPrecoTotalModal(this.closest('.card'), ${produto.preco})">
+                                        <span>+ ${e.nome} (R$ ${e.preco.toFixed(2)})</span>
                                         </label>
                                     `).join("")}
                                 </div>
                             </div>
                         </div>` : ""}
                         
-                    <p class="price">R$ ${produto.preco.toFixed(2)}</p>
+                    <p class="price preco-final-display">R$ ${produto.preco.toFixed(2)}</p>
                     <div class="actions">
                         <div class="qty-control">
                             <button onclick="changeQty(this,-1)">−</button>
