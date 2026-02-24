@@ -316,105 +316,227 @@ border-radius:6px;
 
 
 /* MOBILE */
-@media (max-width: 768px){
+@media (max-width: 768px) {
 
-  header{
-    padding:15px 20px;
+  .section {
+    padding: 95px 15px 40px;
   }
 
-  .logo{
-    font-size:16px;
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr; /* 1 card por linha no mobile */
+    gap: 15px;
   }
 
-  nav{
-    display:none;
+  .card {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    transition: .3s;
+    /* Forçar largura 100% para evitar overflow */
+    width: 100%;
   }
 
-  .section{
-    padding:100px 20px 50px;
+  .card:hover {
+    transform: translateY(-5px);
+    border: 1px solid var(--accent);
   }
 
-  .cards{
-    grid-template-columns:1fr;
+  .card img {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 8px;
   }
 
-  .card{
-    padding:15px;
+  .card h3 {
+    font-size: 18px;
+    margin-bottom: 6px;
   }
 
-  .card img{
-    height:160px;
+  .card p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 6px;
   }
 
-  .add-btn{
-    padding:14px;
-    font-size:16px;
+  .price {
+    font-size: 16px;
+    color: var(--accent);
+    font-weight: 700;
+    margin: 6px 0;
   }
 
-  .qty-control{
-    padding:8px 12px;
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap; /* Quebra linha se necessário */
   }
 
-  .qty-control button{
-    font-size:22px;
-    padding:5px 10px;
+  .qty-control {
+    display: flex;
+    align-items: center;
+    background: #111318;
+    border-radius: 30px;
+    padding: 6px 10px;
+    gap: 10px;
   }
 
-  /* Carrinho tela cheia */
-  .cart{
-    width:100%;
-    right:-100%;
+  .qty-control button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 6px; /* Área de toque maior */
   }
 
-  .cart.active{
-    right:0;
+  .qty-control span {
+    font-weight: 600;
+    min-width: 24px; /* um pouco maior para melhor leitura */
+    text-align: center;
   }
 
+  .add-btn {
+    flex: 1;
+    background: var(--accent);
+    border: none;
+    padding: 10px;
+    border-radius: 30px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: .2s;
+    min-width: 120px; /* Garante que o botão não fique muito pequeno */
+  }
+
+  .add-btn:hover {
+    transform: scale(1.05);
+  }
+
+  /* Extras container */
+  .extras-container {
+    margin-top: 8px;
+    width: 100%; /* garantir largura total */
+  }
+
+  .btn-extras {
+    width: 100%;
+    padding: 8px;
+    background: #222;
+    color: #f1c40f;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .btn-extras:hover {
+    background: #333;
+  }
+
+  .extras-box {
+    margin-top: 8px;
+    padding: 10px;
+    background: #111;
+    border-radius: 10px;
+    border: 1px solid #222;
+    display: none;
+  }
+
+  .extras-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  .extra-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1a1a1a;
+    padding: 6px 8px;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .extra-item:hover {
+    background: #222;
+  }
+
+  .extra-item input {
+    margin-right: 6px;
+  }
+
+  .extra-item small {
+    color: #aaa;
+  }
 }
-
 
 /* MOBILE PEQUENO */
-@media (max-width: 480px){
+@media (max-width: 480px) {
 
-  .section{
-    padding:95px 15px 40px;
+  .section {
+    padding: 90px 10px 35px;
   }
 
-  .card img{
-    height:140px;
+  .card img {
+    height: 120px;
   }
 
-  .price{
-    font-size:16px;
+  .price {
+    font-size: 15px;
   }
 
-  .add-btn{
-    font-size:14px;
+  .add-btn {
+    font-size: 13px;
+    padding: 8px;
+    min-width: 100px;
   }
 
+  .actions {
+    gap: 6px;
+  }
+
+  .qty-control button {
+    font-size: 16px;
+    padding: 4px;
+  }
+
+  .qty-control span {
+    min-width: 20px;
+    font-size: 14px;
+  }
 }
-
 
 /* Melhor área de toque para mobile */
-button{
-  min-height:44px;
+button {
+  min-height: 44px;
+  min-width: 44px; /* bom para botões pequenos */
 }
-
 
 /* Sombra para botão do carrinho */
-.cart-btn{
-  box-shadow:0 5px 20px rgba(0,0,0,0.4);
+.cart-btn {
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
 }
-
 
 /* Scroll mais bonito no carrinho */
-.cart::-webkit-scrollbar{
-  width:6px;
+.cart::-webkit-scrollbar {
+  width: 6px;
 }
 
-.cart::-webkit-scrollbar-thumb{
-  background:var(--accent);
-  border-radius:10px;
+.cart::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 10px;
 }
 
 html{
