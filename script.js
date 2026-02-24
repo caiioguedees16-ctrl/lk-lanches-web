@@ -173,12 +173,42 @@ function toggleExtras(button) {
 }
 
 function checkPayment() {
-    let payment = document.getElementById("payment").value;
-    let trocoArea = document.getElementById("trocoArea");
-    let pixArea = document.getElementById("pixArea");
+    const payment = document.getElementById("payment").value;
+    const pixArea = document.getElementById("pixArea");
+    const trocoArea = document.getElementById("trocoArea");
 
-    if(trocoArea) trocoArea.style.display = (payment === "Dinheiro") ? "block" : "none";
-    if(pixArea) pixArea.style.display = (payment === "PIX") ? "block" : "none";
+    if (trocoArea) {
+        trocoArea.style.display = (payment === "Dinheiro") ? "block" : "none";
+        
+        if (payment !== "Dinheiro") {
+            const trocoInput = document.getElementById("troco");
+            if (trocoInput) trocoInput.value = "";
+        }
+    }
+
+    if (pixArea) {
+        pixArea.style.display = (payment === "PIX") ? "block" : "none";
+    }
+}
+function copiarPix(btn) { // Adicionei 'btn' aqui
+    const chave = document.getElementById("chavePixValor").innerText.trim();
+
+    navigator.clipboard.writeText(chave).then(() => {
+        const textoOriginal = btn.innerHTML;
+        const corOriginal = btn.style.background; // Salva a cor atual
+
+        btn.innerHTML = "✅ COPIADO!";
+        btn.style.background = "#ffffff"; 
+        btn.style.color = "#000000"; // Garante que o texto fique legível no branco
+        
+        setTimeout(() => {
+            btn.innerHTML = textoOriginal;
+            btn.style.background = corOriginal; 
+            btn.style.color = ""; // Volta ao padrão
+        }, 2000);
+    }).catch(err => {
+        alert("Erro ao copiar. Por favor, selecione o texto manualmente.");
+    });
 }
 
 function filter(cat, button) {
