@@ -143,10 +143,10 @@ function toggleExtras(button) {
 function checkPayment() {
     let payment = document.getElementById("payment").value;
     let trocoArea = document.getElementById("trocoArea");
-    if(trocoArea) {
-        trocoArea.style.display = (payment === "Dinheiro") ? "block" : "none";
-        if(payment !== "Dinheiro") document.getElementById("troco").value = "";
-    }
+    let pixArea = document.getElementById("pixArea");
+
+    if(trocoArea) trocoArea.style.display = (payment === "Dinheiro") ? "block" : "none";
+    if(pixArea) pixArea.style.display = (payment === "PIX") ? "block" : "none";
 }
 
 function filter(cat, button) {
@@ -287,40 +287,54 @@ Object.keys(produtos).forEach(cat => {
 // ENVIO PARA WHATSAPP
 // ===============================
 function sendWhatsApp() {
+    const name = document.getElementById("clientName").value.trim();
     const address = document.getElementById("address").value.trim();
     const payment = document.getElementById("payment").value;
     const obs = document.getElementById("obs").value.trim();
     const troco = document.getElementById("troco").value;
 
     if (cart.length === 0) return alert("Seu carrinho está vazio!");
-    if (!address) return alert("Digite seu endereço!");
+    if (!name) return alert("Por favor, diga seu nome!");
+    if (!address) return alert("Por favor, digite seu endereço!");
     if (!payment) return alert("Selecione a forma de pagamento!");
 
-    localStorage.setItem("lk_address", address);
+    // Fluxo de confirmação PIX
+    if (payment === "PIX") {
+        const confirmou = confirm("Você copiou a chave e realizou o pagamento? Clique em OK para enviar seu pedido e o comprovante no WhatsApp.");
+        if(!confirmou) return;
+    }
 
-    let msg = "🍔 *PEDIDO LK LANCHES*\n\n";
+    let msg = `🍔 *NOVO PEDIDO - LK LANCHES*\n`;
+    msg += `👤 *Cliente:* ${name}\n`;
+    msg += `────────────────────\n\n`;
+
     let total = 0;
-
     cart.forEach(item => {
         const subtotal = item.price * item.qty;
-        msg += `✅ *${item.qty}x* ${item.name}\n   R$ ${subtotal.toFixed(2)}\n\n`;
+        msg += `✅ *${item.qty}x* ${item.name}\n`;
+        msg += `R$ ${subtotal.toFixed(2)}\n\n`;
         total += subtotal;
     });
 
+    msg += `────────────────────\n`;
     msg += `💰 *Total:* R$ ${total.toFixed(2)}\n`;
-    msg += `📍 *Endereço:* ${address}\n`;
     msg += `💳 *Pagamento:* ${payment}\n`;
+    msg += `📍 *Endereço:* ${address}\n`;
+    
     if (obs) msg += `📝 *Obs:* ${obs}\n`;
 
     if (payment === "Dinheiro") {
-        const vPago = parseFloat(troco);
-        if (isNaN(vPago) || vPago < total) return alert("Informe o valor que vai pagar para calcularmos o troco!");
-        msg += `💵 *Pagamento:* R$ ${vPago.toFixed(2)}\n`;
-        msg += `🪙 *Troco:* R$ ${(vPago - total).toFixed(2)}\n`;
+        const vPago = parseFloat(troco.replace(',', '.'));
+        if (!isNaN(vPago) && vPago > total) {
+            msg += `💵 *Troco para:* R$ ${vPago.toFixed(2)}\n`;
+            msg += `🪙 *Levar:* R$ ${(vPago - total).toFixed(2)}\n`;
+        }
     }
 
-    // Fecha o carrinho após 1 segundo do clique
-    setTimeout(() => toggleCart(), 1000);
-    
-    window.open(`https://wa.me/5583999963331?text=${encodeURIComponent(msg)}`);
+    if (payment === "PIX") {
+        msg += `\n⚠️ _Estou enviando o comprovante em anexo._`;
+    }
+
+    const fone = "5583999963331"; 
+    window.open(`https://wa.me/${fone}?text=${encodeURIComponent(msg)}`, '_blank');
 }
