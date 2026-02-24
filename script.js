@@ -266,13 +266,13 @@ const produtos = {
     { 
         nome: "Suco Natural (500ml)", 
         preco: 8, // Preço fixo
-        img: "img/suco-natural.png", 
+        img: "img/suco.png", 
         sabores: ["Laranja", "Abacaxi", "Maracujá", "Goiaba"] 
     },
     { 
         nome: "Suco com Leite (500ml)", 
         preco: 10, // Preço fixo
-        img: "img/suco-leite.png", 
+        img: "img/suco.png", 
         sabores: ["Morango", "Acerola", "Graviola"] 
     }
     ],
@@ -295,12 +295,12 @@ function gerarCards(categoria, containerId) {
     container.innerHTML = "";
 
     produtos[categoria].forEach(produto => {
-        // LÓGICA PARA MINI PASTÉIS E SUCOS (Itens com seletores)
+        // 1. LÓGICA PARA ITENS COM SELETORES (Sucos e Mini Pastéis)
         if (produto.sabores) {
             let isSuco = categoria === "sucos";
             let selectQtdHTML = produto.opcoes 
                 ? `<select class="select-qtd">${produto.opcoes.map(op => `<option value="${op.preco}">${op.label} - R$ ${op.preco.toFixed(2)}</option>`).join("")}</select>`
-                : ""; // Sucos não tem esse select porque o preço é fixo
+                : "";
 
             container.innerHTML += `
                 <div class="card">
@@ -317,19 +317,25 @@ function gerarCards(categoria, containerId) {
                     </div>
                 </div>`;
         } 
-        // LÓGICA PARA PRODUTOS NORMAIS (Lanches, Porções, etc)
+        // 2. LÓGICA PARA PRODUTOS NORMAIS (Lanches, Porções, Bebidas, etc)
         else {
             let catComExtras = ["pasteis", "artesanais", "tradicionais", "porcoes", "sandubas"];
             let mostrarExtras = catComExtras.includes(categoria);
+            
+            // Nova regra: Mostrar observação apenas se NÃO for bebida
+            let mostrarObs = categoria !== "bebidas";
 
             container.innerHTML += `
                 <div class="card">
                     <img src="${produto.img}" alt="${produto.nome}">
                     <h3>${produto.nome}</h3>
                     ${produto.desc ? `<p class="desc-text">${produto.desc}</p>` : ""}
+                    
+                    ${mostrarObs ? `
                     <div class="item-obs">
                         <input type="text" placeholder="Observação (Ex: Sem cebola)" class="individual-obs">
-                    </div>
+                    </div>` : ""}
+
                     ${mostrarExtras ? `
                         <div class="extras-container">
                             <button class="btn-extras" onclick="toggleExtras(this)">➕ Adicionais</button>
@@ -337,6 +343,7 @@ function gerarCards(categoria, containerId) {
                                 <div class="extras-grid">${adicionais.map(e => `<label class="extra-item"><input type="checkbox" value="${e.preco}" data-nome="${e.nome}"><span>+ ${e.nome}</span></label>`).join("")}</div>
                             </div>
                         </div>` : ""}
+                        
                     <p class="price">R$ ${produto.preco.toFixed(2)}</p>
                     <div class="actions">
                         <div class="qty-control"><button onclick="changeQty(this,-1)">−</button><span>1</span><button onclick="changeQty(this,1)">+</button></div>
@@ -351,9 +358,16 @@ function gerarCards(categoria, containerId) {
 Object.keys(produtos).forEach(cat => {
     let idMap = {
         "porcoespastel": "porcoespastel-list",
+        "tradicional": "tradicional-list",
+        "artesanal": "artesanal-list",
+        "salgados": "salgados-list",
+        "pasteis": "pasteis-list",
         "combosTradicionais": "combos-tradicionais-list",
         "combosArtesanais": "combos-artesanais-list",
-        "sandubas": "sanduba-list"
+        "sandubas": "sanduba-list",
+        "sucos": "sucos-list",
+        "bebidas": "bebidas-list"
+        
     };
     let id = idMap[cat] || `${cat}-list`;
     gerarCards(cat, id);
