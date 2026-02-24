@@ -95,6 +95,24 @@ function addMiniPastel(btn, nome) {
     card.querySelector(".qty-control span").innerText = 1;
 }
 
+function addSuco(btn, nome, precoFixo) {
+    let card = btn.closest(".card");
+    let selectSabor = card.querySelector(".select-sabor");
+    
+    if (selectSabor.value === "" || selectSabor.value === "selecione") {
+        alert("Por favor, selecione o sabor!");
+        return;
+    }
+
+    let sabor = selectSabor.value;
+    let quantidade = parseInt(card.querySelector(".qty-control span").innerText);
+
+    addToCart(`${nome} - ${sabor}`, precoFixo, quantidade);
+
+    // ZERANDO APÓS ADICIONAR
+    selectSabor.selectedIndex = 0; 
+    card.querySelector(".qty-control span").innerText = 1;
+}
 // ===============================
 // ATUALIZAR INTERFACE DO CARRINHO
 // ===============================
