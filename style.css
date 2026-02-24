@@ -1,3 +1,8 @@
+html, body {
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
 :root{
 --bg:#0F1115;
 --card:#1A1D24;
@@ -19,17 +24,17 @@ background:var(--bg);
 color:var(--text);
 }
 
-header{
-position:fixed;
-top:0;
-width:100%;
-background:#0F1115;
-padding:18px 40px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-border-bottom:1px solid var(--border);
-z-index:1000;
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #0F1115;
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between; /* Logo na esquerda, Nav na direita */
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
 }
 
 .logo{
@@ -315,228 +320,96 @@ border-radius:6px;
 }
 
 
-/* MOBILE */
+/* --- MOBILE (Ajustes para celulares e tablets) --- */
 @media (max-width: 768px) {
+  header {
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 15px;
+  }
+
+  nav {
+    display: flex;
+    overflow-x: auto; 
+    width: 100%;
+    padding-bottom: 10px;
+    gap: 12px;
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+    /* Ajuste do Scroll Snap */
+    scroll-snap-type: x mandatory; 
+  }
+
+  nav::-webkit-scrollbar {
+    display: none; 
+  }
+
+  nav a {
+    margin: 0;
+    font-size: 13px;
+    white-space: nowrap;
+    background: var(--card);
+    padding: 6px 15px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    /* Ajuste do Scroll Snap */
+    scroll-snap-align: start;
+  }
 
   .section {
-    padding: 95px 15px 40px;
+    padding: 160px 15px 40px; /* Aumentado para garantir que o título não suma sob o header */
   }
 
   .cards {
     display: grid;
-    grid-template-columns: 1fr; /* 1 card por linha no mobile */
+    grid-template-columns: 1fr; 
     gap: 15px;
   }
 
   .card {
-    background: var(--card);
-    border-radius: 14px;
-    padding: 12px 10px;
-    border: 1px solid var(--border);
-    transition: .3s;
-    /* Forçar largura 100% para evitar overflow */
+    padding: 15px;
     width: 100%;
   }
 
-  .card:hover {
-    transform: translateY(-5px);
-    border: 1px solid var(--accent);
+  .cart {
+    width: 100%; 
+    right: -100%;
+    z-index: 2000;
   }
-
-  .card img {
-    width: 100%;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 8px;
-  }
-
-  .card h3 {
-    font-size: 18px;
-    margin-bottom: 6px;
-  }
-
-  .card p {
-    font-size: 13px;
-    color: var(--muted);
-    margin-bottom: 4px;
-  }
-
-  .price {
-    font-size: 16px;
-    color: var(--accent);
-    font-weight: 700;
-    margin: 4px 0;
+  
+  .cart.active {
+    right: 0;
   }
 
   .actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 8px;
-    margin-top: 10px;
-    flex-wrap: wrap; /* Quebra linha se necessário */
-  }
-
-  .qty-control {
-    display: flex;
-    align-items: center;
-    background: #111318;
-    border-radius: 30px;
-    padding: 6px 10px;
     gap: 10px;
   }
 
-  .qty-control button {
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 18px;
-    cursor: pointer;
-    padding: 6px; /* Área de toque maior */
-  }
-
-  .qty-control span {
-    font-weight: 600;
-    min-width: 24px; /* um pouco maior para melhor leitura */
-    text-align: center;
-  }
-
   .add-btn {
-    flex: 1;
-    background: var(--accent);
-    border: none;
-    padding: 10px;
-    border-radius: 30px;
-    color: #fff;
-    font-weight: 600;
     font-size: 14px;
-    cursor: pointer;
-    transition: .2s;
-    min-width: 120px; /* Garante que o botão não fique muito pequeno */
-  }
-
-  .add-btn:hover {
-    transform: scale(1.05);
-  }
-
-  /* Extras container */
-  .extras-container {
-    margin-top: 8px;
-    width: 100%; /* garantir largura total */
-  }
-
-  .btn-extras {
-    width: 100%;
-    padding: 8px;
-    background: #222;
-    color: #f1c40f;
-    border: none;
-    border-radius: 8px;
-    font-size: 13px;
-    cursor: pointer;
-    transition: 0.2s;
-  }
-
-  .btn-extras:hover {
-    background: #333;
-  }
-
-  .extras-box {
-    margin-top: 8px;
-    padding: 10px;
-    background: #111;
-    border-radius: 10px;
-    border: 1px solid #222;
-    display: none;
-  }
-
-  .extras-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
-  }
-
-  .extra-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #1a1a1a;
-    padding: 6px 8px;
-    border-radius: 8px;
-    font-size: 12px;
-    cursor: pointer;
-    transition: 0.2s;
-  }
-
-  .extra-item:hover {
-    background: #222;
-  }
-
-  .extra-item input {
-    margin-right: 6px;
-  }
-
-  .extra-item small {
-    color: #aaa;
+    padding: 12px;
   }
 }
 
-/* MOBILE PEQUENO */
+/* --- MOBILE PEQUENO (Ajustes finos para telas menores) --- */
 @media (max-width: 480px) {
-
   .section {
-    padding: 90px 10px 35px;
+    padding-top: 160px;
   }
 
   .card img {
-    height: 120px;
+    height: 150px; /* Imagem um pouco maior para ver o lanche */
   }
 
-  .price {
-    font-size: 15px;
+  .logo {
+    font-size: 18px;
   }
-
-  .add-btn {
-    font-size: 13px;
-    padding: 8px;
-    min-width: 100px;
-  }
-
-  .actions {
-    gap: 6px;
-  }
-
-  .qty-control button {
-    font-size: 16px;
-    padding: 4px;
-  }
-
-  .qty-control span {
-    min-width: 20px;
-    font-size: 14px;
-  }
-}
-
-/* Melhor área de toque para mobile */
-button {
-  min-height: 44px;
-  min-width: 44px; /* bom para botões pequenos */
-}
-
-/* Sombra para botão do carrinho */
-.cart-btn {
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-}
-
-/* Scroll mais bonito no carrinho */
-.cart::-webkit-scrollbar {
-  width: 6px;
-}
-
-.cart::-webkit-scrollbar-thumb {
-  background: var(--accent);
-  border-radius: 10px;
 }
 
 html{
