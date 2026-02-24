@@ -49,8 +49,8 @@ function addToCartComExtras(button, nome, precoBase) {
 
     let totalExtras = 0;
     let nomesExtras = [];
-
     let checkboxes = card.querySelectorAll("input[type='checkbox']:checked");
+    
     checkboxes.forEach(extra => {
         totalExtras += Number(extra.value);
         nomesExtras.push(extra.getAttribute("data-nome"));
@@ -61,10 +61,10 @@ function addToCartComExtras(button, nome, precoBase) {
     // Monta o nome final: Nome + Extras + Observação
     let nomeFinal = nome;
     if (nomesExtras.length > 0) {
-        nomeFinal += ` (${nomesExtras.join(", ")})`;
+        nomeFinal += ` *[Adicionais: ${nomesExtras.join(", ")}]*`;
     }
     if (observacao) {
-        nomeFinal += ` [Nota: ${observacao}]`;
+        nomeFinal += ` [OBS: ${observacao}]`;
     }
 
     addToCart(nomeFinal, precoUnitario, quantidade);
