@@ -301,6 +301,121 @@ color:var(--text);
 border-radius:6px;
 }
 
+/* TABLET */
+@media (max-width: 1024px){
+
+  .section{
+    padding:110px 25px 50px;
+  }
+
+  .cards{
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  }
+
+}
+
+
+/* MOBILE */
+@media (max-width: 768px){
+
+  header{
+    padding:15px 20px;
+  }
+
+  .logo{
+    font-size:16px;
+  }
+
+  nav{
+    display:none;
+  }
+
+  .section{
+    padding:100px 20px 50px;
+  }
+
+  .cards{
+    grid-template-columns:1fr;
+  }
+
+  .card{
+    padding:15px;
+  }
+
+  .card img{
+    height:160px;
+  }
+
+  .add-btn{
+    padding:14px;
+    font-size:16px;
+  }
+
+  .qty-control{
+    padding:8px 12px;
+  }
+
+  .qty-control button{
+    font-size:22px;
+    padding:5px 10px;
+  }
+
+  /* Carrinho tela cheia */
+  .cart{
+    width:100%;
+    right:-100%;
+  }
+
+  .cart.active{
+    right:0;
+  }
+
+}
+
+
+/* MOBILE PEQUENO */
+@media (max-width: 480px){
+
+  .section{
+    padding:95px 15px 40px;
+  }
+
+  .card img{
+    height:140px;
+  }
+
+  .price{
+    font-size:16px;
+  }
+
+  .add-btn{
+    font-size:14px;
+  }
+
+}
+
+
+/* Melhor área de toque para mobile */
+button{
+  min-height:44px;
+}
+
+
+/* Sombra para botão do carrinho */
+.cart-btn{
+  box-shadow:0 5px 20px rgba(0,0,0,0.4);
+}
+
+
+/* Scroll mais bonito no carrinho */
+.cart::-webkit-scrollbar{
+  width:6px;
+}
+
+.cart::-webkit-scrollbar-thumb{
+  background:var(--accent);
+  border-radius:10px;
+}
 
 html{
 scroll-behavior:smooth;
