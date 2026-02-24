@@ -341,7 +341,8 @@ function sendWhatsApp() {
     }
 
     let msg = `🍔 *NOVO PEDIDO - LK LANCHES*\n`;
-    msg += `👤 *Cliente: ${name}\n\n*`;
+    msg += `──────────────────\n\n`;
+    msg += `👤 *Cliente: ${name}*\n`;
     msg += `──────────────────\n\n`;
 
     let total = 0;
@@ -362,8 +363,8 @@ function sendWhatsApp() {
     if (payment === "Dinheiro") {
         const vPago = parseFloat(troco.replace(',', '.'));
         if (!isNaN(vPago) && vPago > total) {
-            msg += `💵 *Troco para:* R$ ${vPago.toFixed(2)}\n`;
-            msg += `🪙 *Levar:* R$ ${(vPago - total).toFixed(2)}\n`;
+            msg += `💵 *Valor pago:* R$ ${vPago.toFixed(2)}\n`;
+            msg += `🪙 *Troco:* R$ ${(vPago - total).toFixed(2)}\n`;
         }
     }
 
