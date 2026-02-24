@@ -395,7 +395,10 @@ function sendWhatsApp() {
     const address = document.getElementById("address").value.trim();
     const payment = document.getElementById("payment").value;
     const obs = document.getElementById("obs").value.trim();
-    const troco = document.getElementById("troco").value;
+
+    const trocoElement = document.getElementById("troco");
+    const troco = trocoElement ? trocoElement.value : "";
+    
 
     if (cart.length === 0) return alert("Seu carrinho está vazio!");
     if (!name) return alert("Por favor, diga seu nome!");
@@ -404,7 +407,7 @@ function sendWhatsApp() {
 
     // Fluxo de confirmação PIX
     if (payment === "PIX") {
-        const confirmou = confirm("Você copiou a chave e realizou o pagamento? Clique em OK para enviar seu pedido e o comprovante no WhatsApp.");
+        const confirmou = confirm(" Você copiou a chave e realizou o pagamento? Clique em OK para enviar seu pedido! ⚠️ O Pedido só será produzido após o envio do comprovante no WhatsApp. ⚠️");
         if(!confirmou) return;
     }
 
@@ -428,7 +431,7 @@ function sendWhatsApp() {
     
     if (obs) msg += `📝 *Obs:* ${obs}\n`;
 
-    if (payment === "Dinheiro") {
+    if (payment === "Dinheiro" && troco) {
         const vPago = parseFloat(troco.replace(',', '.'));
         if (!isNaN(vPago) && vPago > total) {
             msg += `💵 *Valor pago:* R$ ${vPago.toFixed(2)}\n`;
@@ -442,4 +445,15 @@ function sendWhatsApp() {
 
     const fone = "5583999963331"; 
     window.open(`https://wa.me/${fone}?text=${encodeURIComponent(msg)}`, '_blank');
+
+    cart = []; 
+
+    if (localStorage.getItem('cart')) {
+        localStorage.removeItem('cart');
+    }
+
+    updateCart(); 
+
+    alert("Pedido enviado! Seu carrinho foi esvaziado.");
+    
 }
