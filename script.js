@@ -222,7 +222,11 @@ const produtos = {
     ],
     pasteis: [
         {nome:"Pastel Carne", preco:10, img:"img/pasteldecarne.png"}, {nome:"Pastel Frango", preco:10, img:"img/pasteldefrango.png"},
-        {nome:"Pastel Calabresa", preco:10, img:"img/calabresa.png"}, {nome:"Pastel Pizza", preco:10, img:"img/pizza.png"}
+        {nome:"Pastel Calabresa", preco:10, img:"img/calabresa.png"}, {nome:"Pastel Pizza", preco:10, img:"img/pizza.png"},
+        {nome:"Pastel Presunto", preco:10, img:"img/presunto.png"}, {nome:"Pastel 3 Queijos", preco:14, img:"img/4queijos.png"},
+        {nome:"Pastel 4 Queijos", preco:14, img:"img/4queijos.png"}, {nome:"Pastel Charque", preco:14, img:"img/carnedesol.png"},
+        {nome:"Pastel Carne de Sol", preco:14, img:"img/carnedesol.png"}, {nome:"Pastel Frango com Bacon", preco:14, img:"img/frangocombacon.png"},
+        {nome:"Pastel Chocolate", preco:14, img:"img/.png"}
     ],
     porcoespastel: [
         { nome: "Mini Pastéis", img: "img/6minipastel.png", opcoes: [{label:"6 unidades", preco:15}, {label:"12 unidades", preco:28}], sabores: ["Pizza", "Queijo"] }
