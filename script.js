@@ -177,7 +177,7 @@ function filter(cat, button) {
 // ===============================
 const adicionais = [
     {nome:"Bacon", preco:4}, {nome:"Cheddar", preco:3}, {nome:"Catupiry", preco:3},
-    {nome:"Cream Chesse", preco:4}, {nome:"Ovo", preco:2}, {nome:"Calabresa", preco:3},
+    {nome:"Cream Chesee", preco:4}, {nome:"Ovo", preco:2}, {nome:"Calabresa", preco:3},
     {nome:"Queijo Coalho", preco:4}, {nome:"Molho Verde", preco:2}
 ];
 
@@ -202,7 +202,7 @@ const produtos = {
         { nome: "Carrasco", preco: 18, desc: "Pão de Brioche, hambúrguer 160g, cheddar, cebola caramelizada.", img: "img/carrasco.png" },
         { nome: "Maria-Dia", preco: 19, desc: "Pão de Brioche, hambúrguer 160g, bacon, mussarela, cream cheese, alface, tomate, cebola.", img: "img/mariadia.png" },
         { nome: "Farol", preco: 24, desc: "Pão de Brioche, 2 hambúrgueres 160g, cheddar, farofa de bacon.", img: "img/farol.png" },
-        { nome: "Acau Meu Amor", preco: 25, desc: "Pão de Brioche, hambúrguer 160g, bacon, ovo, calabresa, frango desfiado, mussarela, cream cheese, alface, tomate, cebola, batata palha, ervilha e milho.", img: "img/acau.png" },
+        { nome: "Acaú Meu Amor", preco: 25, desc: "Pão de Brioche, hambúrguer 160g, bacon, ovo, calabresa, frango desfiado, mussarela, cream cheese, alface, tomate, cebola, batata palha, ervilha e milho.", img: "img/acau.png" },
         { nome: "Praia Azul", preco: 25, desc: "Pão de Brioche, hambúrguer 160g, fatia de cheddar, creme especial.", img: "img/praiaazul.png" }
     ],
     tradicionais: [
