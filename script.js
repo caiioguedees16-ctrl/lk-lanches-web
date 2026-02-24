@@ -226,22 +226,32 @@ const produtos = {
         {nome:"Pastel Presunto", preco:10, img:"img/presunto.png"}, {nome:"Pastel 3 Queijos", preco:14, img:"img/4queijos.png"},
         {nome:"Pastel 4 Queijos", preco:14, img:"img/4queijos.png"}, {nome:"Pastel Charque", preco:14, img:"img/carnedesol.png"},
         {nome:"Pastel Carne de Sol", preco:14, img:"img/carnedesol.png"}, {nome:"Pastel Frango com Bacon", preco:14, img:"img/frangocombacon.png"},
-        {nome:"Pastel Chocolate", preco:14, img:"img/.png"}
+        {nome:"Pastel Chocolate", preco:14, img:"img/chocolate.png"}
     ],
     porcoespastel: [
-        { nome: "Mini Pastéis", img: "img/6minipastel.png", opcoes: [{label:"6 unidades", preco:15}, {label:"12 unidades", preco:28}], sabores: ["Pizza", "Queijo"] }
+        { nome: "Mini Pastéis", img: "img/6minipastel.png", opcoes: [{label:"6 unidades", preco:7}, {label:"12 unidades", preco:14}], sabores: ["Pizza", "Queijo"] }
     ],
     porcoes: [
         {nome:"Fritas Pequena", preco:10, img:"img/batata.png"}, {nome:"Fritas Média", preco:18, img:"img/batata.png"},
-        {nome:"Fritas Grande", preco:25, img:"img/batata.png"}, {nome:"Batata Cheddar Bacon", preco:25, img:"img/batatabacon.png"}
+        {nome:"Fritas Grande", preco:25, img:"img/batata.png"}, {nome:"Batata Cheddar Bacon", preco:25, img:"img/batatabacon.png"},
+        {nome:"Fritas Pequena com Calabresa", preco:15, img:"img/batatacalabresa.png"}, {nome:"Fritas Média com Calabresa", preco:20, img:"img/batatacalabresa.png"},
+        {nome:"Fritas Grande com Calabresa", preco:32, img:"img/batatacalabresa.png"}
     ],
     salgados: [
         { nome: "Coxinha", preco: 6, img: "img/coxinha.png", desc: "Frango" },
-        { nome: "Cachorro Quente", preco: 7, img: "img/cachorro-quente.png", desc: "Tradicional" }
+        { nome: "Cachorro Quente", preco: 6, img: "img/cachorro-quente.png", desc: "Tradicional", ingredientes: "Pão, carne, salsicha, vinagrete, milho e evilha, batata palha, queijo ralado e molhos." },
+        { nome: "Misto Quente", preco: 7, img: "img/misto-quente.png", desc: "Queijo cremoso" }
     ],
     bebidas: [
-        { nome: "Coca-Cola Lata", preco: 6, img: "img/coca-lata.png", desc: "350ml" },
-        { nome: "Coca-Cola 2L", preco: 12, img: "img/coca2l.png", desc: "Gelada" }
+        { nome: "Coca-Cola Lata", preco: 7, img: "img/coca-lata.png", desc: "350ml" },
+        { nome: "Coca-Cola Zero Lata ", preco: 7, img: "img/cocazero.png", desc: "350ml" },
+        { nome: "Coca-Cola 1L", preco: 10, img: "img/coca1l.png", desc: "1000ml" },
+        { nome: "Coca-Cola Zero 1L", preco: 10, img: "img/cocazero1l.png", desc: "1000ml" },
+        { nome: "Coca-Cola 2L", preco: 16, img: "img/coca2l.png", desc: "2000ml" },
+        { nome: "Guaraná Antartica Lata", preco: 7, img: "img/guaranalata.png", desc: "350ml" },
+        { nome: "Guaraná Antartica 1L", preco: 10, img: "img/guarana1l.png", desc: "1000ml" },
+        { nome: "Guaraná Antartica 2L", preco: 10, img: "img/guarana2l.png", desc: "1000ml" },
+        { nome: "Mini Refri Guaraná", preco: 3, img: "img/minirefri.png", desc: "250ml" }
     ]
 };
 
