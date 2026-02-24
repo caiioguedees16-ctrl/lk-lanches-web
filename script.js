@@ -239,19 +239,19 @@ const produtos = {
     ],
     salgados: [
         { nome: "Coxinha", preco: 6, img: "img/coxinha.png", desc: "Frango" },
-        { nome: "Cachorro Quente", preco: 6, img: "img/cachorro-quente.png", desc: "Tradicional", ingredientes: "Pão, carne, salsicha, vinagrete, milho e evilha, batata palha, queijo ralado e molhos." },
+        { nome: "Cachorro Quente", preco: 6, img: "img/cachorro-quente.png", desc: "Pão, carne, salsicha, vinagrete, milho e evilha, batata palha, queijo ralado e molhos." },
         { nome: "Misto Quente", preco: 7, img: "img/misto-quente.png", desc: "Queijo cremoso" }
     ],
     bebidas: [
+        { nome: "Mini Refri Guaraná", preco: 3, img: "img/minirefri.png", desc: "250ml" },
         { nome: "Coca-Cola Lata", preco: 7, img: "img/coca-lata.png", desc: "350ml" },
         { nome: "Coca-Cola Zero Lata ", preco: 7, img: "img/cocazero.png", desc: "350ml" },
+        { nome: "Guaraná Antartica Lata", preco: 7, img: "img/guaranalata.png", desc: "350ml" },
         { nome: "Coca-Cola 1L", preco: 10, img: "img/coca1l.png", desc: "1000ml" },
         { nome: "Coca-Cola Zero 1L", preco: 10, img: "img/cocazero1l.png", desc: "1000ml" },
-        { nome: "Coca-Cola 2L", preco: 16, img: "img/coca2l.png", desc: "2000ml" },
-        { nome: "Guaraná Antartica Lata", preco: 7, img: "img/guaranalata.png", desc: "350ml" },
         { nome: "Guaraná Antartica 1L", preco: 10, img: "img/guarana1l.png", desc: "1000ml" },
-        { nome: "Guaraná Antartica 2L", preco: 10, img: "img/guarana2l.png", desc: "1000ml" },
-        { nome: "Mini Refri Guaraná", preco: 3, img: "img/minirefri.png", desc: "250ml" }
+        { nome: "Coca-Cola 2L", preco: 16, img: "img/coca2l.png", desc: "2000ml" },
+        { nome: "Guaraná Antartica 2L", preco: 10, img: "img/guarana2l.png", desc: "2000ml" }  
     ]
 };
 
