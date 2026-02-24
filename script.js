@@ -298,6 +298,12 @@ function gerarCards(categoria, containerId) {
         // 1. LÓGICA PARA ITENS COM SELETORES (Sucos e Mini Pastéis)
         if (produto.sabores) {
             let isSuco = categoria === "sucos";
+            
+            // Se for suco, mostra o preço fixo. Se for mini pastel, o preço varia no select.
+            let precoHTML = isSuco 
+                ? `<p class="price">R$ ${produto.preco.toFixed(2)}</p>` 
+                : ""; 
+
             let selectQtdHTML = produto.opcoes 
                 ? `<select class="select-qtd">${produto.opcoes.map(op => `<option value="${op.preco}">${op.label} - R$ ${op.preco.toFixed(2)}</option>`).join("")}</select>`
                 : "";
@@ -306,23 +312,27 @@ function gerarCards(categoria, containerId) {
                 <div class="card">
                     <img src="${produto.img}" alt="${produto.nome}">
                     <h3>${produto.nome}</h3>
-                    ${selectQtdHTML}
+                    ${precoHTML} ${selectQtdHTML}
                     <select class="select-sabor">
                         <option value="">Escolha o sabor...</option>
                         ${produto.sabores.map(s => `<option value="${s}">${s}</option>`).join("")}
                     </select>
                     <div class="actions">
-                        <div class="qty-control"><button onclick="changeQty(this,-1)">−</button><span>1</span><button onclick="changeQty(this,1)">+</button></div>
-                        <button class="add-btn" onclick="${isSuco ? `addSuco(this,'${produto.nome}',${produto.preco})` : `addMiniPastel(this,'${produto.nome}')`}">Adicionar</button>
+                        <div class="qty-control">
+                            <button onclick="changeQty(this,-1)">−</button>
+                            <span>1</span>
+                            <button onclick="changeQty(this,1)">+</button>
+                        </div>
+                        <button class="add-btn" onclick="${isSuco ? `addSuco(this,'${produto.nome}',${produto.preco})` : `addMiniPastel(this,'${produto.nome}')`}">
+                            Adicionar
+                        </button>
                     </div>
                 </div>`;
         } 
         // 2. LÓGICA PARA PRODUTOS NORMAIS (Lanches, Porções, Bebidas, etc)
         else {
-            let catComExtras = ["pasteis", "artesanais", "tradicionais", "porcoes", "sandubas"];
+            let catComExtras = ["pasteis", "artesanais", "artesanal", "tradicionais", "tradicional", "porcoes", "sandubas"];
             let mostrarExtras = catComExtras.includes(categoria);
-            
-            // Nova regra: Mostrar observação apenas se NÃO for bebida
             let mostrarObs = categoria !== "bebidas";
 
             container.innerHTML += `
@@ -346,7 +356,11 @@ function gerarCards(categoria, containerId) {
                         
                     <p class="price">R$ ${produto.preco.toFixed(2)}</p>
                     <div class="actions">
-                        <div class="qty-control"><button onclick="changeQty(this,-1)">−</button><span>1</span><button onclick="changeQty(this,1)">+</button></div>
+                        <div class="qty-control">
+                            <button onclick="changeQty(this,-1)">−</button>
+                            <span>1</span>
+                            <button onclick="changeQty(this,1)">+</button>
+                        </div>
                         <button class="add-btn" onclick="addToCartComExtras(this,'${produto.nome}',${produto.preco})">Adicionar</button>
                     </div>
                 </div>`;
