@@ -113,24 +113,28 @@ function gerarCardSorvete(produto) {
             <img src="${produto.img}" alt="${produto.nome}">
             <h3>${produto.nome}</h3>
             
-            <p style="color: #ffca2c; font-size: 13px; margin: 5px 0;">
-                🍦 Digite os sabores abaixo:
+            <p style="color: #ffca2c; font-size: 13px; margin: 10px 0;">
+                🍦 Digite os sabores desejados:
             </p>
 
             <div style="padding: 0 15px;">
                 <input type="text" class="input-sabor-exclusivo-sorvete" 
-                    placeholder="Ex: Chocolate e Creme" 
-                    style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #ffca2c; background: #1a1a1a; color: white; margin-bottom: 10px;">
+                    placeholder="Ex: Chocolate e Morango" 
+                    style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #ffca2c; background: #1a1a1a; color: white; margin-bottom: 10px; outline: none;">
             </div>
 
             <div class="footer-card">
-                <div class="qty-control" style="display: flex; justify-content: center; gap: 15px; align-items: center; margin-bottom: 10px;">
-                    <button onclick="alterarQtdSorvete(this, -1, ${produto.preco})">−</button>
-                    <span class="qtd-numero">1</span>
-                    <button onclick="alterarQtdSorvete(this, 1, ${produto.preco})">+</button>
+                <div class="qty-control" style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 10px;">
+                    <button onclick="alterarQtdSorvete(this, -1, ${produto.preco})" style="width: 35px; height: 35px; border-radius: 50%; border: none; background: #ffca2c; font-weight: bold; cursor: pointer;">−</button>
+                    <span class="qtd-numero" style="font-size: 1.2rem; font-weight: bold;">1</span>
+                    <button onclick="alterarQtdSorvete(this, 1, ${produto.preco})" style="width: 35px; height: 35px; border-radius: 50%; border: none; background: #ffca2c; font-weight: bold; cursor: pointer;">+</button>
                 </div>
-                <p class="price">Total: <span class="preco-final-sorvete">R$ ${produto.preco.toFixed(2)}</span></p>
-                <button class="add-btn" onclick="addSorvete(this, '${produto.nome}', ${produto.preco})">
+                
+                <p class="price" style="font-size: 1.1rem; margin-bottom: 10px;">
+                    Total: <span class="preco-final-sorvete">R$ ${produto.preco.toFixed(2)}</span>
+                </p>
+                
+                <button class="add-btn" onclick="addSorvete(this, '${produto.nome}', ${produto.preco})" style="width: 100%; padding: 12px; border-radius: 8px; font-weight: bold;">
                     Adicionar ao Carrinho
                 </button>
             </div>
@@ -153,30 +157,34 @@ function alterarQtdSorvete(btn, delta, precoUnitario) {
 
 
 function addSorvete(btn, nome, precoUnitario) {
-    let card = btn.closest(".card-sorvete"); // Busca apenas dentro do card de sorvete
+    // Busca apenas dentro do card de sorvete atual
+    let card = btn.closest(".card-sorvete"); 
+    
+    // Pega o input de texto específico
     let inputSabor = card.querySelector(".input-sabor-exclusivo-sorvete");
     let saborDigitado = inputSabor.value.trim();
     
-    let quantidade = parseInt(card.querySelector(".qtd-numero").innerText);
+    let qtdElemento = card.querySelector(".qtd-numero");
+    let quantidade = parseInt(qtdElemento.innerText);
     let valorTotal = quantidade * precoUnitario;
 
-    // Validação exclusiva para o sorvete
+    // Validação: Agora o erro será específico do sorvete
     if (saborDigitado === "") {
-        alert("Por favor, escreva quais sabores de sorvete você deseja!");
+        alert("Por favor, digite os sabores do sorvete!");
         inputSabor.focus();
         return;
     }
 
-    // Adiciona ao carrinho
+    // Adiciona ao carrinho (Preço total já calculado)
     addToCart(`${nome} (${quantidade} bolas - Sabores: ${saborDigitado})`, valorTotal, 1);
     
-    // Feedback visual de sucesso
+    // Feedback visual
     aplicarEfeitoFeedback(btn);
 
-    // Reseta o card após adicionar
+    // Limpa o card
     setTimeout(() => {
         inputSabor.value = "";
-        card.querySelector(".qtd-numero").innerText = 1;
+        qtdElemento.innerText = 1;
         card.querySelector(".preco-final-sorvete").innerText = `R$ ${precoUnitario.toFixed(2)}`;
     }, 1500);
 }
