@@ -349,15 +349,15 @@ const produtos = {
     sucos: [
     { 
         nome: "Suco Natural (500ml)", 
-        preco: 8, // Preço fixo
+        preco: 7, // Preço fixo
         img: "img/suco.png", 
-        sabores: ["Laranja", "Abacaxi", "Maracujá", "Goiaba"] 
+        sabores: ["Cajá", "Abacaxi com Hortelã", "Maracujá", "Graviola", "Mangaba", "Acerola"] 
     },
     { 
         nome: "Suco com Leite (500ml)", 
         preco: 10, // Preço fixo
         img: "img/suco.png", 
-        sabores: ["Morango", "Acerola", "Graviola"] 
+        sabores: ["Cajá", "Abacaxi com Hortelã", "Maracujá", "Graviola", "Mangaba", "Acerola"]  
     }
     ],
     bebidas: [
@@ -370,6 +370,11 @@ const produtos = {
         { nome: "Guaraná Antartica 1L", preco: 10, img: "img/guarana1l.png", desc: "1000ml" },
         { nome: "Coca-Cola 2L", preco: 16, img: "img/coca2l.png", desc: "2000ml" },
         { nome: "Guaraná Antartica 2L", preco: 10, img: "img/guarana2l.png", desc: "2000ml" }  
+    ],
+    acai: [
+        { nome: "Açai", preco: 5, img: "img/acai.png", desc: "Monte como preferir!" },
+        { nome: "Açai", preco: 8, img: "img/acai.png", desc: "Monte como preferir!" },
+        { nome: "Açai", preco: 10, img: "img/acai.png", desc: "Monte como preferir!" }
     ]
 };
 
@@ -475,6 +480,7 @@ Object.keys(produtos).forEach(cat => {
         "sandubas": "sanduba-list",
         "sucos": "sucos-list",
         "bebidas": "bebidas-list"
+        "acai": "acai-list"
         
     };
     let id = idMap[cat] || `${cat}-list`;
