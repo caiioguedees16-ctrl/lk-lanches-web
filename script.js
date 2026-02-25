@@ -481,6 +481,7 @@ Object.keys(produtos).forEach(cat => {
         "sucos": "sucos-list",
         "bebidas": "bebidas-list"
         "acai": "acai-list"
+        "sorvete": "sorvete-list"
         
     };
     let id = idMap[cat] || `${cat}-list`;
