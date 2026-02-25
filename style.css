@@ -393,7 +393,7 @@ font-weight:bold;
 
 .cart {
     position: fixed;
-    right: -350px;
+    right: 0px;
     top: 0;
     width: 340px;
     height: 100vh;
@@ -406,6 +406,7 @@ font-weight:bold;
     flex-direction: column;
     gap: 10px;
     z-index: 2000; 
+    overscroll-behavior: contain;
 }
 
 .cart.active{
