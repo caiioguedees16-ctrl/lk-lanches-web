@@ -664,6 +664,24 @@ function formatarBolas(lista) {
     return Object.entries(contagem).map(([nome, qtd]) => `${qtd}x ${nome}`).join(", ");
 }
 
+function obterNumeroPedidoDia() {
+    const hoje = new Date().toLocaleDateString(); // Pega a data atual (ex: 25/02/2026)
+    let contadorData = localStorage.getItem("last_order_date");
+    let contadorNumero = parseInt(localStorage.getItem("last_order_number")) || 0;
+
+    // Se a data salva for diferente de hoje, resetamos para o pedido nº 1
+    if (contadorData !== hoje) {
+        contadorNumero = 1;
+        localStorage.setItem("last_order_date", hoje);
+    } else {
+        // Se for o mesmo dia, apenas soma +1
+        contadorNumero++;
+    }
+
+    localStorage.setItem("last_order_number", contadorNumero);
+    return contadorNumero;
+}
+
 function finalizarPedidoAcai(botao, nome) {
     const card = botao.closest('.card');
     const select = card.querySelector('.select-tamanho');
@@ -889,8 +907,12 @@ function sendWhatsApp() {
     if (cart.length === 0) { alert("Carrinho vazio!"); return; }
     if (!name || !address || !payment) { alert("Preencha nome, endereço e pagamento!"); return; }
 
+    const numPedido = obterNumeroPedidoDia();
+    const dataAtual = new Date().toLocaleDateString();
     // 3. Montagem da Mensagem
     let msg = `🍔 *NOVO PEDIDO - LK LANCHES*\n`;
+    msg += `*--- PEDIDO Nº ${numPedido} ---*\n`;
+    mensagem += `*Data:* ${dataAtual}\n\n`;
     msg += `──────────────────\n\n`;
     msg += `👤 *Cliente:* ${name}\n`;
     msg += `──────────────────\n\n`;
