@@ -83,6 +83,36 @@ function addToCartComExtras(button, nome, precoBase) {
     }, 1500);
 }
 
+function gerarCardSorvete(produto) {
+    return `
+        <div class="card card-sorvete">
+            <img src="${produto.img}" alt="${produto.nome}">
+            <h3>${produto.nome}</h3>
+            
+            <div style="background: rgba(255, 202, 44, 0.1); border: 1px dashed #ffca2c; margin: 10px 15px; padding: 10px; border-radius: 8px;">
+                <p style="font-size: 13px; color: #ffca2c; margin: 0; font-weight: bold; line-height: 1.4;">
+                    🍦 Escolha a quantidade de bolas abaixo.<br>
+                    <span style="color: #fff; font-weight: normal;">Os sabores disponíveis serão confirmados com a atendente via WhatsApp.</span>
+                </p>
+            </div>
+
+            <p class="price" style="margin-top:10px;">
+                Total (<span class="qtd-bolas-texto">1</span> bola): 
+                <span class="preco-final-sorvete" style="color: #28a745; font-weight: bold;">R$ ${produto.preco.toFixed(2)}</span>
+            </p>
+
+            <div class="actions">
+                <div class="qty-control">
+                    <button type="button" onclick="alterarQtdSorvete(this, -1, ${produto.preco})">−</button>
+                    <span class="qtd-numero">1</span>
+                    <button type="button" onclick="alterarQtdSorvete(this, 1, ${produto.preco})">+</button>
+                </div>
+                <button type="button" class="add-btn" onclick="addSorveteSimples(this, '${produto.nome}', ${produto.preco})">
+                    Adicionar
+                </button>
+            </div>
+        </div>`;
+}
 // --- FUNÇÃO DO PASTEL (REVISADA PARA NÃO TRAVAR) ---
 function addMiniPastel(btn, nome) {
     let card = btn.closest(".card");
