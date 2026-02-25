@@ -109,7 +109,7 @@ function addMiniPastel(btn, nome) {
 
 function gerarCardSorvete(produto) {
     return `
-        <div class="card card-sorvete">
+        <div class="card card-sorvete" data-tipo="sorvete">
             <img src="${produto.img}" alt="${produto.nome}">
             <h3>${produto.nome}</h3>
             
@@ -125,16 +125,16 @@ function gerarCardSorvete(produto) {
 
             <div class="footer-card">
                 <div class="qty-control" style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 10px;">
-                    <button onclick="alterarQtdSorvete(this, -1, ${produto.preco})" style="width: 35px; height: 35px; border-radius: 50%; border: none; background: #ffca2c; font-weight: bold; cursor: pointer;">−</button>
+                    <button type="button" onclick="alterarQtdSorvete(this, -1, ${produto.preco})" style="width: 35px; height: 35px; border-radius: 50%; border: none; background: #ffca2c; font-weight: bold; cursor: pointer;">−</button>
                     <span class="qtd-numero" style="font-size: 1.2rem; font-weight: bold;">1</span>
-                    <button onclick="alterarQtdSorvete(this, 1, ${produto.preco})" style="width: 35px; height: 35px; border-radius: 50%; border: none; background: #ffca2c; font-weight: bold; cursor: pointer;">+</button>
+                    <button type="button" onclick="alterarQtdSorvete(this, 1, ${produto.preco})" style="width: 35px; height: 35px; border-radius: 50%; border: none; background: #ffca2c; font-weight: bold; cursor: pointer;">+</button>
                 </div>
                 
                 <p class="price" style="font-size: 1.1rem; margin-bottom: 10px;">
                     Total: <span class="preco-final-sorvete">R$ ${produto.preco.toFixed(2)}</span>
                 </p>
                 
-                <button class="add-btn" onclick="addSorvete(this, '${produto.nome}', ${produto.preco})" style="width: 100%; padding: 12px; border-radius: 8px; font-weight: bold;">
+                <button type="button" class="add-btn" onclick="addSorvete(this, '${produto.nome}', ${produto.preco})">
                     Adicionar ao Carrinho
                 </button>
             </div>
@@ -157,31 +157,42 @@ function alterarQtdSorvete(btn, delta, precoUnitario) {
 
 
 function addSorvete(btn, nome, precoUnitario) {
-    // Busca apenas dentro do card de sorvete atual
-    let card = btn.closest(".card-sorvete"); 
-    
-    // Pega o input de texto específico
-    let inputSabor = card.querySelector(".input-sabor-exclusivo-sorvete");
-    let saborDigitado = inputSabor.value.trim();
-    
-    let qtdElemento = card.querySelector(".qtd-numero");
-    let quantidade = parseInt(qtdElemento.innerText);
-    let valorTotal = quantidade * precoUnitario;
+    // 1. Impede que o clique "suba" para outras funções do site
+    event.preventDefault();
+    event.stopPropagation();
 
-    // Validação: Agora o erro será específico do sorvete
+    const card = btn.closest(".card-sorvete");
+    const inputSabor = card.querySelector(".input-sabor-exclusivo-sorvete");
+    const saborDigitado = inputSabor.value.trim();
+    
+    const qtdElemento = card.querySelector(".qtd-numero");
+    const quantidade = parseInt(qtdElemento.innerText);
+    const valorTotal = quantidade * precoUnitario;
+
+    // 2. Validação local (Se cair aqui, o erro do pastel nem chega a ser lido)
     if (saborDigitado === "") {
-        alert("Por favor, digite os sabores do sorvete!");
+        alert("Ops! Digite o sabor do seu sorvete antes de adicionar.");
         inputSabor.focus();
         return;
     }
 
-    // Adiciona ao carrinho (Preço total já calculado)
-    addToCart(`${nome} (${quantidade} bolas - Sabores: ${saborDigitado})`, valorTotal, 1);
+    // 3. Criar o objeto do item manualmente para evitar que a sua função principal
+    // de addToCart tente validar campos que não existem aqui.
+    const itemSorvete = {
+        nome: `${nome} (${quantidade} bolas)`,
+        sabor: saborDigitado,
+        preco: valorTotal,
+        quantidade: 1 // Enviamos como 1 unidade deste "pacote" de bolas
+    };
+
+    // Chame a sua função de adicionar ao carrinho passando o objeto pronto
+    // Se a sua função addToCart estiver configurada para validar apenas pastéis,
+    // talvez precisemos ajustar a addToCart principal também.
+    finalizarCompraSorvete(itemSorvete);
     
-    // Feedback visual
     aplicarEfeitoFeedback(btn);
 
-    // Limpa o card
+    // Reset
     setTimeout(() => {
         inputSabor.value = "";
         qtdElemento.innerText = 1;
@@ -189,6 +200,14 @@ function addSorvete(btn, nome, precoUnitario) {
     }, 1500);
 }
 
+// Função de apoio para garantir o envio correto
+function finalizarCompraSorvete(item) {
+    // Aqui você usa a lógica que já tem no seu carrinho, 
+    // mas enviando o nome já formatado com o sabor.
+    if (typeof addToCart === "function") {
+        addToCart(item.nome + " - Sabor: " + item.sabor, item.preco, 1);
+    }
+}
 function addSuco(btn, nome, precoFixo) {
     let card = btn.closest(".card");
     let selectSabor = card.querySelector(".select-sabor");
