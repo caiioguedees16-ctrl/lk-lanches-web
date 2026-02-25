@@ -166,7 +166,7 @@ function gerarCardSorvete(produto) {
             
             <div style="padding: 10px 15px;">
                 <label style="display: block; font-size: 13px; color: #ffca2c; margin-bottom: 5px;">Escolha os sabores:</label>
-                <input type="text" class="input-sabor-exclusivo-sorvete" 
+                <input type="text" class="input-sabor-sorvete" 
                     placeholder="Ex: Chocolate e Creme" 
                     style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ffca2c; background: #1a1a1a; color: white; outline: none;">
             </div>
@@ -199,29 +199,40 @@ function alterarQtdSorvete(btn, delta, precoUnitario) {
     precoSpan.innerText = `R$ ${total.toFixed(2)}`;
 }
 
-
 function addSorvete(btn, nome, precoUnitario) {
+    // 1. Acha o card específico do sorvete
     const card = btn.closest(".card-sorvete");
-    const inputSabor = card.querySelector(".input-sabor-exclusivo-sorvete");
-    const saborDigitado = inputSabor.value.trim();
     
+    // 2. Pega o input de sabor usando a classe correta
+    const inputSabor = card.querySelector(".input-sabor-sorvete");
+    
+    if (!inputSabor) {
+        console.error("Erro: Campo de sabor não encontrado!");
+        return;
+    }
+
+    const saborDigitado = inputSabor.value.trim();
     const qtdElemento = card.querySelector(".qtd-numero");
     const quantidadeBolas = parseInt(qtdElemento.innerText);
     const valorTotal = quantidadeBolas * precoUnitario;
 
+    // 3. Validação
     if (saborDigitado === "") {
-        alert("Por favor, digite o sabor do seu sorvete!");
+        alert("Por favor, informe os sabores do sorvete!");
         inputSabor.focus();
         return;
     }
 
-    // Formata o nome e manda para a função base que corrigimos acima
-    const nomeFinal = `${nome} (${quantidadeBolas} bolas) - Sabores: ${saborDigitado}`;
-    addToCart(nomeFinal, valorTotal, 1);
+    // 4. Monta o nome para o carrinho
+    const nomeParaCarrinho = `${nome} (${quantidadeBolas} bolas) - Sabores: ${saborDigitado}`;
+
+    // 5. Envia para a função principal que você já tem
+    addToCart(nomeParaCarrinho, valorTotal, 1);
     
+    // 6. Feedback visual
     aplicarEfeitoFeedback(btn);
 
-    // Reset do card após adicionar
+    // 7. Limpa o card
     setTimeout(() => {
         inputSabor.value = "";
         qtdElemento.innerText = 1;
