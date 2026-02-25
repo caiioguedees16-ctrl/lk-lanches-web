@@ -107,55 +107,79 @@ function addMiniPastel(btn, nome) {
     }, 1500);
 }
 
-function adicionarSorveteExclusivo(btn, nome, precoUnitario) {
-    // 1. Localiza o card e o input de texto
-    const card = btn.closest(".card-sorvete");
-    const inputSabor = card.querySelector(".input-sabor-sorvete");
-    const saborDigitado = inputSabor.value.trim();
+// --- FUNÇÃO DO PASTEL (REVISADA PARA NÃO TRAVAR) ---
+function addMiniPastel(btn, nome) {
+    let card = btn.closest(".card");
+    let selectQtd = card.querySelector(".select-qtd");
+    let selectSabor = card.querySelector(".select-sabor");
+
+    // Verifica se os elementos existem antes de ler o .value
+    if (!selectSabor || !selectQtd) {
+        console.error("Este card não parece ser de um Pastel. Verifique o onclick no HTML.");
+        return; 
+    }
+
+    if (selectSabor.value === "" || selectSabor.value === "selecione") {
+        alert("Por favor, escolha o sabor do seu pastel!");
+        return;
+    }
     
-    // 2. Pega a quantidade e calcula o preço
-    const quantidadeBolas = parseInt(card.querySelector(".qtd-numero").innerText);
+    let preco = parseFloat(selectQtd.value);
+    let qtdLabel = selectQtd.options[selectQtd.selectedIndex].text;
+    let sabor = selectSabor.value;
+    let quantidade = parseInt(card.querySelector(".qty-control span").innerText);
+
+    addToCart(`${nome} - ${qtdLabel} (${sabor})`, preco, quantidade);
+    aplicarEfeitoFeedback(btn);
+    
+    setTimeout(() => {
+        selectSabor.selectedIndex = 0;
+        card.querySelector(".qty-control span").innerText = 1;
+    }, 1500);
+}
+
+// --- FUNÇÃO ÚNICA PARA O SORVETE (RESOLVE O ERRO) ---
+function addSorvete(btn, nome, precoUnitario) {
+    // 1. Usa .card-sorvete para garantir que não pegue dados do pastel
+    const card = btn.closest(".card-sorvete") || btn.closest(".card");
+    const inputSabor = card.querySelector(".input-sabor-sorvete");
+    
+    if (!inputSabor) {
+        console.error("Erro: Campo de sabor do sorvete não encontrado!");
+        return;
+    }
+
+    const saborDigitado = inputSabor.value.trim();
+    const qtdElemento = card.querySelector(".qtd-numero");
+    const quantidadeBolas = parseInt(qtdElemento.innerText);
     const valorTotal = quantidadeBolas * precoUnitario;
 
-    // 3. Validação: Só pede o sabor se o campo estiver vazio
     if (saborDigitado === "") {
-        alert("Por favor, informe o sabor do sorvete!");
+        alert("Por favor, informe os sabores do sorvete!");
         inputSabor.focus();
         return;
     }
 
-    // 4. Cria o item formatado (Nome + Sabores)
-    const nomeFormatado = `${nome} (${quantidadeBolas} bolas) - Sabores: ${saborDigitado}`;
+    // 2. Monta o item para o carrinho
+    const nomeFinal = `${nome} (${quantidadeBolas} bolas) - Sabores: ${saborDigitado}`;
 
-    // 5. ENVIO DIRETO: 
-    // Em vez de usar addToCart(nome, preco, qtd), vamos simular o que ela faz internamente
-    // para pular a verificação do pastel.
-    if (typeof carrinho !== 'undefined') {
-        carrinho.push({
-            nome: nomeFormatado,
-            preco: valorTotal,
-            quantidade: 1
-        });
-        
-        // Atualiza o carrinho e mostra feedback
+    // 3. Adiciona ao carrinho usando a sua lista correta (cart ou carrinho)
+    if (typeof cart !== 'undefined') {
+        addToCart(nomeFinal, valorTotal, 1);
+    } else if (typeof carrinho !== 'undefined') {
+        carrinho.push({ nome: nomeFinal, preco: valorTotal, quantidade: 1 });
         if (typeof atualizarCarrinho === "function") atualizarCarrinho();
-        if (typeof abrirCarrinho === "function") abrirCarrinho();
-        
-        // Efeito de sucesso no botão
-        btn.innerHTML = "✅ Adicionado!";
-        btn.style.background = "#28a745";
-        
-        setTimeout(() => {
-            btn.innerHTML = "Adicionar ao Carrinho";
-            btn.style.background = ""; // volta ao padrão
-            inputSabor.value = "";
-            card.querySelector(".qtd-numero").innerText = "1";
-            card.querySelector(".preco-final-sorvete").innerText = `R$ ${precoUnitario.toFixed(2)}`;
-        }, 1500);
-    } else {
-        // Se o seu sistema não usa uma variável global 'carrinho', tente:
-        addToCart(nomeFormatado, valorTotal, 1);
     }
+
+    aplicarEfeitoFeedback(btn);
+
+    // 4. Limpa o card
+    setTimeout(() => {
+        inputSabor.value = "";
+        qtdElemento.innerText = "1";
+        const precoDisplay = card.querySelector(".preco-final-sorvete");
+        if (precoDisplay) precoDisplay.innerText = `R$ ${precoUnitario.toFixed(2)}`;
+    }, 1500);
 }
 
 function gerarCardSorvete(produto) {
@@ -200,42 +224,6 @@ function alterarQtdSorvete(btn, delta, precoUnitario) {
     precoSpan.innerText = `R$ ${total.toFixed(2)}`;
 }
 
-function addSorvete(btn, nome, precoUnitario) {
-    const card = btn.closest(".card-sorvete");
-    const inputSabor = card.querySelector(".input-sabor-sorvete");
-    
-    // Se por algum motivo o input não for encontrado, ele avisa sem travar o site
-    if (!inputSabor) {
-        console.error("Erro: O campo de sabores do sorvete não foi encontrado no HTML.");
-        return;
-    }
-
-    const saborDigitado = inputSabor.value.trim();
-    const qtdElemento = card.querySelector(".qtd-numero");
-    const quantidadeBolas = parseInt(qtdElemento.innerText);
-    const valorTotal = quantidadeBolas * precoUnitario;
-
-    if (saborDigitado === "") {
-        alert("Por favor, informe os sabores do sorvete!");
-        inputSabor.focus();
-        return;
-    }
-
-    // Monta o texto que vai aparecer no carrinho
-    const nomeFinal = `${nome} (${quantidadeBolas} bolas) - Sabores: ${saborDigitado}`;
-
-    // Envia para o carrinho usando a sua função principal
-    addToCart(nomeFinal, valorTotal, 1);
-    
-    aplicarEfeitoFeedback(btn);
-
-    // Limpa o card para a próxima compra
-    setTimeout(() => {
-        inputSabor.value = "";
-        qtdElemento.innerText = "1";
-        card.querySelector(".preco-final-sorvete").innerText = `R$ ${precoUnitario.toFixed(2)}`;
-    }, 1500);
-}
 // Função de apoio para garantir o envio correto
 function finalizarCompraSorvete(item) {
     // Verificamos se o carrinho existe (geralmente é um array chamado carrinho ou cart)
