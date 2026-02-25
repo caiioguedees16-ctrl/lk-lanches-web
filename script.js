@@ -664,6 +664,20 @@ function finalizarPedidoAcai(button, nomeBase) {
     resetarEMudarTamanho(select);
 }
 
+function addSuco(btn, nome, precoBase) {
+    const card = btn.closest(".card");
+    const sabor = card.querySelector(".select-sabor").value;
+    const qtd = parseInt(card.querySelector(".qty-control span").innerText);
+
+    if (!sabor) {
+        alert("Por favor, selecione o sabor do suco!");
+        return;
+    }
+
+    addToCart(`${nome} (${sabor})`, precoBase, qtd);
+    aplicarEfeitoFeedback(btn);
+}
+
 function gerarCards(categoria, containerId) {
     let container = document.getElementById(containerId);
     if (!container || !produtos[categoria]) return;
@@ -701,16 +715,27 @@ function gerarCards(categoria, containerId) {
                     <h3 style="margin-bottom: 15px;">${produto.nome}</h3>
             
                     <div style="padding: 0 15px; text-align: left;">
-                        <label style="display: block; font-size: 14px; color: #ffca2c; margin-bottom: 5px; font-weight: bold;">
-                            1. Escolha a quantidade de unidades:
-                        </label>
-                        <select class="select-qtd" style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; background: #1a1a1a; color: white; border: 1px solid #444; font-size: 16px;">
-                            ${optionsHTML}
-                        </select>
+                    
+                        ${temOpcoesQtd ? `
+                            <label style="display: block; font-size: 14px; color: #ffca2c; margin-bottom: 5px; font-weight: bold;">
+                                1. Escolha a quantidade de unidades:
+                            </label>
+                            <select class="select-qtd" style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; background: #1a1a1a; color: white; border: 1px solid #444; font-size: 16px;">
+                                ${produto.opcoes.map(op => `<option value="${op.preco}">${op.label} - R$ ${op.preco.toFixed(2)}</option>`).join("")}
+                            </select>
 
-                        <label style="display: block; font-size: 14px; color: #ffca2c; margin-bottom: 5px; font-weight: bold;">
-                            2. Escolha o sabor desejado:
-                        </label>
+                            <label style="display: block; font-size: 14px; color: #ffca2c; margin-bottom: 5px; font-weight: bold;">
+                                2. Escolha o sabor desejado:
+                            </label>
+                        ` : `
+                            <p class="price" style="margin-bottom: 10px; font-size: 18px;">R$ ${produto.preco.toFixed(2)}</p>
+                            <input type="hidden" class="select-qtd" value="${produto.preco}"> 
+                            
+                            <label style="display: block; font-size: 14px; color: #ffca2c; margin-bottom: 5px; font-weight: bold;">
+                                1. Escolha o sabor desejado:
+                            </label>
+                        `}
+
                         <select class="select-sabor" style="width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 8px; background: #1a1a1a; color: white; border: 1px solid #444; font-size: 16px;">
                             <option value="">Clique para selecionar...</option>
                             ${produto.sabores.map(s => `<option value="${s}">${s}</option>`).join("")}
