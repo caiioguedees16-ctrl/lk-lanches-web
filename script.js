@@ -107,6 +107,61 @@ function addMiniPastel(btn, nome) {
     }, 1500);
 }
 
+function gerarCardSorvete(produto) {
+    return `
+        <div class="card">
+            <img src="${produto.img}" alt="${produto.nome}">
+            <h3>${produto.nome}</h3>
+            
+            <p class="info-adicional" style="margin: 10px 0; color: #ffca2c;">
+                🍦 Sabores do dia: Consulte-nos ou peça o seu favorito!
+            </p>
+
+            <div class="secao-sabor">
+                <label>Qual sabor você deseja?</label>
+                <input type="text" class="input-sabor-sorvete" placeholder="Ex: Chocolate, Morango...">
+            </div>
+
+            <div class="footer-card">
+                <div class="qty-control" style="margin-bottom: 10px; justify-content: center;">
+                    <button onclick="alterarQtd(this, -1)">−</button>
+                    <span>1</span>
+                    <button onclick="alterarQtd(this, 1)">+</button>
+                </div>
+                <p class="price">R$ ${produto.preco.toFixed(2)}</p>
+                <button class="add-btn" onclick="addSorvete(this, '${produto.nome}', ${produto.preco})">
+                    Adicionar ao Carrinho
+                </button>
+            </div>
+        </div>
+    `;
+}
+
+function addSorvete(btn, nome, preco) {
+    let card = btn.closest(".card");
+    let inputSabor = card.querySelector(".input-sabor-sorvete");
+    let sabor = inputSabor.value.trim();
+    let quantidade = parseInt(card.querySelector(".qty-control span").innerText);
+
+    // Se o cliente não escrever nada, avisamos de forma simples
+    if (sabor === "") {
+        alert("Por favor, escreva o sabor que você quer!");
+        return;
+    }
+
+    // Adiciona ao carrinho: Nome + Sabor escrito
+    addToCart(`${nome} (${sabor})`, preco, quantidade);
+    
+    // Efeito visual de sucesso que você pediu
+    aplicarEfeitoFeedback(btn);
+
+    // Limpa tudo após 1.5 segundos
+    setTimeout(() => {
+        inputSabor.value = "";
+        card.querySelector(".qty-control span").innerText = 1;
+    }, 1500);
+}
+
 function addSuco(btn, nome, precoFixo) {
     let card = btn.closest(".card");
     let selectSabor = card.querySelector(".select-sabor");
@@ -414,6 +469,15 @@ const produtos = {
             {label: "Grande (5 bolas)", preco: 10, limiteBolas: 5}
         ],
         precoBolaExtra: 2 // Valor de cada bola adicional
+    }
+    ],
+    sorvete: [
+    { 
+        nome: "Sorvete", 
+        img: "img/sorvete.png",
+        preco: 5.00,
+        sabores: ["Consultar sabores disponíveis", "Chocolate", "Morango", "Creme..."],
+        categoria: "sorvete"
     }
     ]
 };
