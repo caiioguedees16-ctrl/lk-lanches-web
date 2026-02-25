@@ -551,15 +551,16 @@ function gerarCards(categoria, containerId) {
     container.innerHTML = "";
 
     produtos[categoria].forEach(produto => {
-        // 1. LÓGICA PARA ITENS COM SELETORES (Sucos e Mini Pastéis)
-        if (produto.sabores) {
+        
+        // 1. LÓGICA ESPECIAL PARA AÇAÍ (ADICIONE ESTE BLOCO)
+        if (categoria === "acai") {
+            container.innerHTML += gerarCardAcai(produto);
+        }
+        
+        // 2. LÓGICA PARA ITENS COM SELETORES (Sucos e Mini Pastéis)
+        else if (produto.sabores) {
             let isSuco = categoria === "sucos";
-            
-            // Se for suco, mostra o preço fixo. Se for mini pastel, o preço varia no select.
-            let precoHTML = isSuco 
-                ? `<p class="price">R$ ${produto.preco.toFixed(2)}</p>` 
-                : ""; 
-
+            let precoHTML = isSuco ? `<p class="price">R$ ${produto.preco.toFixed(2)}</p>` : ""; 
             let selectQtdHTML = produto.opcoes 
                 ? `<select class="select-qtd">${produto.opcoes.map(op => `<option value="${op.preco}">${op.label} - R$ ${op.preco.toFixed(2)}</option>`).join("")}</select>`
                 : "";
@@ -585,9 +586,10 @@ function gerarCards(categoria, containerId) {
                     </div>
                 </div>`;
         } 
-        // 2. LÓGICA PARA PRODUTOS NORMAIS (Lanches, Porções, Bebidas, etc)
+        
+        // 3. LÓGICA PARA PRODUTOS NORMAIS (Lanches, Porções, etc)
         else {
-            let catComExtras = ["pasteis", "artesanais", "artesanal", "tradicionais", "tradicional", "porcoes", "sandubas"];
+            let catComExtras = ["pasteis", "artesanais", "tradicionais", "porcoes", "sandubas"];
             let mostrarExtras = catComExtras.includes(categoria);
             let mostrarObs = categoria !== "bebidas";
 
@@ -596,12 +598,7 @@ function gerarCards(categoria, containerId) {
                     <img src="${produto.img}" alt="${produto.nome}">
                     <h3>${produto.nome}</h3>
                     ${produto.desc ? `<p class="desc-text">${produto.desc}</p>` : ""}
-                    
-                    ${mostrarObs ? `
-                    <div class="item-obs">
-                        <input type="text" placeholder="Observação (Ex: Sem cebola)" class="individual-obs">
-                    </div>` : ""}
-
+                    ${mostrarObs ? `<div class="item-obs"><input type="text" placeholder="Observação" class="individual-obs"></div>` : ""}
                     ${mostrarExtras ? `
                         <div class="extras-container">
                             <button class="btn-extras" onclick="toggleExtras(this)">➕ Adicionais</button>
@@ -609,17 +606,14 @@ function gerarCards(categoria, containerId) {
                                 <div class="extras-grid">
                                     ${adicionais.map(e => `
                                         <label class="extra-item">
-                                            <input type="checkbox"
-                                            value="${e.preco}"
-                                            data-nome="${e.nome}"
+                                            <input type="checkbox" value="${e.preco}" data-nome="${e.nome}" 
                                             onchange="atualizarPrecoTotalModal(this.closest('.card'), ${produto.preco})">
-                                        <span>+ ${e.nome} (R$ ${e.preco.toFixed(2)})</span>
+                                            <span>+ ${e.nome} (R$ ${e.preco.toFixed(2)})</span>
                                         </label>
                                     `).join("")}
                                 </div>
                             </div>
                         </div>` : ""}
-                        
                     <p class="price preco-final-display">R$ ${produto.preco.toFixed(2)}</p>
                     <div class="actions">
                         <div class="qty-control">
