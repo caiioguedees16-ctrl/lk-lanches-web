@@ -20,23 +20,6 @@ function changeQty(button, amount) {
     span.innerText = current;
 }
 
-// ===============================
-// ADICIONAR AO CARRINHO (LÓGICA BASE)
-// ===============================
-function addToCart(name, price, qty) {
-    let existingItem = cart.find(item => item.name === name);
-
-    if (existingItem) {
-        existingItem.qty += qty;
-    } else {
-        cart.push({
-            name: name,
-            price: price,
-            qty: qty
-        });
-    }
-    updateCart();
-}
 
 // ITENS COM ADICIONAIS
 function addToCartComExtras(button, nome, precoBase) {
@@ -130,18 +113,25 @@ function updateCart() {
     cart.forEach((item, index) => {
         let subtotal = item.price * item.qty;
         total += subtotal;
-        totalQty += item.qty;
+        
+        // Só soma na contagem de itens o que não for taxa
+        if (!item.isTax) totalQty += item.qty;
+
+        // Lógica para esconder os botões se for taxa
+        const controls = item.isTax 
+            ? `<span style="font-size: 12px; color: #aaa; font-style: italic;">Taxa Fixa</span>` 
+            : `<div style="display:flex; align-items:center; gap:10px; background:#222; padding:4px 10px; border-radius:20px;">
+                <button onclick="changeCartQty(${index}, -1)" style="background:none; border:none; color:white; cursor:pointer;">−</button>
+                <span>${item.qty}</span>
+                <button onclick="changeCartQty(${index}, 1)" style="background:none; border:none; color:white; cursor:pointer;">+</button>
+               </div>`;
 
         cartItems.innerHTML += `
             <div style="margin-bottom:12px; border-bottom:1px solid #333; padding-bottom:10px; color: white;">
                 <p style="font-weight:600; font-size:14px; margin-bottom:5px;">${item.name}</p>
                 <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <div style="display:flex; align-items:center; gap:10px; background:#222; padding:4px 10px; border-radius:20px;">
-                        <button onclick="changeCartQty(${index}, -1)" style="background:none; border:none; color:white; cursor:pointer;">−</button>
-                        <span>${item.qty}</span>
-                        <button onclick="changeCartQty(${index}, 1)" style="background:none; border:none; color:white; cursor:pointer;">+</button>
-                    </div>
-                    <strong style="color:#ffca2c;">R$ ${subtotal.toFixed(2)}</strong>
+                    ${controls}
+                    <strong style="color:${item.isTax ? '#4caf50' : '#ffca2c'};">R$ ${subtotal.toFixed(2)}</strong>
                 </div>
             </div>`;
     });
@@ -150,9 +140,73 @@ function updateCart() {
     if(totalElement) totalElement.innerText = "Total: R$ " + total.toFixed(2);
 }
 
+function updateCartModal() {
+  cartItemsContainer.innerHTML = "";
+
+  cart.forEach(item => {
+    const itemElement = document.createElement("div");
+    
+    // Se for a taxa, não mostramos os botões de (+) ou (-)
+    const controls = item.isTax 
+      ? `<span>(Fixo)</span>` 
+      : `<button onclick="removeItem('${item.name}')">-</button>`;
+
+    itemElement.innerHTML = `
+      <div class="flex justify-between">
+        <p>${item.name}</p>
+        <p>R$ ${item.price.toFixed(2)}</p>
+        ${controls}
+      </div>
+    `;
+    cartItemsContainer.appendChild(itemElement);
+  });
+}
+
+// ===============================
+// ADICIONAR AO CARRINHO (LÓGICA BASE)
+// ===============================
+
+const deliveryFee = 2.00;
+
+function addToCart(name, price, qty = 1) {
+    // 1. Se o carrinho estiver vazio, adiciona a taxa primeiro
+    if (cart.length === 0) {
+        cart.push({
+            name: "🚚 Taxa de Entrega",
+            price: deliveryFee,
+            qty: 1,
+            isTax: true // Marcador para não deixar o usuário alterar a quantidade
+        });
+    }
+
+    // 2. Verifica se o item já existe (ignorando a taxa)
+    let existingItem = cart.find(item => item.name === name);
+
+    if (existingItem) {
+        existingItem.qty += qty;
+    } else {
+        cart.push({
+            name: name,
+            price: price,
+            qty: qty,
+            isTax: false
+        });
+    }
+
+    // 3. Atualiza a interface
+    updateCart();
+}
 function changeCartQty(index, amount) {
+    if (cart[index].isTax) return; // Bloqueia qualquer alteração na taxa
+
     cart[index].qty += amount;
     if (cart[index].qty <= 0) cart.splice(index, 1);
+
+    // Se remover o último lanche e sobrar só a taxa, limpa o carrinho
+    if (cart.length === 1 && cart[0].isTax) {
+        cart = [];
+    }
+    
     updateCart();
 }
 
