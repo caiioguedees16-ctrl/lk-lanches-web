@@ -372,9 +372,17 @@ const produtos = {
         { nome: "Guaraná Antartica 2L", preco: 10, img: "img/guarana2l.png", desc: "2000ml" }  
     ],
     acai: [
-        { nome: "Açai", preco: 5, img: "img/acai.png", desc: "Monte como preferir!" },
-        { nome: "Açai", preco: 8, img: "img/acai.png", desc: "Monte como preferir!" },
-        { nome: "Açai", preco: 10, img: "img/acai.png", desc: "Monte como preferir!" }
+        { 
+            nome: "Açaí na Tigela", 
+            img: "img/acai.png", 
+            desc: "Monte do seu jeito! Escolha entre bolas de Açaí e Ninho + acompanhamentos.",
+            opcoes: [
+                {label: "Pequeno (2 bolas)", preco: 5, limiteBolas: 2},
+                {label: "Médio (4 bolas)", preco: 8, limiteBolas: 4},
+                {label: "Grande (5 bolas)", preco: 10, limiteBolas: 5}
+            ],
+            precoBolaExtra: 2 // Valor de cada bola adicional
+        }
     ]
 };
 
