@@ -434,13 +434,13 @@ const produtos = {
         { nome: "Sanduba Carne Seca", preco: 24, img: "img/sanduba-carneseca.png", desc: "Baguete 20cm", ingredientes: "Pão baguete de 20cm, carne seca, queijo coalho maçaricado, maionese ou molho verde, e salada (alface e tomate)." }
     ],
     pasteis: [
-        {nome:"Pastel Carne", preco:10, img:"img/pasteldecarne.png", desc: "Carne, vinagrete, milho e ervilha."}, {nome:"Pastel Frango", preco:10, img:"img/pasteldefrango.png", ingredientes: "Frango, vinagrete, milho e ervilha."},
-        {nome:"Pastel Calabresa", preco:10, img:"img/calabresa.png", ingredientes: "Calabresa, vinagrete, milho e ervilha."}, {nome:"Pastel Pizza", preco:10, img:"img/pizza.png", ingredientes: "Queijo, presunto, orégano, vinagrete, milho e ervilha."},
-        {nome:"Pastel Presunto", preco:10, img:"img/presunto.png", ingredientes: "Presunto, vinagrete, milho e ervilha."}, {nome:"Pastel Misto", preco:10, img:"img/pastelmisto.png", ingredientes: "Frango, carne, presunto, calabresa, vinagrete, milho e ervilha."},
-        {nome:"Pastel 3 Queijos", preco:14, img:"img/4queijos.png", ingredientes: "Queijo mussarela, cheddar, catupiry, vinagrete, milho e ervilha."}, {nome:"Pastel 4 Queijos", preco:14, img:"img/4queijos.png", ingredientes: "Queijo mussarela, queijo coalho, cheddar, catupiry, vinagrete, milho e ervilha."},
-        {nome:"Pastel Charque", preco:14, img:"img/carnedesol.png", ingredientes: "Charque, queijo, vinagrete, milho e ervilha."}, {nome:"Pastel Carne de Sol", preco:14, img:"img/carnedesol.png", ingredientes: "Carne de sol, queijo, vinagrete, milho e ervilha."}, 
-        {nome:"Pastel Frango com Bacon", preco:14, img:"img/frangocombacon.png", ingredientes: "Frango, bacon, queijo, vinagrete, milho e ervilha."}, {nome:"Pastel Queijo Coalho", preco:13, img:"img/queijocoalho.png", ingredientes: "Queijo Coalho, vinagrete, milho e ervilha."}, 
-        {nome:"Pastel Chocolate", preco:14, img:"img/chocolate.png", ingredientes: "Chocolate Cremoso."}
+        {nome:"Pastel Carne", preco:10, img:"img/pasteldecarne.png", desc: "Carne, vinagrete, milho e ervilha."}, {nome:"Pastel Frango", preco:10, img:"img/pasteldefrango.png", desc: "Frango, vinagrete, milho e ervilha."},
+        {nome:"Pastel Calabresa", preco:10, img:"img/calabresa.png", desc: "Calabresa, vinagrete, milho e ervilha."}, {nome:"Pastel Pizza", preco:10, img:"img/pizza.png", desc: "Queijo, presunto, orégano, vinagrete, milho e ervilha."},
+        {nome:"Pastel Presunto", preco:10, img:"img/presunto.png", desc: "Presunto, vinagrete, milho e ervilha."}, {nome:"Pastel Misto", preco:10, img:"img/pastelmisto.png", desc: "Frango, carne, presunto, calabresa, vinagrete, milho e ervilha."},
+        {nome:"Pastel 3 Queijos", preco:14, img:"img/4queijos.png", desc: "Queijo mussarela, cheddar, catupiry, vinagrete, milho e ervilha."}, {nome:"Pastel 4 Queijos", preco:14, img:"img/4queijos.png", desc: "Queijo mussarela, queijo coalho, cheddar, catupiry, vinagrete, milho e ervilha."},
+        {nome:"Pastel Charque", preco:14, img:"img/carnedesol.png", desc: "Charque, queijo, vinagrete, milho e ervilha."}, {nome:"Pastel Carne de Sol", preco:14, img:"img/carnedesol.png", desc: "Carne de sol, queijo, vinagrete, milho e ervilha."}, 
+        {nome:"Pastel Frango com Bacon", preco:14, img:"img/frangocombacon.png", desc: "Frango, bacon, queijo, vinagrete, milho e ervilha."}, {nome:"Pastel Queijo Coalho", preco:13, img:"img/queijocoalho.png", desc: "Queijo Coalho, vinagrete, milho e ervilha."}, 
+        {nome:"Pastel Chocolate", preco:14, img:"img/chocolate.png", desc: "Chocolate Cremoso."}
     ],
     porcoespastel: [
         { nome: "Mini Pastéis", img: "img/6minipastel.png", opcoes: [{label:"6 unidades", preco:7}, {label:"12 unidades", preco:14}], sabores: ["Pizza", "Queijo"] }
