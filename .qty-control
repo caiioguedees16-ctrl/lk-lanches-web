@@ -238,21 +238,27 @@ cursor:pointer;
 
 /* Estrutura da montagem (Aparece em todos os dispositivos) */
 .montagem-secao {
-    background: #1a1a1a;
-    padding: 12px;
-    border-radius: 8px;
-    margin: 10px 0;
+    padding: 0 10px;
+}
+
+.secao-titulo {
+    font-size: 1rem;
+    color: #ffca2c;
+    margin: 15px 0 10px 5px;
+    border-left: 3px solid #ffca2c;
+    padding-left: 10px;
 }
 
 .item-controle {
-    background: #222; /* Fundo escuro para contrastar com o texto */
+    background: #1a1a1a;
     border: 1px solid #333;
-    padding: 12px;
+    padding: 8px; /* Reduzido de 12px para economizar espaço */
     border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    transition: transform 0.2s;
+}
+
+.item-controle:active {
+    transform: scale(0.95); /* Efeito de clique */
 }
 
 .qty-control {
@@ -489,16 +495,14 @@ border-radius:6px;
     padding: 12px;
   }
   .qty-control button {
-        width: 35px; /* Botão um pouco maior para não errar o clique */
-        height: 35px;
-        font-size: 18px; /* Ícone de + e - mais visível */
-  }
+    width: 24px;
+    height: 24px;
+    font-size: 16px;
+}
     
   .item-controle span {
-    color: #fff; /* Texto sempre branco */
-    font-weight: 600;
-    margin-bottom: 8px;
-    font-size: 14px;
+    font-size: 0.8rem; /* Nomes um pouco menores para caber em qualquer tela */
+    margin-bottom: 6px;
 }
 
 /* --- MOBILE PEQUENO (Ajustes finos para telas menores) --- */
