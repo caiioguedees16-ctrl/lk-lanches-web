@@ -8,44 +8,43 @@ window.onload = () => {
         addressInput.value = savedAddress;
     }
 };
-window.addEventListener('DOMContentLoaded', () => {
-    const navLinks = document.querySelectorAll('nav a');
+// Aguarda o site carregar
+window.addEventListener('scroll', () => {
     const sections = document.querySelectorAll('.section');
+    const navLinks = document.querySelectorAll('nav a');
     const navContainer = document.querySelector('nav');
 
-    const observerOptions = {
-        root: null,
-        rootMargin: '-20% 0px -70% 0px', // Detecta a seção quando ela ocupa a parte superior/central
-        threshold: 0
-    };
+    let currentSectionId = "";
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const id = entry.target.getAttribute('id');
-                
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${id}`) {
-                        link.classList.add('active');
-                        
-                        // FAZ A BARRA MOVER PARA O LADO AUTOMATICAMENTE
-                        const linkOffset = link.offsetLeft;
-                        const containerWidth = navContainer.offsetWidth;
-                        const linkWidth = link.offsetWidth;
-                        
-                        // Centraliza o botão ativo na barra de rolagem lateral
-                        navContainer.scrollTo({
-                            left: linkOffset - (containerWidth / 2) + (linkWidth / 2),
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            }
-        });
-    }, observerOptions);
+    // Verifica qual seção está mais visível no topo da tela
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        // O 200 é uma margem para o destaque mudar um pouco antes de chegar na seção
+        if (pageYOffset >= (sectionTop - 200)) {
+            currentSectionId = section.getAttribute('id');
+        }
+    });
 
-    sections.forEach(section => observer.observe(section));
+    navLinks.forEach(link => {
+        // Remove a cor vermelha de todos
+        link.classList.remove('active');
+        
+        // Se o link for da seção atual, acende ele e move a barra
+        if (link.getAttribute('href') === `#${currentSectionId}`) {
+            link.classList.add('active');
+
+            // Lógica para centralizar o botão na barra horizontal
+            const linkOffset = link.offsetLeft;
+            const containerWidth = navContainer.offsetWidth;
+            const linkWidth = link.offsetWidth;
+
+            navContainer.scrollTo({
+                left: linkOffset - (containerWidth / 2) + (linkWidth / 2),
+                behavior: 'smooth'
+            });
+        }
+    });
 });
 // ===============================
 // ALTERAR QUANTIDADE NOS CARDS
