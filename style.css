@@ -290,6 +290,13 @@ background:var(--accent);
 transform:scale(1.1);
 }
 
+.tax-item {
+    font-style: italic;
+    color: #666;
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 5px;
+}
+
 input, textarea{
 width:100%;
 margin:8px 0;
