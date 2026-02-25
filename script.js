@@ -665,7 +665,7 @@ function formatarBolas(lista) {
 }
 
 function finalizarPedidoAcai(button, nomeBase) {
-    const card = btn.closest('.card');
+    const card = button.closest('.card');
     const select = card.querySelector('.select-tamanho');
     const tamanhoLabel = select.options[select.selectedIndex].text;
     const precoFinal = parseFloat(card.querySelector('.preco-final-display').innerText.replace('R$ ', ''));
