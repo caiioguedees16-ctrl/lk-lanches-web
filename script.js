@@ -544,8 +544,21 @@ function finalizarPedidoAcai(button, nomeBase) {
     
     // Adiciona ao carrinho principal do seu sistema
     addToCart(`${nomeBase} ${detalhes}`, precoFinal, 1);
-    
-    resetarEMudarTamanho(select);
+
+    // --- EFEITO VISUAL NO BOTÃO (NOVO) ---
+    const textoOriginal = button.innerText;
+    button.innerText = "✅ Adicionado!";
+    button.style.backgroundColor = "#28a745"; // Cor verde
+    button.disabled = true;
+
+    setTimeout(() => {
+        button.innerText = textoOriginal;
+        button.style.backgroundColor = ""; // Volta para a cor do seu CSS
+        button.disabled = false;
+        
+        // Reseta a montagem apenas depois do efeito
+        resetarEMudarTamanho(select);
+    }, 1500);
 }
 
 function gerarCards(categoria, containerId) {
