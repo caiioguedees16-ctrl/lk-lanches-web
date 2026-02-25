@@ -422,7 +422,7 @@ function gerarCards(categoria, containerId) {
         else {
             let catComExtras = ["pasteis", "artesanais", "artesanal", "tradicionais", "tradicional", "porcoes", "sandubas"];
             let mostrarExtras = catComExtras.includes(categoria);
-            let mostrarObs = categoria !== "bebidas", "acai";
+            let mostrarObs = categoria !== "bebidas";
 
             container.innerHTML += `
                 <div class="card">
