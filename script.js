@@ -911,9 +911,10 @@ function sendWhatsApp() {
     const dataAtual = new Date().toLocaleDateString();
     // 3. Montagem da Mensagem
     let msg = `🍔 *NOVO PEDIDO - LK LANCHES*\n`;
+    msg += `──────────────────\n`;
     msg += `*--- PEDIDO Nº ${numPedido} ---*\n`;
-    mensagem += `*Data:* ${dataAtual}\n\n`;
-    msg += `──────────────────\n\n`;
+    msg += `*Data:* ${dataAtual}\n\n`;
+    msg += `──────────────────\n`;
     msg += `👤 *Cliente:* ${name}\n`;
     msg += `──────────────────\n\n`;
 
