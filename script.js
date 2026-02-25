@@ -372,19 +372,178 @@ const produtos = {
         { nome: "Guaraná Antartica 2L", preco: 10, img: "img/guarana2l.png", desc: "2000ml" }  
     ],
     acai: [
-        { 
-            nome: "Açaí na Tigela", 
-            img: "img/acai.png", 
-            desc: "Monte do seu jeito! Escolha entre bolas de Açaí e Ninho + acompanhamentos.",
-            opcoes: [
-                {label: "Pequeno (2 bolas)", preco: 5, limiteBolas: 2},
-                {label: "Médio (4 bolas)", preco: 8, limiteBolas: 4},
-                {label: "Grande (5 bolas)", preco: 10, limiteBolas: 5}
-            ],
-            precoBolaExtra: 2 // Valor de cada bola adicional
-        }
+    { 
+        nome: "Açaí na Tigela", 
+        img: "img/acai.png", 
+        desc: "Monte do seu jeito! Escolha entre bolas de Açaí e Ninho + acompanhamentos.",
+        opcoes: [
+            {label: "Pequeno (2 bolas)", preco: 5, limiteBolas: 2},
+            {label: "Médio (4 bolas)", preco: 8, limiteBolas: 4},
+            {label: "Grande (5 bolas)", preco: 10, limiteBolas: 5}
+        ],
+        precoBolaExtra: 2 // Valor de cada bola adicional
+    }
     ]
 };
+// Variável global para controlar a montagem atual
+let montagemAcai = {
+    bolas: [],
+    acompanhamentos: {}
+};
+
+function gerarCardAcai(produto) {
+    const acompanhamentosAcai = ["Granola", "Leite em Pó", "Leite Condensado", "Amendoim", "Farinha Láctea"];
+    
+    return `
+        <div class="card acai-card">
+            <img src="${produto.img}" alt="${produto.nome}">
+            <h3>${produto.nome}</h3>
+            
+            <label>Tamanho:</label>
+            <select class="select-tamanho" onchange="resetarEMudarTamanho(this)">
+                ${produto.opcoes.map(op => `<option value="${op.preco}" data-limite="${op.limiteBolas}">${op.label} - R$ ${op.preco.toFixed(2)}</option>`).join("")}
+            </select>
+
+            <div class="montagem-secao">
+                <p><strong>Bolas (<span class="count-bolas">0</span> selecionadas)</strong><br>
+                <small>Extras: R$ 2,00 cada</small></p>
+                <div class="bolas-grid">
+                    ${['Açaí', 'Ninho', 'Sorvete'].map(tipo => `
+                        <div class="item-controle">
+                            <span>${tipo}</span>
+                            <div class="qty-control">
+                                <button onclick="alterarBola('${tipo}', -1, this)">−</button>
+                                <span class="qtd-bola-${tipo}">0</span>
+                                <button onclick="alterarBola('${tipo}', 1, this)">+</button>
+                            </div>
+                        </div>
+                    `).join("")}
+                </div>
+
+                <p><strong>Acompanhamentos</strong><br>
+                <small>1x Grátis | 2x ou mais: + R$ 2,00</small></p>
+                <div class="extras-grid">
+                    ${acompanhamentosAcai.map(acc => `
+                        <div class="item-controle">
+                            <span>${acc}</span>
+                            <div class="qty-control">
+                                <button onclick="alterarAcc('${acc}', -1, this)">−</button>
+                                <span class="qtd-acc" data-nome="${acc}">0</span>
+                                <button onclick="alterarAcc('${acc}', 1, this)">+</button>
+                            </div>
+                        </div>
+                    `).join("")}
+                </div>
+            </div>
+
+            <p class="price preco-final-display">R$ ${produto.opcoes[0].preco.toFixed(2)}</p>
+            <button class="add-btn" onclick="finalizarPedidoAcai(this, '${produto.nome}')">Adicionar ao Carrinho</button>
+        </div>
+    `;
+}
+
+// --- FUNÇÕES DE LÓGICA ---
+
+function alterarBola(tipo, mudanca, btn) {
+    const card = btn.closest('.card');
+    const span = card.querySelector(`.qtd-bola-${tipo}`);
+    let qtd = (montagemAcai.bolas.filter(b => b === tipo).length) + mudanca;
+
+    if (mudanca > 0) {
+        montagemAcai.bolas.push(tipo);
+    } else {
+        const index = montagemAcai.bolas.lastIndexOf(tipo);
+        if (index > -1) montagemAcai.bolas.splice(index, 1);
+    }
+    
+    span.innerText = montagemAcai.bolas.filter(b => b === tipo).length;
+    card.querySelector('.count-bolas').innerText = montagemAcai.bolas.length;
+    atualizarPrecoAcai(card);
+}
+
+function alterarAcc(nome, mudanca, btn) {
+    const card = btn.closest('.card');
+    const span = btn.parentElement.querySelector('.qtd-acc');
+    let qtd = (montagemAcai.acompanhamentos[nome] || 0) + mudanca;
+    
+    if (qtd < 0) qtd = 0;
+    montagemAcai.acompanhamentos[nome] = qtd;
+    span.innerText = qtd;
+    atualizarPrecoAcai(card);
+}
+
+function atualizarPrecoAcai(card) {
+    const select = card.querySelector('.select-tamanho');
+    const precoBase = parseFloat(select.value);
+    const limiteGratis = parseInt(select.options[select.selectedIndex].getAttribute('data-limite'));
+    
+    // Cálculo Bolas Extras
+    let extraBolas = 0;
+    if (montagemAcai.bolas.length > limiteGratis) {
+        extraBolas = (montagemAcai.bolas.length - limiteGratis) * 2.00;
+    }
+
+    // Cálculo Acompanhamentos Extras (Cobra a partir do 2º)
+    let extraAcc = 0;
+    for (let nome in montagemAcai.acompanhamentos) {
+        let qtd = montagemAcai.acompanhamentos[nome];
+        if (qtd > 1) extraAcc += (qtd - 1) * 2.00;
+    }
+
+    const total = precoBase + extraBolas + extraAcc;
+    card.querySelector('.preco-final-display').innerText = `R$ ${total.toFixed(2)}`;
+}
+
+function resetarEMudarTamanho(select) {
+    const card = select.closest('.card');
+    montagemAcai = { bolas: [], acompanhamentos: {} };
+    card.querySelectorAll('.qty-control span').forEach(s => s.innerText = "0");
+    card.querySelector('.count-bolas').innerText = "0";
+    atualizarPrecoAcai(card);
+}
+
+// Agrupa bolas repetidas (Ex: "2x Açaí, 1x Ninho") para o WhatsApp
+function formatarBolas(lista) {
+    const contagem = lista.reduce((acc, curr) => {
+        acc[curr] = (acc[curr] || 0) + 1;
+        return acc;
+    }, {});
+    return Object.entries(contagem).map(([nome, qtd]) => `${qtd}x ${nome}`).join(", ");
+}
+
+function finalizarPedidoAcai(button, nomeBase) {
+    const card = button.closest('.card');
+    const select = card.querySelector('.select-tamanho');
+    const tamanhoTxt = select.options[select.selectedIndex].text.split(' -')[0];
+    const limite = parseInt(select.options[select.selectedIndex].getAttribute('data-limite'));
+
+    // Validação de segurança
+    if (montagemAcai.bolas.length < limite) {
+        alert(`O tamanho ${tamanhoTxt} inclui ${limite} bolas. Por favor, selecione pelo menos essa quantidade.`);
+        return;
+    }
+
+    // Formata o nome final para o Carrinho/WhatsApp
+    let resumoBolas = formatarBolas(montagemAcai.bolas);
+    let detalhes = `[${tamanhoTxt}] Bolas: ${resumoBolas}`;
+    
+    let accs = [];
+    for (let n in montagemAcai.acompanhamentos) {
+        if (montagemAcai.acompanhamentos[n] > 0) {
+            accs.push(`${montagemAcai.acompanhamentos[n]}x ${n}`);
+        }
+    }
+    
+    if (accs.length > 0) detalhes += ` | Extras: ${accs.join(", ")}`;
+
+    const precoFinal = parseFloat(card.querySelector('.preco-final-display').innerText.replace("R$ ", ""));
+    
+    // Adiciona ao carrinho principal do seu sistema
+    addToCart(`${nomeBase} ${detalhes}`, precoFinal, 1);
+    
+    alert("Açaí montado com sucesso!");
+    resetarEMudarTamanho(select);
+}
 
 function gerarCards(categoria, containerId) {
     let container = document.getElementById(containerId);
