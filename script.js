@@ -501,8 +501,8 @@ const produtos = {
     { 
         nome: "Sorvete", 
         img: "img/sorvete.png",
-        preco: 5.00,
-        sabores: ["Consultar sabores disponíveis", "Chocolate", "Morango", "Creme..."],
+        preco: 2.50,
+        sabores: ["Consultar sabores disponíveis", "Chocolate", "Morango", "Creme"],
         categoria: "sorvete"
     }
     ]
