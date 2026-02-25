@@ -428,10 +428,10 @@ const produtos = {
         { nome: "Poderoso Cheddar", preco: 13, img: "img/cheddar.png", desc: "Muito cheddar", ingredientes: "Pão, carne e cheddar." }
     ],
     sandubas: [
-        { nome: "Sanduba Frango", preco: 20, img: "img/sanduba-frango.png", desc: "Baguete 20cm", ingredientes: "Pão baguete de 20cm, frango com cream cheese, milho, batata palha, queijo mussarela maçaricado, maionese ou molho verde, e salada (alface e tomate)." },
-        { nome: "Sanduba Frango c/ Bacon", preco: 22, img: "img/sanduba-frangocombacon.png", desc: "Baguete 20cm", ingredientes: "Pão baguete de 20cm, frango com cream cheese, farofa de bacon, cheddar maçaricado, maionese ou molho verde, e salada (alface e tomate)." },
-        { nome: "Sanduba Carne de Sol", preco: 24, img: "img/sanduba-carnedesol.png", desc: "Baguete 20cm", ingredientes: "Pão baguete de 20cm, carne de sol na nata, queijo coalho maçaricado, maionese ou molho verde, e salada (alface e tomate)." },
-        { nome: "Sanduba Carne Seca", preco: 24, img: "img/sanduba-carneseca.png", desc: "Baguete 20cm", ingredientes: "Pão baguete de 20cm, carne seca, queijo coalho maçaricado, maionese ou molho verde, e salada (alface e tomate)." }
+        { nome: "Sanduba Frango", preco: 20, img: "img/sanduba-frango.png", desc: "Pão baguete de 20cm, frango com cream cheese, milho, batata palha, queijo mussarela maçaricado, maionese ou molho verde, e salada (alface e tomate)." },
+        { nome: "Sanduba Frango c/ Bacon", preco: 22, img: "img/sanduba-frangocombacon.png", desc: "Pão baguete de 20cm, frango com cream cheese, farofa de bacon, cheddar maçaricado, maionese ou molho verde, e salada (alface e tomate)." },
+        { nome: "Sanduba Carne de Sol", preco: 24, img: "img/sanduba-carnedesol.png", desc: "Pão baguete de 20cm, carne de sol na nata, queijo coalho maçaricado, maionese ou molho verde, e salada (alface e tomate)." },
+        { nome: "Sanduba Carne Seca", preco: 24, img: "img/sanduba-carneseca.png", desc: "Pão baguete de 20cm, carne seca, queijo coalho maçaricado, maionese ou molho verde, e salada (alface e tomate)." }
     ],
     pasteis: [
         {nome:"Pastel Carne", preco:10, img:"img/pasteldecarne.png", desc: "Carne, vinagrete, milho e ervilha."}, {nome:"Pastel Frango", preco:10, img:"img/pasteldefrango.png", desc: "Frango, vinagrete, milho e ervilha."},
