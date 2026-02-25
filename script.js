@@ -424,6 +424,7 @@ function gerarCardAcai(produto) {
                 </div>
 
                 <p class="secao-titulo"><strong>Acompanhamentos</strong></p>
+                <p class="info-adicional">🎁 O 1º é de graça! Extras: R$ 2,00 cada</p>
                 <div class="extras-grid">
                     ${acompanhamentosAcai.map(acc => `
                         <div class="item-controle">
