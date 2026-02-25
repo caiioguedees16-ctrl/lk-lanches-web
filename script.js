@@ -20,6 +20,20 @@ function changeQty(button, amount) {
     span.innerText = current;
 }
 
+function aplicarEfeitoFeedback(button) {
+    const textoOriginal = button.innerText;
+    const corOriginal = button.style.backgroundColor;
+
+    button.innerText = "✅ Adicionado!";
+    button.style.backgroundColor = "#28a745"; // Verde Sucesso
+    button.disabled = true;
+
+    setTimeout(() => {
+        button.innerText = textoOriginal;
+        button.style.backgroundColor = corOriginal;
+        button.disabled = false;
+    }, 1500);
+}
 
 // ITENS COM ADICIONAIS
 function addToCartComExtras(button, nome, precoBase) {
@@ -51,23 +65,33 @@ function addToCartComExtras(button, nome, precoBase) {
     }
 
     addToCart(nomeFinal, precoUnitario, quantidade);
-
-    // Reset visual do card
-    if (obsInput) obsInput.value = ""; // Limpa o campo de texto
-    checkboxes.forEach(cb => cb.checked = false);
-    card.querySelector(".qty-control span").innerText = 1;
-    
-    let extrasBox = card.querySelector(".extras-box");
-    if (extrasBox) {
-        extrasBox.style.display = "none";
-        card.querySelector(".btn-extras").innerHTML = "➕ Adicionais";
-    }
+    aplicarEfeitoFeedback(button);
+    setTimeout(() => {
+        if (obsInput) obsInput.value = ""; 
+        checkboxes.forEach(cb => cb.checked = false);
+        card.querySelector(".qty-control span").innerText = 1;
+        
+        // Atualiza o preço exibido no card para o valor original (sem os extras)
+        const displayPreco = card.querySelector('.preco-final-display');
+        if (displayPreco) displayPreco.innerText = `R$ ${precoBase.toFixed(2)}`;
+        
+        let extrasBox = card.querySelector(".extras-box");
+        if (extrasBox) {
+            extrasBox.style.display = "none";
+            card.querySelector(".btn-extras").innerHTML = "➕ Adicionais";
+        }
+    }, 1500);
 }
 // MINI PASTÉIS
 function addMiniPastel(btn, nome) {
     let card = btn.closest(".card");
     let selectQtd = card.querySelector(".select-qtd");
     let selectSabor = card.querySelector(".select-sabor");
+
+    if (selectSabor.value === "" || selectSabor.value === "selecione") {
+        alert("Por favor, escolha o sabor do seu pastel!");
+        return;
+    }
     
     let preco = parseFloat(selectQtd.value);
     let qtdLabel = selectQtd.options[selectQtd.selectedIndex].text;
@@ -75,7 +99,12 @@ function addMiniPastel(btn, nome) {
     let quantidade = parseInt(card.querySelector(".qty-control span").innerText);
 
     addToCart(`${nome} - ${qtdLabel} (${sabor})`, preco, quantidade);
-    card.querySelector(".qty-control span").innerText = 1;
+    aplicarEfeitoFeedback(btn);
+    
+    setTimeout(() => {
+        selectSabor.selectedIndex = 0;
+        card.querySelector(".qty-control span").innerText = 1;
+    }, 1500);
 }
 
 function addSuco(btn, nome, precoFixo) {
@@ -91,10 +120,13 @@ function addSuco(btn, nome, precoFixo) {
     let quantidade = parseInt(card.querySelector(".qty-control span").innerText);
 
     addToCart(`${nome} - ${sabor}`, precoFixo, quantidade);
+    aplicarEfeitoFeedback(btn);
 
     // ZERANDO APÓS ADICIONAR
-    selectSabor.selectedIndex = 0; 
-    card.querySelector(".qty-control span").innerText = 1;
+    setTimeout(() => {
+        selectSabor.selectedIndex = 0; 
+        card.querySelector(".qty-control span").innerText = 1;
+    }, 1500); // Espera o efeito acabar para zerar o visual
 }
 // ===============================
 // ATUALIZAR INTERFACE DO CARRINHO
@@ -385,7 +417,7 @@ const produtos = {
     }
     ]
 };
-// Variável global para controlar a montagem atual
+
 let montagemAcai = {
     bolas: [],
     acompanhamentos: {}
@@ -545,18 +577,9 @@ function finalizarPedidoAcai(button, nomeBase) {
     // Adiciona ao carrinho principal do seu sistema
     addToCart(`${nomeBase} ${detalhes}`, precoFinal, 1);
 
-    // --- EFEITO VISUAL NO BOTÃO (NOVO) ---
-    const textoOriginal = button.innerText;
-    button.innerText = "✅ Adicionado!";
-    button.style.backgroundColor = "#28a745"; // Cor verde
-    button.disabled = true;
+    aplicarEfeitoFeedback(button);
 
     setTimeout(() => {
-        button.innerText = textoOriginal;
-        button.style.backgroundColor = ""; // Volta para a cor do seu CSS
-        button.disabled = false;
-        
-        // Reseta a montagem apenas depois do efeito
         resetarEMudarTamanho(select);
     }, 1500);
 }
