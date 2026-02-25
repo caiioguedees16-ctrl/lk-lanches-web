@@ -160,14 +160,15 @@ function adicionarSorveteExclusivo(btn, nome, precoUnitario) {
 
 function gerarCardSorvete(produto) {
     return `
-        <div class="card card-sorvete" style="border: 1px solid #444; padding: 15px; border-radius: 12px;">
-            <img src="${produto.img}" alt="${produto.nome}" style="width: 100%; border-radius: 8px;">
-            <h3 style="margin-top: 10px;">${produto.nome}</h3>
+        <div class="card card-sorvete" style="max-width: 350px; margin: 10px auto;">
+            <img src="${produto.img}" alt="${produto.nome}">
+            <h3>${produto.nome}</h3>
             
-            <div style="margin: 10px 0;">
-                <label style="display: block; font-size: 12px; color: #ffca2c; margin-bottom: 5px;">Digite os sabores:</label>
-                <input type="text" class="input-sabor-sorvete" placeholder="Ex: Chocolate e Baunilha" 
-                    style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ffca2c; background: #222; color: white;">
+            <div style="padding: 10px 15px;">
+                <label style="display: block; font-size: 13px; color: #ffca2c; margin-bottom: 5px;">Escolha os sabores:</label>
+                <input type="text" class="input-sabor-exclusivo-sorvete" 
+                    placeholder="Ex: Chocolate e Creme" 
+                    style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ffca2c; background: #1a1a1a; color: white; outline: none;">
             </div>
 
             <div class="footer-card">
@@ -176,9 +177,8 @@ function gerarCardSorvete(produto) {
                     <span class="qtd-numero">1</span>
                     <button type="button" onclick="alterarQtdSorvete(this, 1, ${produto.preco})">+</button>
                 </div>
-                <p class="price">Total: <span class="preco-final-sorvete">R$ ${produto.preco.toFixed(2)}</span></p>
-                
-                <button type="button" class="add-btn" onclick="adicionarSorveteExclusivo(this, '${produto.nome}', ${produto.preco})">
+                <p class="price" style="text-align:center;">Total: <span class="preco-final-sorvete">R$ ${produto.preco.toFixed(2)}</span></p>
+                <button type="button" class="add-btn" onclick="addSorvete(this, '${produto.nome}', ${produto.preco})" style="width: 100%;">
                     Adicionar ao Carrinho
                 </button>
             </div>
@@ -246,32 +246,23 @@ function addSorvete(btn, nome, precoUnitario) {
 
 // Função de apoio para garantir o envio correto
 function finalizarCompraSorvete(item) {
-    // Aqui você usa a lógica que já tem no seu carrinho, 
-    // mas enviando o nome já formatado com o sabor.
-    if (typeof addToCart === "function") {
+    // Verificamos se o carrinho existe (geralmente é um array chamado carrinho ou cart)
+    if (typeof carrinho !== "undefined") {
+        // Adicionamos direto no array, pulando a função principal que tem o erro do pastel
+        carrinho.push({
+            nome: item.nome + " - Sabor: " + item.sabor,
+            preco: item.preco,
+            quantidade: 1
+        });
+
+        // Chamamos apenas as funções de atualizar o visual (se existirem)
+        if (typeof atualizarCarrinho === "function") atualizarCarrinho();
+        if (typeof mostrarCarrinho === "function") mostrarCarrinho();
+    } else {
+        // Se não houver array global, usamos o addToCart mas com um "truque"
+        // Passamos um quarto parâmetro 'true' para avisar que é sorvete (opcional)
         addToCart(item.nome + " - Sabor: " + item.sabor, item.preco, 1);
     }
-}
-function addSuco(btn, nome, precoFixo) {
-    let card = btn.closest(".card");
-    let selectSabor = card.querySelector(".select-sabor");
-    
-    if (selectSabor.value === "" || selectSabor.value === "selecione") {
-        alert("Por favor, selecione o sabor!");
-        return;
-    }
-
-    let sabor = selectSabor.value;
-    let quantidade = parseInt(card.querySelector(".qty-control span").innerText);
-
-    addToCart(`${nome} - ${sabor}`, precoFixo, quantidade);
-    aplicarEfeitoFeedback(btn);
-
-    // ZERANDO APÓS ADICIONAR
-    setTimeout(() => {
-        selectSabor.selectedIndex = 0; 
-        card.querySelector(".qty-control span").innerText = 1;
-    }, 1500); // Espera o efeito acabar para zerar o visual
 }
 // ===============================
 // ATUALIZAR INTERFACE DO CARRINHO
@@ -345,6 +336,7 @@ function updateCartModal() {
 
 const deliveryFee = 2.00;
 
+// Substitua a sua função addToCart atual por esta:
 function addToCart(name, price, qty = 1) {
     // 1. Se o carrinho estiver vazio, adiciona a taxa primeiro
     if (cart.length === 0) {
@@ -352,11 +344,11 @@ function addToCart(name, price, qty = 1) {
             name: "🚚 Taxa de Entrega",
             price: deliveryFee,
             qty: 1,
-            isTax: true // Marcador para não deixar o usuário alterar a quantidade
+            isTax: true 
         });
     }
 
-    // 2. Verifica se o item já existe (ignorando a taxa)
+    // 2. Verifica se o item já existe (usando o nome completo que já inclui o sabor)
     let existingItem = cart.find(item => item.name === name);
 
     if (existingItem) {
@@ -369,6 +361,10 @@ function addToCart(name, price, qty = 1) {
             isTax: false
         });
     }
+
+    // 3. Atualiza a interface
+    updateCart();
+}
 
     // 3. Atualiza a interface
     updateCart();
