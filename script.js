@@ -401,7 +401,7 @@ const produtos = {
         { nome: "Coca-Cola Zero 1L", preco: 10, img: "img/cocazero1l.png", desc: "1000ml" },
         { nome: "Guaraná Antartica 1L", preco: 10, img: "img/guarana1l.png", desc: "1000ml" },
         { nome: "Coca-Cola 2L", preco: 16, img: "img/coca2l.png", desc: "2000ml" },
-        { nome: "Guaraná Antartica 2L", preco: 10, img: "img/guarana2l.png", desc: "2000ml" }  
+        { nome: "Guaraná Antartica 2L", preco: 16, img: "img/guarana2l.png", desc: "2000ml" }  
     ],
     acai: [
     { 
@@ -443,7 +443,7 @@ function gerarCardAcai(produto) {
 
                 <p class="secao-titulo"><strong>Bolas (<span class="count-bolas">0</span> selecionadas)</strong></p>
                 <div class="bolas-grid">
-                    ${['Açaí', 'Ninho'].map(tipo => `
+                    ${['Açaí', 'Ninho','Cupuaçu'].map(tipo => `
                         <div class="item-controle">
                             <span>${tipo}</span>
                             <div class="qty-control">
