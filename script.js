@@ -434,7 +434,7 @@ const produtos = {
         { nome: "Sanduba Carne Seca", preco: 24, img: "img/sanduba-carneseca.png", desc: "Baguete 20cm", ingredientes: "Pão baguete de 20cm, carne seca, queijo coalho maçaricado, maionese ou molho verde, e salada (alface e tomate)." }
     ],
     pasteis: [
-        {nome:"Pastel Carne", preco:10, img:"img/pasteldecarne.png", ingredientes: "Carne, vinagrete, milho e ervilha."}, {nome:"Pastel Frango", preco:10, img:"img/pasteldefrango.png", ingredientes: "Frango, vinagrete, milho e ervilha."},
+        {nome:"Pastel Carne", preco:10, img:"img/pasteldecarne.png", desc: "Carne, vinagrete, milho e ervilha."}, {nome:"Pastel Frango", preco:10, img:"img/pasteldefrango.png", ingredientes: "Frango, vinagrete, milho e ervilha."},
         {nome:"Pastel Calabresa", preco:10, img:"img/calabresa.png", ingredientes: "Calabresa, vinagrete, milho e ervilha."}, {nome:"Pastel Pizza", preco:10, img:"img/pizza.png", ingredientes: "Queijo, presunto, orégano, vinagrete, milho e ervilha."},
         {nome:"Pastel Presunto", preco:10, img:"img/presunto.png", ingredientes: "Presunto, vinagrete, milho e ervilha."}, {nome:"Pastel Misto", preco:10, img:"img/pastelmisto.png", ingredientes: "Frango, carne, presunto, calabresa, vinagrete, milho e ervilha."},
         {nome:"Pastel 3 Queijos", preco:14, img:"img/4queijos.png", ingredientes: "Queijo mussarela, cheddar, catupiry, vinagrete, milho e ervilha."}, {nome:"Pastel 4 Queijos", preco:14, img:"img/4queijos.png", ingredientes: "Queijo mussarela, queijo coalho, cheddar, catupiry, vinagrete, milho e ervilha."},
