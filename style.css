@@ -234,6 +234,42 @@ font-size:22px;
 cursor:pointer;
 }
 
+/* Estrutura da montagem (Aparece em todos os dispositivos) */
+.montagem-secao {
+    background: #1a1a1a;
+    padding: 12px;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.item-controle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #333;
+}
+
+.qty-control {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.qty-control button {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px; /* Botão mais quadradinho ou redondo, como preferir */
+    border: none;
+    background: #ffca2c;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .cart-count{
 position:absolute;
 top:-5px;
@@ -423,6 +459,15 @@ border-radius:6px;
   .add-btn {
     font-size: 14px;
     padding: 12px;
+  }
+  .qty-control button {
+        width: 35px; /* Botão um pouco maior para não errar o clique */
+        height: 35px;
+        font-size: 18px; /* Ícone de + e - mais visível */
+  }
+    
+  .item-controle span {
+        font-size: 16px; /* Texto um pouco maior no celular */
   }
 }
 
