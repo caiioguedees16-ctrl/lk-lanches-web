@@ -8,7 +8,45 @@ window.onload = () => {
         addressInput.value = savedAddress;
     }
 };
+window.addEventListener('DOMContentLoaded', () => {
+    const navLinks = document.querySelectorAll('nav a');
+    const sections = document.querySelectorAll('.section');
+    const navContainer = document.querySelector('nav');
 
+    const observerOptions = {
+        root: null,
+        rootMargin: '-20% 0px -70% 0px', // Detecta a seção quando ela ocupa a parte superior/central
+        threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${id}`) {
+                        link.classList.add('active');
+                        
+                        // FAZ A BARRA MOVER PARA O LADO AUTOMATICAMENTE
+                        const linkOffset = link.offsetLeft;
+                        const containerWidth = navContainer.offsetWidth;
+                        const linkWidth = link.offsetWidth;
+                        
+                        // Centraliza o botão ativo na barra de rolagem lateral
+                        navContainer.scrollTo({
+                            left: linkOffset - (containerWidth / 2) + (linkWidth / 2),
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            }
+        });
+    }, observerOptions);
+
+    sections.forEach(section => observer.observe(section));
+});
 // ===============================
 // ALTERAR QUANTIDADE NOS CARDS
 // ===============================
