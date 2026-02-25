@@ -411,7 +411,7 @@ function gerarCardAcai(produto) {
 
                 <p class="secao-titulo"><strong>Bolas (<span class="count-bolas">0</span> selecionadas)</strong></p>
                 <div class="bolas-grid">
-                    ${['Açaí', 'Ninho', 'Sorvete'].map(tipo => `
+                    ${['Açaí', 'Ninho'].map(tipo => `
                         <div class="item-controle">
                             <span>${tipo}</span>
                             <div class="qty-control">
