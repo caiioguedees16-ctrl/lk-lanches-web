@@ -82,30 +82,6 @@ function addToCartComExtras(button, nome, precoBase) {
         }
     }, 1500);
 }
-// MINI PASTÉIS
-function addMiniPastel(btn, nome) {
-    let card = btn.closest(".card");
-    let selectQtd = card.querySelector(".select-qtd");
-    let selectSabor = card.querySelector(".select-sabor");
-
-    if (selectSabor.value === "" || selectSabor.value === "selecione") {
-        alert("Por favor, escolha o sabor do seu pastel!");
-        return;
-    }
-    
-    let preco = parseFloat(selectQtd.value);
-    let qtdLabel = selectQtd.options[selectQtd.selectedIndex].text;
-    let sabor = selectSabor.value;
-    let quantidade = parseInt(card.querySelector(".qty-control span").innerText);
-
-    addToCart(`${nome} - ${qtdLabel} (${sabor})`, preco, quantidade);
-    aplicarEfeitoFeedback(btn);
-    
-    setTimeout(() => {
-        selectSabor.selectedIndex = 0;
-        card.querySelector(".qty-control span").innerText = 1;
-    }, 1500);
-}
 
 // --- FUNÇÃO DO PASTEL (REVISADA PARA NÃO TRAVAR) ---
 function addMiniPastel(btn, nome) {
@@ -140,84 +116,71 @@ function addMiniPastel(btn, nome) {
 
 // --- FUNÇÃO ÚNICA PARA O SORVETE (RESOLVE O ERRO) ---
 function addSorvete(btn, nome, precoUnitario) {
-    // 1. Usa .card-sorvete para garantir que não pegue dados do pastel
-    const card = btn.closest(".card-sorvete") || btn.closest(".card");
+    const card = btn.closest(".card-sorvete");
     const inputSabor = card.querySelector(".input-sabor-sorvete");
-    
-    if (!inputSabor) {
-        console.error("Erro: Campo de sabor do sorvete não encontrado!");
-        return;
-    }
-
-    const saborDigitado = inputSabor.value.trim();
     const qtdElemento = card.querySelector(".qtd-numero");
-    const quantidadeBolas = parseInt(qtdElemento.innerText);
-    const valorTotal = quantidadeBolas * precoUnitario;
+    
+    const saborDigitado = inputSabor.value.trim();
+    const quantidade = parseInt(qtdElemento.innerText);
+    const valorTotal = quantidade * precoUnitario;
 
     if (saborDigitado === "") {
-        alert("Por favor, informe os sabores do sorvete!");
+        alert("Por favor, digite os sabores desejados!");
         inputSabor.focus();
         return;
     }
 
-    // 2. Monta o item para o carrinho
-    const nomeFinal = `${nome} (${quantidadeBolas} bolas) - Sabores: ${saborDigitado}`;
-
-    // 3. Adiciona ao carrinho usando a sua lista correta (cart ou carrinho)
-    if (typeof cart !== 'undefined') {
-        addToCart(nomeFinal, valorTotal, 1);
-    } else if (typeof carrinho !== 'undefined') {
-        carrinho.push({ nome: nomeFinal, preco: valorTotal, quantidade: 1 });
-        if (typeof atualizarCarrinho === "function") atualizarCarrinho();
-    }
-
+    // Envia para o carrinho principal
+    const itemNome = `${nome} (${quantidade} bolas) - Sabores: ${saborDigitado}`;
+    addToCart(itemNome, valorTotal, 1);
+    
+    // Feedback visual de sucesso
     aplicarEfeitoFeedback(btn);
 
-    // 4. Limpa o card
+    // Reseta o card
     setTimeout(() => {
         inputSabor.value = "";
         qtdElemento.innerText = "1";
-        const precoDisplay = card.querySelector(".preco-final-sorvete");
-        if (precoDisplay) precoDisplay.innerText = `R$ ${precoUnitario.toFixed(2)}`;
-    }, 1500);
+        card.querySelector(".preco-final-sorvete").innerText = `R$ ${precoUnitario.toFixed(2)}`;
+    }, 1000);
 }
 
 function gerarCardSorvete(produto) {
     return `
-        <div class="card card-sorvete" style="max-width: 350px; margin: 10px auto;">
+        <div class="card card-sorvete">
             <img src="${produto.img}" alt="${produto.nome}">
             <h3>${produto.nome}</h3>
+            <p class="desc-text">Escolha a quantidade de bolas e digite os sabores abaixo.</p>
             
-            <div style="padding: 10px 15px;">
-                <label style="display: block; font-size: 13px; color: #ffca2c; margin-bottom: 5px;">Digite os sabores:</label>
+            <div class="sorvete-inputs" style="padding: 0 15px;">
                 <input type="text" class="input-sabor-sorvete" 
-                    placeholder="Ex: Chocolate e Creme" 
-                    style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ffca2c; background: #1a1a1a; color: white; outline: none;">
+                    placeholder="Sabores (ex: Morango, Chocolate)">
             </div>
 
-            <div class="footer-card">
-                <div class="qty-control" style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 10px;">
-                    <button type="button" onclick="alterarQtdSorvete(this, -1, ${produto.preco})">−</button>
+            <p class="price" style="margin-top:10px;">
+                Total: <span class="preco-final-sorvete">R$ ${produto.preco.toFixed(2)}</span>
+            </p>
+
+            <div class="actions">
+                <div class="qty-control">
+                    <button onclick="alterarQtdSorvete(this, -1, ${produto.preco})">−</button>
                     <span class="qtd-numero">1</span>
-                    <button type="button" onclick="alterarQtdSorvete(this, 1, ${produto.preco})">+</button>
+                    <button onclick="alterarQtdSorvete(this, 1, ${produto.preco})">+</button>
                 </div>
-                <p class="price" style="text-align:center;">Total: <span class="preco-final-sorvete">R$ ${produto.preco.toFixed(2)}</span></p>
-                
-                <button type="button" class="add-btn" onclick="addSorvete(this, '${produto.nome}', ${produto.preco})" style="width: 100%;">
-                    Adicionar ao Carrinho
+                <button class="add-btn" onclick="addSorvete(this, '${produto.nome}', ${produto.preco})">
+                    Adicionar
                 </button>
             </div>
-        </div>
-    `;
+        </div>`;
 }
 // Faz o cálculo do preço aparecer na tela (R$ 5,00 -> R$ 10,00 etc)
 function alterarQtdSorvete(btn, delta, precoUnitario) {
-    let card = btn.closest(".card-sorvete");
-    let qtdSpan = card.querySelector(".qtd-numero");
-    let precoSpan = card.querySelector(".preco-final-sorvete");
+    const card = btn.closest(".card-sorvete");
+    const qtdSpan = card.querySelector(".qtd-numero");
+    const precoSpan = card.querySelector(".preco-final-sorvete");
     
     let qtd = parseInt(qtdSpan.innerText) + delta;
-    if (qtd < 1) qtd = 1;
+    if (qtd < 1) qtd = 1; // Não deixa ser menor que 1 bola
     
     qtdSpan.innerText = qtd;
     let total = qtd * precoUnitario;
