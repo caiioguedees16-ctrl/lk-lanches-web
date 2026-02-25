@@ -215,6 +215,15 @@ function updateCart() {
     if(!cartItems) return;
 
     cartItems.innerHTML = "";
+    
+    if (cart.length > 0) {
+        cartItems.innerHTML = `
+            <div style="background: #ffca2c; color: #000; text-align: center; padding: 10px; font-size: 13px; font-weight: bold; border-radius: 8px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <span>👨‍🍳</span>
+                <span>Lanche preparado na hora! Entrega: 20 a 40 min.</span>
+            </div>
+        `;
+    }
     let total = 0;
     let totalQty = 0;
 
@@ -516,51 +525,72 @@ function gerarCardAcai(produto) {
     return `
         <div class="card acai-card">
             <img src="${produto.img}" alt="${produto.nome}">
-            <h3>${produto.nome}</h3>
+            <h3 style="margin-bottom: 15px;">${produto.nome}</h3>
             
-            <label>1. Escolha o Tamanho:</label>
-            <select class="select-tamanho" onchange="resetarEMudarTamanho(this)">
-                ${produto.opcoes.map(op => `<option value="${op.preco}" data-limite="${op.limiteBolas}">${op.label} - R$ ${op.preco.toFixed(2)}</option>`).join("")}
-            </select>
+            <div style="padding: 0 15px; text-align: left;">
+                <label style="display: block; font-size: 14px; color: #ffca2c; margin-bottom: 5px; font-weight: bold;">
+                    1. Escolha o Tamanho:
+                </label>
+                <select class="select-tamanho" onchange="resetarEMudarTamanho(this)" 
+                    style="width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 8px; background: #1a1a1a; color: white; border: 1px solid #444; font-size: 16px;">
+                    ${produto.opcoes.map(op => `<option value="${op.preco}" data-limite="${op.limiteBolas}">${op.label} - R$ ${op.preco.toFixed(2)}</option>`).join("")}
+                </select>
 
-            <div class="montagem-secao">
-                <div class="instrucao-montagem">
-                    ⚠️ Importante: Escolha as bolas e acompanhamentos abaixo!
-                </div>
+                <div class="montagem-secao">
+                    <div class="instrucao-montagem" style="background: rgba(255, 202, 44, 0.1); color: #ffca2c; padding: 10px; border-radius: 8px; font-size: 13px; text-align: center; margin-bottom: 15px; border: 1px dashed #ffca2c;">
+                        ⚠️ Importante: Escolha as bolas e acompanhamentos abaixo!
+                    </div>
 
-                <p class="secao-titulo"><strong>Bolas (<span class="count-bolas">0</span> selecionadas)</strong></p>
-                <div class="bolas-grid">
-                    ${['Açaí', 'Ninho','Cupuaçu'].map(tipo => `
-                        <div class="item-controle">
-                            <span>${tipo}</span>
-                            <div class="qty-control">
-                                <button onclick="alterarBola('${tipo}', -1, this)">−</button>
-                                <span class="qtd-bola-${tipo}">0</span>
-                                <button onclick="alterarBola('${tipo}', 1, this)">+</button>
+                    <p class="secao-titulo" style="color: #fff; font-size: 15px; margin-bottom: 10px;">
+                        <strong>2. Bolas (<span class="count-bolas">0</span> selecionadas)</strong>
+                    </p>
+                    <div class="bolas-grid" style="display: grid; gap: 10px; margin-bottom: 20px;">
+                        ${['Açaí', 'Ninho','Cupuaçu'].map(tipo => `
+                            <div class="item-controle" style="display: flex; justify-content: space-between; align-items: center; background: #222; padding: 8px 12px; border-radius: 8px;">
+                                <span style="color: #eee;">${tipo}</span>
+                                <div class="qty-control">
+                                    <button onclick="alterarBola('${tipo}', -1, this)">−</button>
+                                    <span class="qtd-bola-${tipo}" style="min-width: 20px; text-align: center;">0</span>
+                                    <button onclick="alterarBola('${tipo}', 1, this)">+</button>
+                                </div>
                             </div>
-                        </div>
-                    `).join("")}
-                </div>
+                        `).join("")}
+                    </div>
 
-                <p class="secao-titulo"><strong>Acompanhamentos</strong></p>
-                <p class="info-adicional">🎁 O 1º é de graça! Extras: R$ 2,00 cada</p>
-                <div class="extras-grid">
-                    ${acompanhamentosAcai.map(acc => `
-                        <div class="item-controle">
-                            <span>${acc}</span>
-                            <div class="qty-control">
-                                <button onclick="alterarAcc('${acc}', -1, this)">−</button>
-                                <span class="qtd-acc" data-nome="${acc}">0</span>
-                                <button onclick="alterarAcc('${acc}', 1, this)">+</button>
+                    <p class="secao-titulo" style="color: #fff; font-size: 15px; margin-bottom: 5px;">
+                        <strong>3. Acompanhamentos</strong>
+                    </p>
+                    <p class="info-adicional" style="font-size: 12px; color: #aaa; margin-bottom: 10px;">🎁 O 1º é de graça! Extras: R$ 2,00 cada</p>
+                    <div class="extras-grid" style="display: grid; gap: 8px; margin-bottom: 15px;">
+                        ${acompanhamentosAcai.map(acc => `
+                            <div class="item-controle" style="display: flex; justify-content: space-between; align-items: center; background: #222; padding: 8px 12px; border-radius: 8px;">
+                                <span style="color: #eee;">${acc}</span>
+                                <div class="qty-control">
+                                    <button onclick="alterarAcc('${acc}', -1, this)">−</button>
+                                    <span class="qtd-acc" data-nome="${acc}" style="min-width: 20px; text-align: center;">0</span>
+                                    <button onclick="alterarAcc('${acc}', 1, this)">+</button>
+                                </div>
                             </div>
-                        </div>
-                    `).join("")}
+                        `).join("")}
+                    </div>
+
+                    <label style="display: block; font-size: 14px; color: #ffca2c; margin-bottom: 5px; font-weight: bold;">
+                        4. Alguma observação?
+                    </label>
+                    <div class="item-obs" style="margin-bottom: 20px;">
+                        <input type="text" placeholder="Ex: (Sem amendoim, extra leite em pó)" 
+                            class="individual-obs" 
+                            style="width: 100%; padding: 12px; border-radius: 8px; background: #1a1a1a; color: #fff; border: 1px solid #444; font-size: 14px;">
+                    </div>
                 </div>
             </div>
 
-            <div class="footer-acai">
-                <p class="price preco-final-display">R$ ${produto.opcoes[0].preco.toFixed(2)}</p>
-                <button class="add-btn" onclick="finalizarPedidoAcai(this, '${produto.nome}')">Adicionar ao Carrinho</button>
+            <div class="footer-acai" style="padding: 15px; border-top: 1px solid #333; text-align: center;">
+                <p class="price preco-final-display" style="font-size: 22px; margin-bottom: 15px; color: #fff;">R$ ${produto.opcoes[0].preco.toFixed(2)}</p>
+                <button class="add-btn" style="width: 100%; padding: 15px; border-radius: 30px; background: red; color: white; border: none; font-weight: bold; cursor: pointer; font-size: 16px;" 
+                    onclick="finalizarPedidoAcai(this, '${produto.nome}')">
+                    Adicionar ao Carrinho
+                </button>
             </div>
         </div>
     `;
@@ -635,11 +665,14 @@ function formatarBolas(lista) {
 }
 
 function finalizarPedidoAcai(button, nomeBase) {
-    const card = button.closest('.card');
+    const card = btn.closest('.card');
     const select = card.querySelector('.select-tamanho');
-    const tamanhoTxt = select.options[select.selectedIndex].text.split(' -')[0];
-    const limite = parseInt(select.options[select.selectedIndex].getAttribute('data-limite'));
+    const tamanhoLabel = select.options[select.selectedIndex].text;
+    const precoFinal = parseFloat(card.querySelector('.preco-final-display').innerText.replace('R$ ', ''));
 
+    const obsInput = card.querySelector(".individual-obs");
+    const observacao = obsInput ? obsInput.value.trim() : "";
+    
     if (montagemAcai.bolas.length < limite) {
         alert(`O tamanho ${tamanhoTxt} inclui ${limite} bolas. Selecione pelo menos essa quantidade.`);
         return;
@@ -655,13 +688,18 @@ function finalizarPedidoAcai(button, nomeBase) {
         }
     }
     
-    if (accs.length > 0) detalhes += ` | Extras: ${accs.join(", ")}`;
+    if (accs.length > 0) detalhes += ` | Accs: ${accs.join(", ")}`;
+    if (observacao) detalhes += ` | OBS: ${observacao}`;
 
-    const precoFinal = parseFloat(card.querySelector('.preco-final-display').innerText.replace("R$ ", "").replace(",", "."));
+    // Adiciona ao carrinho global
+    addToCart(`${nome} (${detalhes})`, precoFinal, 1);
     
-    addToCart(`${nomeBase} ${detalhes}`, precoFinal, 1);
-    aplicarEfeitoFeedback(button);
-    resetarEMudarTamanho(select);
+    // Feedback e Reset
+    aplicarEfeitoFeedback(btn);
+    setTimeout(() => {
+        resetarEMudarTamanho(select);
+        if (obsInput) obsInput.value = "";
+    }, 1500);
 }
 
 function addSuco(btn, nome, precoBase) {
@@ -756,7 +794,7 @@ function gerarCards(categoria, containerId) {
                     <img src="${produto.img}" alt="${produto.nome}">
                     <h3>${produto.nome}</h3>
                     ${produto.desc ? `<p class="desc-text">${produto.desc}</p>` : ""}
-                    ${mostrarObs ? `<div class="item-obs"><input type="text" placeholder="Observação" class="individual-obs"></div>` : ""}
+                    ${mostrarObs ? `<div class="item-obs"><input type="text" placeholder=" Observação (Ex: Sem Cebola)" class="individual-obs"></div>` : ""}
                     ${mostrarExtras ? `
                         <div class="extras-container">
                             <button class="btn-extras" onclick="toggleExtras(this)">➕ Adicionais</button>
