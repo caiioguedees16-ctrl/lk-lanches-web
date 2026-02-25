@@ -664,38 +664,45 @@ function formatarBolas(lista) {
     return Object.entries(contagem).map(([nome, qtd]) => `${qtd}x ${nome}`).join(", ");
 }
 
-function finalizarPedidoAcai(button, nomeBase) {
-    const card = button.closest('.card');
+function finalizarPedidoAcai(botao, nome) {
+    const card = botao.closest('.card');
     const select = card.querySelector('.select-tamanho');
-    const tamanhoLabel = select.options[select.selectedIndex].text;
-    const precoFinal = parseFloat(card.querySelector('.preco-final-display').innerText.replace('R$ ', ''));
-
-    const obsInput = card.querySelector(".individual-obs");
-    const observacao = obsInput ? obsInput.value.trim() : "";
     
+    // Captura o limite e o nome do tamanho selecionado para a validação
+    const limite = parseInt(select.options[select.selectedIndex].getAttribute('data-limite'));
+    const tamanhoTxt = select.options[select.selectedIndex].text.split('-')[0].trim();
+    
+    // Validação que você deseja: não deixar pedir menos bolas do que o tamanho permite
     if (montagemAcai.bolas.length < limite) {
-        alert(`O tamanho ${tamanhoTxt} inclui ${limite} bolas. Selecione pelo menos essa quantidade.`);
+        alert(`O tamanho ${tamanhoTxt} inclui ${limite} bolas. Selecione pelo menos essa quantidade antes de adicionar!`);
         return;
     }
 
-    let resumoBolas = formatarBolas(montagemAcai.bolas);
-    let detalhes = `[${tamanhoTxt}] Bolas: ${resumoBolas}`;
+    // Se passou na validação, seguimos com o preço e a observação
+    const precoTexto = card.querySelector('.preco-final-display').innerText;
+    const precoFinal = parseFloat(precoTexto.replace('R$ ', '').replace(',', '.'));
+    
+    const obsInput = card.querySelector(".individual-obs");
+    const observacao = obsInput ? obsInput.value.trim() : "";
+
+    // Formatação dos detalhes para o WhatsApp
+    let detalhes = `Tam: ${tamanhoTxt} | Bolas: ${formatarBolas(montagemAcai.bolas)}`;
     
     let accs = [];
-    for (let n in montagemAcai.acompanhamentos) {
-        if (montagemAcai.acompanhamentos[n] > 0) {
-            accs.push(`${montagemAcai.acompanhamentos[n]}x ${n}`);
+    for (let nomeAcc in montagemAcai.acompanhamentos) {
+        if (montagemAcai.acompanhamentos[nomeAcc] > 0) {
+            accs.push(`${montagemAcai.acompanhamentos[nomeAcc]}x ${nomeAcc}`);
         }
     }
     
     if (accs.length > 0) detalhes += ` | Accs: ${accs.join(", ")}`;
     if (observacao) detalhes += ` | OBS: ${observacao}`;
 
-    // Adiciona ao carrinho global
+    // Adiciona ao carrinho
     addToCart(`${nome} (${detalhes})`, precoFinal, 1);
     
-    // Feedback e Reset
-    aplicarEfeitoFeedback(btn);
+    // Feedback visual e Reset
+    aplicarEfeitoFeedback(botao);
     setTimeout(() => {
         resetarEMudarTamanho(select);
         if (obsInput) obsInput.value = "";
