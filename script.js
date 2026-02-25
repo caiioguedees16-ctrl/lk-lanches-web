@@ -113,23 +113,23 @@ function gerarCardSorvete(produto) {
             <img src="${produto.img}" alt="${produto.nome}">
             <h3>${produto.nome}</h3>
             
-            <p class="info-adicional" style="color: #ffca2c; font-size: 13px; margin: 10px 0;">
-                🍦 O sabor muda sempre! Escreva o seu favorito abaixo:
+            <p class="info-adicional" style="margin: 10px 0; color: #ffca2c; font-size: 13px;">
+                🍦 O sabor muda sempre! Escolha o seu favorito abaixo:
             </p>
 
-            <div class="secao-sabor" style="padding: 0 15px; text-align: left;">
-                <label style="color: #eee; font-size: 14px;">Qual o sabor?</label>
+            <div class="secao-sabor" style="padding: 0 15px;">
+                <label style="display:block; margin-bottom:5px; font-size: 14px;">Qual o sabor?</label>
                 <input type="text" class="input-sabor-sorvete" placeholder="Ex: Chocolate, Morango..." 
-                    style="width: 100%; padding: 10px; margin-top: 5px; border-radius: 8px; border: 1px solid #444; background: #1a1a1a; color: white;">
+                    style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #444; background: #1a1a1a; color: white;">
             </div>
 
             <div class="footer-card">
-                <div class="qty-control" style="margin: 15px 0; display: flex; justify-content: center; gap: 15px; align-items: center;">
-                    <button onclick="alterarQtdSorvete(this, -1, ${produto.preco})" style="background:#ffca2c; border:none; border-radius:50%; width:30px; height:30px; font-weight:bold; cursor:pointer;">−</button>
+                <div class="qty-control" style="margin: 15px 0; display: flex; justify-content: center; gap: 15px;">
+                    <button onclick="alterarQtd(this, -1)" style="background:#ffca2c; border:none; border-radius:50%; width:30px; height:30px; font-weight:bold;">−</button>
                     <span class="qtd-numero">1</span>
-                    <button onclick="alterarQtdSorvete(this, 1, ${produto.preco})" style="background:#ffca2c; border:none; border-radius:50%; width:30px; height:30px; font-weight:bold; cursor:pointer;">+</button>
+                    <button onclick="alterarQtd(this, 1)" style="background:#ffca2c; border:none; border-radius:50%; width:30px; height:30px; font-weight:bold;">+</button>
                 </div>
-                <p class="price">Total: <span class="preco-final-sorvete">R$ ${produto.preco.toFixed(2)}</span></p>
+                <p class="price" style="font-weight:bold; font-size: 1.2rem;">R$ ${produto.preco.toFixed(2)}</p>
                 <button class="add-btn" onclick="addSorvete(this, '${produto.nome}', ${produto.preco})">
                     Adicionar ao Carrinho
                 </button>
@@ -151,33 +151,7 @@ function alterarQtdSorvete(btn, delta, precoUnitario) {
     precoSpan.innerText = `R$ ${total.toFixed(2)}`;
 }
 
-// Envia para o carrinho com o valor total correto
-function addSorvete(btn, nome, precoUnitario) {
-    let card = btn.closest(".card");
-    let inputSabor = card.querySelector(".input-sabor-sorvete");
-    let saborDigitado = inputSabor.value.trim();
-    
-    let quantidade = parseInt(card.querySelector(".qtd-numero").innerText);
-    let valorTotal = quantidade * precoUnitario;
 
-    if (saborDigitado === "") {
-        alert("Por favor, escreva o sabor que você deseja!");
-        inputSabor.focus();
-        return;
-    }
-
-    // Adiciona ao carrinho com o preço total calculado
-    addToCart(`${nome} (${quantidade} bolas - ${saborDigitado})`, valorTotal, 1);
-    
-    aplicarEfeitoFeedback(btn);
-
-    // Reseta o card
-    setTimeout(() => {
-        inputSabor.value = "";
-        card.querySelector(".qtd-numero").innerText = 1;
-        card.querySelector(".preco-final-sorvete").innerText = `R$ ${precoUnitario.toFixed(2)}`;
-    }, 1500);
-}
 function addSorvete(btn, nome, preco) {
     let card = btn.closest(".card");
     let inputSabor = card.querySelector(".input-sabor-sorvete");
