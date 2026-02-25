@@ -109,27 +109,27 @@ function addMiniPastel(btn, nome) {
 
 function gerarCardSorvete(produto) {
     return `
-        <div class="card">
+        <div class="card card-sorvete">
             <img src="${produto.img}" alt="${produto.nome}">
             <h3>${produto.nome}</h3>
             
-            <p class="info-adicional" style="margin: 10px 0; color: #ffca2c; font-size: 13px;">
-                🍦 O sabor muda sempre! Escolha o seu favorito abaixo:
+            <p style="color: #ffca2c; font-size: 13px; margin: 5px 0;">
+                🍦 Digite os sabores abaixo:
             </p>
 
-            <div class="secao-sabor" style="padding: 0 15px;">
-                <label style="display:block; margin-bottom:5px; font-size: 14px;">Qual o sabor?</label>
-                <input type="text" class="input-sabor-sorvete" placeholder="Ex: Chocolate, Morango..." 
-                    style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #444; background: #1a1a1a; color: white;">
+            <div style="padding: 0 15px;">
+                <input type="text" class="input-sabor-exclusivo-sorvete" 
+                    placeholder="Ex: Chocolate e Creme" 
+                    style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #ffca2c; background: #1a1a1a; color: white; margin-bottom: 10px;">
             </div>
 
             <div class="footer-card">
-                <div class="qty-control" style="margin: 15px 0; display: flex; justify-content: center; gap: 15px;">
-                    <button onclick="alterarQtd(this, -1)" style="background:#ffca2c; border:none; border-radius:50%; width:30px; height:30px; font-weight:bold;">−</button>
+                <div class="qty-control" style="display: flex; justify-content: center; gap: 15px; align-items: center; margin-bottom: 10px;">
+                    <button onclick="alterarQtdSorvete(this, -1, ${produto.preco})">−</button>
                     <span class="qtd-numero">1</span>
-                    <button onclick="alterarQtd(this, 1)" style="background:#ffca2c; border:none; border-radius:50%; width:30px; height:30px; font-weight:bold;">+</button>
+                    <button onclick="alterarQtdSorvete(this, 1, ${produto.preco})">+</button>
                 </div>
-                <p class="price" style="font-weight:bold; font-size: 1.2rem;">R$ ${produto.preco.toFixed(2)}</p>
+                <p class="price">Total: <span class="preco-final-sorvete">R$ ${produto.preco.toFixed(2)}</span></p>
                 <button class="add-btn" onclick="addSorvete(this, '${produto.nome}', ${produto.preco})">
                     Adicionar ao Carrinho
                 </button>
@@ -152,28 +152,32 @@ function alterarQtdSorvete(btn, delta, precoUnitario) {
 }
 
 
-function addSorvete(btn, nome, preco) {
-    let card = btn.closest(".card");
-    let inputSabor = card.querySelector(".input-sabor-sorvete");
-    let sabor = inputSabor.value.trim();
-    let quantidade = parseInt(card.querySelector(".qty-control span").innerText);
+function addSorvete(btn, nome, precoUnitario) {
+    let card = btn.closest(".card-sorvete"); // Busca apenas dentro do card de sorvete
+    let inputSabor = card.querySelector(".input-sabor-exclusivo-sorvete");
+    let saborDigitado = inputSabor.value.trim();
+    
+    let quantidade = parseInt(card.querySelector(".qtd-numero").innerText);
+    let valorTotal = quantidade * precoUnitario;
 
-    // Se o cliente não escrever nada, avisamos de forma simples
-    if (sabor === "") {
-        alert("Por favor, escreva o sabor que você quer!");
+    // Validação exclusiva para o sorvete
+    if (saborDigitado === "") {
+        alert("Por favor, escreva quais sabores de sorvete você deseja!");
+        inputSabor.focus();
         return;
     }
 
-    // Adiciona ao carrinho: Nome + Sabor escrito
-    addToCart(`${nome} (${sabor})`, preco, quantidade);
+    // Adiciona ao carrinho
+    addToCart(`${nome} (${quantidade} bolas - Sabores: ${saborDigitado})`, valorTotal, 1);
     
-    // Efeito visual de sucesso que você pediu
+    // Feedback visual de sucesso
     aplicarEfeitoFeedback(btn);
 
-    // Limpa tudo após 1.5 segundos
+    // Reseta o card após adicionar
     setTimeout(() => {
         inputSabor.value = "";
-        card.querySelector(".qty-control span").innerText = 1;
+        card.querySelector(".qtd-numero").innerText = 1;
+        card.querySelector(".preco-final-sorvete").innerText = `R$ ${precoUnitario.toFixed(2)}`;
     }, 1500);
 }
 
