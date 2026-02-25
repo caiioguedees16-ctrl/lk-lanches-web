@@ -94,9 +94,9 @@ margin-bottom:30px;
 }
 .categories {
     position: sticky;
-    top: 0; /* Cola no topo da tela */
-    z-index: 1000; /* Garante que fique em cima dos cards */
-    background-color: #000; /* Mesma cor do seu fundo para não ficar transparente */
+    top: 70; /* Cola no topo da tela */
+    z-index: 999; /* Garante que fique em cima dos cards */
+    background-color: #0F1115; /* Mesma cor do seu fundo para não ficar transparente */
     padding: 10px 0;
     display: flex;
     overflow-x: auto; /* Mantém o deslize lateral */
@@ -391,20 +391,21 @@ align-items:center;
 font-weight:bold;
 }
 
-.cart{
-position:fixed;
-right:-350px;
-top:0;
-width:340px;
-height:100vh;
-background:var(--card);
-padding:25px;
-transition:.3s;
-overflow-y:auto;
-border-left:1px solid var(--border);
-display:flex;
-flex-direction:column;
-gap:10px;
+.cart {
+    position: fixed;
+    right: -350px;
+    top: 0;
+    width: 340px;
+    height: 100vh;
+    background: var(--card);
+    padding: 25px;
+    transition: .3s;
+    overflow-y: auto;
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 2000; 
 }
 
 .cart.active{
