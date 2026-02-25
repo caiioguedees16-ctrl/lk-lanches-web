@@ -113,22 +113,23 @@ function gerarCardSorvete(produto) {
             <img src="${produto.img}" alt="${produto.nome}">
             <h3>${produto.nome}</h3>
             
-            <p class="info-adicional" style="margin: 10px 0; color: #ffca2c;">
-                🍦 Sabores do dia: Consulte-nos ou peça o seu favorito!
+            <p class="info-adicional" style="color: #ffca2c; font-size: 13px; margin: 10px 0;">
+                🍦 O sabor muda sempre! Escreva o seu favorito abaixo:
             </p>
 
-            <div class="secao-sabor">
-                <label>Qual sabor você deseja?</label>
-                <input type="text" class="input-sabor-sorvete" placeholder="Ex: Chocolate, Morango...">
+            <div class="secao-sabor" style="padding: 0 15px; text-align: left;">
+                <label style="color: #eee; font-size: 14px;">Qual o sabor?</label>
+                <input type="text" class="input-sabor-sorvete" placeholder="Ex: Chocolate, Morango..." 
+                    style="width: 100%; padding: 10px; margin-top: 5px; border-radius: 8px; border: 1px solid #444; background: #1a1a1a; color: white;">
             </div>
 
             <div class="footer-card">
-                <div class="qty-control" style="margin-bottom: 10px; justify-content: center;">
-                    <button onclick="alterarQtd(this, -1)">−</button>
-                    <span>1</span>
-                    <button onclick="alterarQtd(this, 1)">+</button>
+                <div class="qty-control" style="margin: 15px 0; display: flex; justify-content: center; gap: 15px; align-items: center;">
+                    <button onclick="alterarQtdSorvete(this, -1, ${produto.preco})" style="background:#ffca2c; border:none; border-radius:50%; width:30px; height:30px; font-weight:bold; cursor:pointer;">−</button>
+                    <span class="qtd-numero">1</span>
+                    <button onclick="alterarQtdSorvete(this, 1, ${produto.preco})" style="background:#ffca2c; border:none; border-radius:50%; width:30px; height:30px; font-weight:bold; cursor:pointer;">+</button>
                 </div>
-                <p class="price">R$ ${produto.preco.toFixed(2)}</p>
+                <p class="price">Total: <span class="preco-final-sorvete">R$ ${produto.preco.toFixed(2)}</span></p>
                 <button class="add-btn" onclick="addSorvete(this, '${produto.nome}', ${produto.preco})">
                     Adicionar ao Carrinho
                 </button>
@@ -136,7 +137,47 @@ function gerarCardSorvete(produto) {
         </div>
     `;
 }
+// Faz o cálculo do preço aparecer na tela (R$ 5,00 -> R$ 10,00 etc)
+function alterarQtdSorvete(btn, delta, precoUnitario) {
+    let card = btn.closest(".card");
+    let qtdSpan = card.querySelector(".qtd-numero");
+    let precoSpan = card.querySelector(".preco-final-sorvete");
+    
+    let qtd = parseInt(qtdSpan.innerText) + delta;
+    if (qtd < 1) qtd = 1; // Não deixa ser menos que 1 bola
+    
+    qtdSpan.innerText = qtd;
+    let total = qtd * precoUnitario;
+    precoSpan.innerText = `R$ ${total.toFixed(2)}`;
+}
 
+// Envia para o carrinho com o valor total correto
+function addSorvete(btn, nome, precoUnitario) {
+    let card = btn.closest(".card");
+    let inputSabor = card.querySelector(".input-sabor-sorvete");
+    let saborDigitado = inputSabor.value.trim();
+    
+    let quantidade = parseInt(card.querySelector(".qtd-numero").innerText);
+    let valorTotal = quantidade * precoUnitario;
+
+    if (saborDigitado === "") {
+        alert("Por favor, escreva o sabor que você deseja!");
+        inputSabor.focus();
+        return;
+    }
+
+    // Adiciona ao carrinho com o preço total calculado
+    addToCart(`${nome} (${quantidade} bolas - ${saborDigitado})`, valorTotal, 1);
+    
+    aplicarEfeitoFeedback(btn);
+
+    // Reseta o card
+    setTimeout(() => {
+        inputSabor.value = "";
+        card.querySelector(".qtd-numero").innerText = 1;
+        card.querySelector(".preco-final-sorvete").innerText = `R$ ${precoUnitario.toFixed(2)}`;
+    }, 1500);
+}
 function addSorvete(btn, nome, preco) {
     let card = btn.closest(".card");
     let inputSabor = card.querySelector(".input-sabor-sorvete");
