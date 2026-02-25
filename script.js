@@ -545,7 +545,6 @@ function finalizarPedidoAcai(button, nomeBase) {
     // Adiciona ao carrinho principal do seu sistema
     addToCart(`${nomeBase} ${detalhes}`, precoFinal, 1);
     
-    alert("Açaí montado com sucesso!");
     resetarEMudarTamanho(select);
 }
 
