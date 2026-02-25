@@ -542,7 +542,7 @@ function gerarCardAcai(produto) {
                     </div>
 
                     <p class="secao-titulo" style="color: #fff; font-size: 15px; margin-bottom: 10px;">
-                        <strong>2. Bolas (<span class="count-bolas">0</span> selecionadas)</strong>
+                        <strong>2. Sabor desejado (<span class="count-bolas">0</span> selecionadas)</strong>
                     </p>
                     <div class="bolas-grid" style="display: grid; gap: 10px; margin-bottom: 20px;">
                         ${['Açaí', 'Ninho','Cupuaçu'].map(tipo => `
@@ -560,7 +560,7 @@ function gerarCardAcai(produto) {
                     <p class="secao-titulo" style="color: #fff; font-size: 15px; margin-bottom: 5px;">
                         <strong>3. Acompanhamentos</strong>
                     </p>
-                    <p class="info-adicional" style="font-size: 12px; color: #aaa; margin-bottom: 10px;">🎁 O 1º é de graça! Extras: R$ 2,00 cada</p>
+                    <p class="info-adicional" style="font-size: 12px; color: #aaa; margin-bottom: 10px;">✅Escolha quantos itens quiser (1x de cada é grátis!). Repetir o mesmo item: + R$ 2,00 cada.</p>
                     <div class="extras-grid" style="display: grid; gap: 8px; margin-bottom: 15px;">
                         ${acompanhamentosAcai.map(acc => `
                             <div class="item-controle" style="display: flex; justify-content: space-between; align-items: center; background: #222; padding: 8px 12px; border-radius: 8px;">
