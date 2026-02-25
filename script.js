@@ -666,50 +666,61 @@ function finalizarPedidoAcai(button, nomeBase) {
 
 function gerarCards(categoria, containerId) {
     let container = document.getElementById(containerId);
-    if(!container || !produtos[categoria]) return;
+    if (!container || !produtos[categoria]) return;
     container.innerHTML = "";
 
     produtos[categoria].forEach(produto => {
-        
+
         // 1. LÓGICA ESPECIAL PARA AÇAÍ
         if (categoria === "acai") {
             container.innerHTML += gerarCardAcai(produto);
         }
-        
-        // 2. LÓGICA PARA SORVETES (ADICIONE ESTE BLOCO NOVO)
+
+        // 2. LÓGICA PARA SORVETES
         else if (categoria === "sorvete") {
             container.innerHTML += gerarCardSorvete(produto);
         }
-        
+
         // 3. LÓGICA PARA ITENS COM SELETORES (Sucos e Mini Pastéis)
         else if (produto.sabores) {
             let isSuco = categoria === "sucos";
-            let precoHTML = isSuco ? `<p class="price">R$ ${produto.preco.toFixed(2)}</p>` : ""; 
-            let selectQtdHTML = produto.opcoes 
-                ? `<select class="select-qtd">${produto.opcoes.map(op => `<option value="${op.preco}">${op.label} - R$ ${op.preco.toFixed(2)}</option>`).join("")}</select>`
-                : "";
-
+            
             container.innerHTML += `
                 <div class="card">
                     <img src="${produto.img}" alt="${produto.nome}">
-                    <h3>${produto.nome}</h3>
-                    ${precoHTML} ${selectQtdHTML}
-                    <select class="select-sabor">
-                        <option value="">Escolha o sabor...</option>
-                        ${produto.sabores.map(s => `<option value="${s}">${s}</option>`).join("")}
-                    </select>
+                    <h3 style="margin-bottom: 15px;">${produto.nome}</h3>
+            
+                    <div style="padding: 0 15px; text-align: left;">
+                        <label style="display: block; font-size: 14px; color: #ffca2c; margin-bottom: 5px; font-weight: bold;">
+                            1. Escolha a quantidade de unidades:
+                        </label>
+                        <select class="select-qtd" style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; background: #1a1a1a; color: white; border: 1px solid #444; font-size: 16px;">
+                            ${produto.opcoes.map(op => `<option value="${op.preco}">${op.label} - R$ ${op.preco.toFixed(2)}</option>`).join("")}
+                        </select>
+
+                        <label style="display: block; font-size: 14px; color: #ffca2c; margin-bottom: 5px; font-weight: bold;">
+                            2. Escolha o sabor desejado:
+                        </label>
+                        <select class="select-sabor" style="width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 8px; background: #1a1a1a; color: white; border: 1px solid #444; font-size: 16px;">
+                            <option value="">Clique para selecionar...</option>
+                            ${produto.sabores.map(s => `<option value="${s}">${s}</option>`).join("")}
+                        </select>
+                    </div>
+
                     <div class="actions">
                         <div class="qty-control">
                             <button onclick="changeQty(this,-1)">−</button>
                             <span>1</span>
                             <button onclick="changeQty(this,1)">+</button>
-                        </div>
-                        <button class="add-btn" onclick="${isSuco ? `addSuco(this,'${produto.nome}',${produto.preco})` : `addMiniPastel(this,'${produto.nome}')`}">
+                        </div> <button class="add-btn" style="flex: 1; margin-left: 10px;" onclick="${isSuco ? `addSuco(this,'${produto.nome}',${produto.preco})` : `addMiniPastel(this,'${produto.nome}')`}">
                             Adicionar
                         </button>
                     </div>
                 </div>`;
-        } 
+        }
+        // ... restante do código (else para lanches)
+    });
+}
         
         // 4. LÓGICA PARA PRODUTOS NORMAIS (Lanches, Porções, etc)
         else {
