@@ -187,12 +187,12 @@ function gerarCardSorvete(produto) {
 }
 // Faz o cálculo do preço aparecer na tela (R$ 5,00 -> R$ 10,00 etc)
 function alterarQtdSorvete(btn, delta, precoUnitario) {
-    let card = btn.closest(".card");
+    let card = btn.closest(".card-sorvete");
     let qtdSpan = card.querySelector(".qtd-numero");
     let precoSpan = card.querySelector(".preco-final-sorvete");
     
     let qtd = parseInt(qtdSpan.innerText) + delta;
-    if (qtd < 1) qtd = 1; // Não deixa ser menos que 1 bola
+    if (qtd < 1) qtd = 1;
     
     qtdSpan.innerText = qtd;
     let total = qtd * precoUnitario;
@@ -201,49 +201,33 @@ function alterarQtdSorvete(btn, delta, precoUnitario) {
 
 
 function addSorvete(btn, nome, precoUnitario) {
-    // 1. Impede que o clique "suba" para outras funções do site
-    event.preventDefault();
-    event.stopPropagation();
-
     const card = btn.closest(".card-sorvete");
     const inputSabor = card.querySelector(".input-sabor-exclusivo-sorvete");
     const saborDigitado = inputSabor.value.trim();
     
     const qtdElemento = card.querySelector(".qtd-numero");
-    const quantidade = parseInt(qtdElemento.innerText);
-    const valorTotal = quantidade * precoUnitario;
+    const quantidadeBolas = parseInt(qtdElemento.innerText);
+    const valorTotal = quantidadeBolas * precoUnitario;
 
-    // 2. Validação local (Se cair aqui, o erro do pastel nem chega a ser lido)
     if (saborDigitado === "") {
-        alert("Ops! Digite o sabor do seu sorvete antes de adicionar.");
+        alert("Por favor, digite o sabor do seu sorvete!");
         inputSabor.focus();
         return;
     }
 
-    // 3. Criar o objeto do item manualmente para evitar que a sua função principal
-    // de addToCart tente validar campos que não existem aqui.
-    const itemSorvete = {
-        nome: `${nome} (${quantidade} bolas)`,
-        sabor: saborDigitado,
-        preco: valorTotal,
-        quantidade: 1 // Enviamos como 1 unidade deste "pacote" de bolas
-    };
-
-    // Chame a sua função de adicionar ao carrinho passando o objeto pronto
-    // Se a sua função addToCart estiver configurada para validar apenas pastéis,
-    // talvez precisemos ajustar a addToCart principal também.
-    finalizarCompraSorvete(itemSorvete);
+    // Formata o nome e manda para a função base que corrigimos acima
+    const nomeFinal = `${nome} (${quantidadeBolas} bolas) - Sabores: ${saborDigitado}`;
+    addToCart(nomeFinal, valorTotal, 1);
     
     aplicarEfeitoFeedback(btn);
 
-    // Reset
+    // Reset do card após adicionar
     setTimeout(() => {
         inputSabor.value = "";
         qtdElemento.innerText = 1;
         card.querySelector(".preco-final-sorvete").innerText = `R$ ${precoUnitario.toFixed(2)}`;
     }, 1500);
 }
-
 // Função de apoio para garantir o envio correto
 function finalizarCompraSorvete(item) {
     // Verificamos se o carrinho existe (geralmente é um array chamado carrinho ou cart)
@@ -366,9 +350,6 @@ function addToCart(name, price, qty = 1) {
     updateCart();
 }
 
-    // 3. Atualiza a interface
-    updateCart();
-}
 function changeCartQty(index, amount) {
     if (cart[index].isTax) return; // Bloqueia qualquer alteração na taxa
 
@@ -703,13 +684,11 @@ function finalizarPedidoAcai(button, nomeBase) {
     const tamanhoTxt = select.options[select.selectedIndex].text.split(' -')[0];
     const limite = parseInt(select.options[select.selectedIndex].getAttribute('data-limite'));
 
-    // Validação de segurança
     if (montagemAcai.bolas.length < limite) {
-        alert(`O tamanho ${tamanhoTxt} inclui ${limite} bolas. Por favor, selecione pelo menos essa quantidade.`);
+        alert(`O tamanho ${tamanhoTxt} inclui ${limite} bolas. Selecione pelo menos essa quantidade.`);
         return;
     }
 
-    // Formata o nome final para o Carrinho/WhatsApp
     let resumoBolas = formatarBolas(montagemAcai.bolas);
     let detalhes = `[${tamanhoTxt}] Bolas: ${resumoBolas}`;
     
@@ -722,16 +701,11 @@ function finalizarPedidoAcai(button, nomeBase) {
     
     if (accs.length > 0) detalhes += ` | Extras: ${accs.join(", ")}`;
 
-    const precoFinal = parseFloat(card.querySelector('.preco-final-display').innerText.replace("R$ ", ""));
+    const precoFinal = parseFloat(card.querySelector('.preco-final-display').innerText.replace("R$ ", "").replace(",", "."));
     
-    // Adiciona ao carrinho principal do seu sistema
     addToCart(`${nomeBase} ${detalhes}`, precoFinal, 1);
-
     aplicarEfeitoFeedback(button);
-
-    setTimeout(() => {
-        resetarEMudarTamanho(select);
-    }, 1500);
+    resetarEMudarTamanho(select);
 }
 
 function gerarCards(categoria, containerId) {
