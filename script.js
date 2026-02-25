@@ -399,19 +399,17 @@ function gerarCardAcai(produto) {
             <img src="${produto.img}" alt="${produto.nome}">
             <h3>${produto.nome}</h3>
             
-            <label>Tamanho:</label>
+            <label>1. Escolha o Tamanho:</label>
             <select class="select-tamanho" onchange="resetarEMudarTamanho(this)">
                 ${produto.opcoes.map(op => `<option value="${op.preco}" data-limite="${op.limiteBolas}">${op.label} - R$ ${op.preco.toFixed(2)}</option>`).join("")}
             </select>
 
             <div class="montagem-secao">
                 <div class="instrucao-montagem">
-                    ⚠️ Selecione abaixo as bolas e acompanhamentos do seu açaí:
+                    ⚠️ Importante: Escolha as bolas e acompanhamentos abaixo!
                 </div>
 
-                <p><strong>Bolas (<span class="count-bolas">0</span> selecionadas)</strong><br>
-                <small>Extras: R$ 2,00 cada</small></p>
-                
+                <p class="secao-titulo"><strong>Bolas (<span class="count-bolas">0</span> selecionadas)</strong></p>
                 <div class="bolas-grid">
                     ${['Açaí', 'Ninho', 'Sorvete'].map(tipo => `
                         <div class="item-controle">
@@ -425,9 +423,7 @@ function gerarCardAcai(produto) {
                     `).join("")}
                 </div>
 
-                <p><strong>Acompanhamentos</strong><br>
-                <small>1x Grátis | 2x ou mais: + R$ 2,00 cada</small></p>
-                
+                <p class="secao-titulo"><strong>Acompanhamentos</strong></p>
                 <div class="extras-grid">
                     ${acompanhamentosAcai.map(acc => `
                         <div class="item-controle">
@@ -442,12 +438,13 @@ function gerarCardAcai(produto) {
                 </div>
             </div>
 
-            <p class="price preco-final-display">R$ ${produto.opcoes[0].preco.toFixed(2)}</p>
-            <button class="add-btn" onclick="finalizarPedidoAcai(this, '${produto.nome}')">Adicionar ao Carrinho</button>
+            <div class="footer-acai">
+                <p class="price preco-final-display">R$ ${produto.opcoes[0].preco.toFixed(2)}</p>
+                <button class="add-btn" onclick="finalizarPedidoAcai(this, '${produto.nome}')">Adicionar ao Carrinho</button>
+            </div>
         </div>
     `;
 }
-
 // --- FUNÇÕES DE LÓGICA ---
 
 function alterarBola(tipo, mudanca, btn) {
