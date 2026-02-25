@@ -244,10 +244,12 @@ cursor:pointer;
 
 .item-controle {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column; /* Coloca o nome em cima e botões embaixo para economizar largura */
     align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid #333;
+    background: #f8f9fa;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
 }
 
 .qty-control {
@@ -324,6 +326,26 @@ font-size:18px;
 .back-btn:hover{
 background:var(--accent);
 transform:scale(1.1);
+}
+
+.instrucao-montagem {
+    background: #fff3cd;
+    color: #856404;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center;
+    border: 1px solid #ffeeba;
+}
+
+/* Organiza as bolas e acompanhamentos em duas colunas no PC e uma no celular */
+.bolas-grid, .extras-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Divide em 2 colunas */
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
 .tax-item {
@@ -467,8 +489,8 @@ border-radius:6px;
   }
     
   .item-controle span {
-        font-size: 16px; /* Texto um pouco maior no celular */
-  }
+    font-size: 14px;
+    margin-bottom: 5px;
 }
 
 /* --- MOBILE PEQUENO (Ajustes finos para telas menores) --- */
@@ -483,6 +505,10 @@ border-radius:6px;
 
   .logo {
     font-size: 18px;
+  }
+  .bolas-grid, .extras-grid {
+    grid-template-columns: 1fr 1fr; /* Mantém 2 colunas para não ficar muito longo */
+    font-size: 12px;
   }
 }
 
