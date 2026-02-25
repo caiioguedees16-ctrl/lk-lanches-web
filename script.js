@@ -178,6 +178,7 @@ function gerarCardSorvete(produto) {
                     <button type="button" onclick="alterarQtdSorvete(this, 1, ${produto.preco})">+</button>
                 </div>
                 <p class="price" style="text-align:center;">Total: <span class="preco-final-sorvete">R$ ${produto.preco.toFixed(2)}</span></p>
+                
                 <button type="button" class="add-btn" onclick="addSorvete(this, '${produto.nome}', ${produto.preco})" style="width: 100%;">
                     Adicionar ao Carrinho
                 </button>
@@ -200,14 +201,12 @@ function alterarQtdSorvete(btn, delta, precoUnitario) {
 }
 
 function addSorvete(btn, nome, precoUnitario) {
-    // 1. Acha o card específico do sorvete
     const card = btn.closest(".card-sorvete");
-    
-    // 2. Pega o input de sabor usando a classe correta
     const inputSabor = card.querySelector(".input-sabor-sorvete");
     
+    // Se por algum motivo o input não for encontrado, ele avisa sem travar o site
     if (!inputSabor) {
-        console.error("Erro: Campo de sabor não encontrado!");
+        console.error("Erro: O campo de sabores do sorvete não foi encontrado no HTML.");
         return;
     }
 
@@ -216,26 +215,24 @@ function addSorvete(btn, nome, precoUnitario) {
     const quantidadeBolas = parseInt(qtdElemento.innerText);
     const valorTotal = quantidadeBolas * precoUnitario;
 
-    // 3. Validação
     if (saborDigitado === "") {
         alert("Por favor, informe os sabores do sorvete!");
         inputSabor.focus();
         return;
     }
 
-    // 4. Monta o nome para o carrinho
-    const nomeParaCarrinho = `${nome} (${quantidadeBolas} bolas) - Sabores: ${saborDigitado}`;
+    // Monta o texto que vai aparecer no carrinho
+    const nomeFinal = `${nome} (${quantidadeBolas} bolas) - Sabores: ${saborDigitado}`;
 
-    // 5. Envia para a função principal que você já tem
-    addToCart(nomeParaCarrinho, valorTotal, 1);
+    // Envia para o carrinho usando a sua função principal
+    addToCart(nomeFinal, valorTotal, 1);
     
-    // 6. Feedback visual
     aplicarEfeitoFeedback(btn);
 
-    // 7. Limpa o card
+    // Limpa o card para a próxima compra
     setTimeout(() => {
         inputSabor.value = "";
-        qtdElemento.innerText = 1;
+        qtdElemento.innerText = "1";
         card.querySelector(".preco-final-sorvete").innerText = `R$ ${precoUnitario.toFixed(2)}`;
     }, 1500);
 }
