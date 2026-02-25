@@ -405,8 +405,13 @@ function gerarCardAcai(produto) {
             </select>
 
             <div class="montagem-secao">
+                <div class="instrucao-montagem">
+                    ⚠️ Selecione abaixo as bolas e acompanhamentos do seu açaí:
+                </div>
+
                 <p><strong>Bolas (<span class="count-bolas">0</span> selecionadas)</strong><br>
                 <small>Extras: R$ 2,00 cada</small></p>
+                
                 <div class="bolas-grid">
                     ${['Açaí', 'Ninho', 'Sorvete'].map(tipo => `
                         <div class="item-controle">
@@ -421,7 +426,8 @@ function gerarCardAcai(produto) {
                 </div>
 
                 <p><strong>Acompanhamentos</strong><br>
-                <small>1x Grátis | 2x ou mais: + R$ 2,00</small></p>
+                <small>1x Grátis | 2x ou mais: + R$ 2,00 cada</small></p>
+                
                 <div class="extras-grid">
                     ${acompanhamentosAcai.map(acc => `
                         <div class="item-controle">
