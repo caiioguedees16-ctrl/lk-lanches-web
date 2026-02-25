@@ -250,21 +250,52 @@ cursor:pointer;
 }
 
 .item-controle {
-    background: #1a1a1a;
+    background: #1a1c20;
     border: 1px solid #333;
-    padding: 8px; /* Reduzido de 12px para economizar espaço */
-    border-radius: 10px;
-    transition: transform 0.2s;
+    border-radius: 12px;
+    padding: 12px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza horizontalmente */
+    justify-content: center; /* Centraliza verticalmente */
+    text-align: center;
+    min-height: 100px; /* Garante que todas as caixas tenham o mesmo tamanho */
 }
 
 .item-controle:active {
     transform: scale(0.95); /* Efeito de clique */
 }
 
-.qty-control {
+.item-info {
     display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 10px;
+}
+
+.nome-item {
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.preco-tag {
+    color: #ffca2c; /* Amarelo do tema */
+    font-size: 0.7rem;
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+.qty-control {
+    margin-top: auto; /* Empurra para o fundo se houver muito texto */
+    display: inline-flex; /* Garante que a pílula não estique */
     align-items: center;
-    gap: 12px;
+    justify-content: center;
+    background: #000;
+    border-radius: 20px;
+    padding: 4px 10px;
+    border: 1px solid #444;
 }
 
 .qty-control button {
