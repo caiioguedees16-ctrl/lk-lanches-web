@@ -479,8 +479,8 @@ Object.keys(produtos).forEach(cat => {
         "combosArtesanais": "combos-artesanais-list",
         "sandubas": "sanduba-list",
         "sucos": "sucos-list",
-        "bebidas": "bebidas-list"
-        "acai": "acai-list"
+        "bebidas": "bebidas-list",
+        "acai": "acai-list",
         "sorvete": "sorvete-list"
         
     };
