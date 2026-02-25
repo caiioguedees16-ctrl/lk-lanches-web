@@ -189,7 +189,7 @@ function gerarCardSorvete(produto) {
             <h3>${produto.nome}</h3>
             
             <div style="padding: 10px 15px;">
-                <label style="display: block; font-size: 13px; color: #ffca2c; margin-bottom: 5px;">Escolha os sabores:</label>
+                <label style="display: block; font-size: 13px; color: #ffca2c; margin-bottom: 5px;">Digite os sabores:</label>
                 <input type="text" class="input-sabor-sorvete" 
                     placeholder="Ex: Chocolate e Creme" 
                     style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ffca2c; background: #1a1a1a; color: white; outline: none;">
@@ -711,12 +711,17 @@ function gerarCards(categoria, containerId) {
 
     produtos[categoria].forEach(produto => {
         
-        // 1. LÓGICA ESPECIAL PARA AÇAÍ (ADICIONE ESTE BLOCO)
+        // 1. LÓGICA ESPECIAL PARA AÇAÍ
         if (categoria === "acai") {
             container.innerHTML += gerarCardAcai(produto);
         }
         
-        // 2. LÓGICA PARA ITENS COM SELETORES (Sucos e Mini Pastéis)
+        // 2. LÓGICA PARA SORVETES (ADICIONE ESTE BLOCO NOVO)
+        else if (categoria === "sorvete") {
+            container.innerHTML += gerarCardSorvete(produto);
+        }
+        
+        // 3. LÓGICA PARA ITENS COM SELETORES (Sucos e Mini Pastéis)
         else if (produto.sabores) {
             let isSuco = categoria === "sucos";
             let precoHTML = isSuco ? `<p class="price">R$ ${produto.preco.toFixed(2)}</p>` : ""; 
@@ -746,7 +751,7 @@ function gerarCards(categoria, containerId) {
                 </div>`;
         } 
         
-        // 3. LÓGICA PARA PRODUTOS NORMAIS (Lanches, Porções, etc)
+        // 4. LÓGICA PARA PRODUTOS NORMAIS (Lanches, Porções, etc)
         else {
             let catComExtras = ["pasteis", "artesanais", "tradicionais", "porcoes", "sandubas"];
             let mostrarExtras = catComExtras.includes(categoria);
