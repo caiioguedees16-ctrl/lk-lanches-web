@@ -681,10 +681,20 @@ function gerarCards(categoria, containerId) {
             container.innerHTML += gerarCardSorvete(produto);
         }
 
-        // 3. LÓGICA PARA ITENS COM SELETORES (Sucos e Mini Pastéis)
+        // 3. LÓGICA PARA MINI PASTÉIS E SUCOS (COM SELETORES)
         else if (produto.sabores) {
             let isSuco = categoria === "sucos";
             
+            // PROTEÇÃO: Só tenta mapear opções se elas existirem, senão usa o preço padrão
+            let optionsHTML = "";
+            if (produto.opcoes && produto.opcoes.length > 0) {
+                optionsHTML = produto.opcoes.map(op => 
+                    `<option value="${op.preco}">${op.label} - R$ ${op.preco.toFixed(2)}</option>`
+                ).join("");
+            } else {
+                optionsHTML = `<option value="${produto.preco}">Padrão - R$ ${produto.preco.toFixed(2)}</option>`;
+            }
+
             container.innerHTML += `
                 <div class="card">
                     <img src="${produto.img}" alt="${produto.nome}">
@@ -695,7 +705,7 @@ function gerarCards(categoria, containerId) {
                             1. Escolha a quantidade de unidades:
                         </label>
                         <select class="select-qtd" style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; background: #1a1a1a; color: white; border: 1px solid #444; font-size: 16px;">
-                            ${produto.opcoes.map(op => `<option value="${op.preco}">${op.label} - R$ ${op.preco.toFixed(2)}</option>`).join("")}
+                            ${optionsHTML}
                         </select>
 
                         <label style="display: block; font-size: 14px; color: #ffca2c; margin-bottom: 5px; font-weight: bold;">
@@ -712,13 +722,15 @@ function gerarCards(categoria, containerId) {
                             <button onclick="changeQty(this,-1)">−</button>
                             <span>1</span>
                             <button onclick="changeQty(this,1)">+</button>
-                        </div> <button class="add-btn" style="flex: 1; margin-left: 10px;" onclick="${isSuco ? `addSuco(this,'${produto.nome}',${produto.preco})` : `addMiniPastel(this,'${produto.nome}')`}">
+                        </div>
+                        <button class="add-btn" style="flex: 1; margin-left: 10px;" onclick="${isSuco ? `addSuco(this,'${produto.nome}',${produto.preco})` : `addMiniPastel(this,'${produto.nome}')`}">
                             Adicionar
                         </button>
                     </div>
                 </div>`;
         }
-             // 4. LÓGICA PARA PRODUTOS NORMAIS (Lanches, Porções, etc)
+
+        // 4. LÓGICA PARA PRODUTOS NORMAIS (Lanches, Porções, etc)
         else {
             let catComExtras = ["pasteis", "artesanais", "tradicionais", "porcoes", "sandubas"];
             let mostrarExtras = catComExtras.includes(categoria);
