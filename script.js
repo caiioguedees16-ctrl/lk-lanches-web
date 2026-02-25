@@ -718,11 +718,7 @@ function gerarCards(categoria, containerId) {
                     </div>
                 </div>`;
         }
-        // ... restante do código (else para lanches)
-    });
-}
-        
-        // 4. LÓGICA PARA PRODUTOS NORMAIS (Lanches, Porções, etc)
+             // 4. LÓGICA PARA PRODUTOS NORMAIS (Lanches, Porções, etc)
         else {
             let catComExtras = ["pasteis", "artesanais", "tradicionais", "porcoes", "sandubas"];
             let mostrarExtras = catComExtras.includes(categoria);
