@@ -699,15 +699,8 @@ function gerarCards(categoria, containerId) {
         else if (produto.sabores) {
             let isSuco = categoria === "sucos";
             
-            // PROTEÇÃO: Só tenta mapear opções se elas existirem, senão usa o preço padrão
-            let optionsHTML = "";
-            if (produto.opcoes && produto.opcoes.length > 0) {
-                optionsHTML = produto.opcoes.map(op => 
-                    `<option value="${op.preco}">${op.label} - R$ ${op.preco.toFixed(2)}</option>`
-                ).join("");
-            } else {
-                optionsHTML = `<option value="${produto.preco}">Padrão - R$ ${produto.preco.toFixed(2)}</option>`;
-            }
+            // Aqui está o segredo: verificamos se tem opções antes de tentar criar o Passo 1
+            let temOpcoes = produto.opcoes && produto.opcoes.length > 0;
 
             container.innerHTML += `
                 <div class="card">
@@ -715,24 +708,21 @@ function gerarCards(categoria, containerId) {
                     <h3 style="margin-bottom: 15px;">${produto.nome}</h3>
             
                     <div style="padding: 0 15px; text-align: left;">
-                    
-                        ${temOpcoesQtd ? `
+                        ${temOpcoes ? `
                             <label style="display: block; font-size: 14px; color: #ffca2c; margin-bottom: 5px; font-weight: bold;">
                                 1. Escolha a quantidade de unidades:
                             </label>
                             <select class="select-qtd" style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; background: #1a1a1a; color: white; border: 1px solid #444; font-size: 16px;">
                                 ${produto.opcoes.map(op => `<option value="${op.preco}">${op.label} - R$ ${op.preco.toFixed(2)}</option>`).join("")}
                             </select>
-
                             <label style="display: block; font-size: 14px; color: #ffca2c; margin-bottom: 5px; font-weight: bold;">
                                 2. Escolha o sabor desejado:
                             </label>
                         ` : `
-                            <p class="price" style="margin-bottom: 10px; font-size: 18px;">R$ ${produto.preco.toFixed(2)}</p>
-                            <input type="hidden" class="select-qtd" value="${produto.preco}"> 
-                            
+                            <p class="price" style="margin-bottom: 10px;">R$ ${produto.preco.toFixed(2)}</p>
+                            <input type="hidden" class="select-qtd" value="${produto.preco}">
                             <label style="display: block; font-size: 14px; color: #ffca2c; margin-bottom: 5px; font-weight: bold;">
-                                1. Escolha o sabor desejado:
+                                Escolha o sabor desejado:
                             </label>
                         `}
 
@@ -755,7 +745,7 @@ function gerarCards(categoria, containerId) {
                 </div>`;
         }
 
-        // 4. LÓGICA PARA PRODUTOS NORMAIS (Lanches, Porções, etc)
+        // 4. LÓGICA PARA PRODUTOS NORMAIS (Lanches, Porções, Bebidas, etc)
         else {
             let catComExtras = ["pasteis", "artesanais", "tradicionais", "porcoes", "sandubas"];
             let mostrarExtras = catComExtras.includes(categoria);
@@ -795,7 +785,6 @@ function gerarCards(categoria, containerId) {
         }
     });
 }
-
 // Inicializar vitrines
 Object.keys(produtos).forEach(cat => {
     let idMap = {
