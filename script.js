@@ -441,96 +441,96 @@ const adicionais = [
 
 const produtos = {
     combosTradicionais: [
-        { nome: "Pequeno", preco: 18, img: "img/combo1.png", desc: "1 X-Burguer + Fritas Pequena", ingredientes: "Pão, hambúrguer, ovo, presunto, mussarela, alface, tomate, cebola." },
-        { nome: "Médio", preco: 35, img: "img/combo2.png", desc: "2 Hambúrguer + Fritas Média com Calabresa e Cheddar", ingredientes: "Pão, hambúrguer, mussarela, alface, tomate, cebola." },
-        { nome: "Grande", preco: 45, img: "img/combo3.png", desc: "3 Hambúrguer + Fritas Média com Calabresa e Cheddar", ingredientes: "Pão, hambúrguer, mussarela, alface, tomate, cebola." },
-        { nome: "Gigante", preco: 60, img: "img/combo4.png", desc: "4 Hambúrguer + Fritas Grande com Calabresa e Cheddar", ingredientes: "Pão, hambúrguer, mussarela, alface, tomate, cebola." }
+        { nome: "Pequeno", preco: 18, img: "img/combo1.vspng", desc: "1 X-Burguer + Fritas Pequena", ingredientes: "Pão, hambúrguer, ovo, presunto, mussarela, alface, tomate, cebola." },
+        { nome: "Médio", preco: 35, img: "img/combo2.webp", desc: "2 Hambúrguer + Fritas Média com Calabresa e Cheddar", ingredientes: "Pão, hambúrguer, mussarela, alface, tomate, cebola." },
+        { nome: "Grande", preco: 45, img: "img/combo3.webp", desc: "3 Hambúrguer + Fritas Média com Calabresa e Cheddar", ingredientes: "Pão, hambúrguer, mussarela, alface, tomate, cebola." },
+        { nome: "Gigante", preco: 60, img: "img/combo4.webp", desc: "4 Hambúrguer + Fritas Grande com Calabresa e Cheddar", ingredientes: "Pão, hambúrguer, mussarela, alface, tomate, cebola." }
     ],
     combosArtesanais: [
-        { nome: "Solteirão", preco: 20, img: "img/combo5.png", desc: "1 Barra + Fritas Pequena", ingredientes: "Pão de Brioche, hambúrguer 130g, mussarela, alface, tomate, cebola." },
-        { nome: "Casal", preco: 42, img: "img/combo6.png", desc: "2 Barra + Fritas Média com Calabresa e Cheddar", ingredientes: "Pão de Brioche, hambúrguer 130g, mussarela, alface, tomate, cebola." },
-        { nome: "Casal + Refri", preco: 50, img: "img/combocasalrefri.png", desc: "2 Barra + Fritas Média com Calabresa e Cheddar + Guaraná 1L ", ingredientes: "Pão de Brioche, hambúrguer 130g, mussarela, alface, tomate, cebola." },       
-        { nome: "Amigos", preco: 55, img: "img/combo6.png", desc: "3 Barra + Fritas Média com Calabresa e Cheddar", ingredientes: "Pão de Brioche, hambúrguer 130g, mussarela, alface, tomate, cebola." },
-        { nome: "Familia", preco: 78, img: "img/combo7.png", desc: "4 Barra + Fritas Grande com Calabresa e Cheddar", ingredientes: "Pão de Brioche, hambúrguer 130g, mussarela, alface, tomate, cebola." }
+        { nome: "Solteirão", preco: 20, img: "img/combo5.webp", desc: "1 Barra + Fritas Pequena", ingredientes: "Pão de Brioche, hambúrguer 130g, mussarela, alface, tomate, cebola." },
+        { nome: "Casal", preco: 42, img: "img/combo6.webp", desc: "2 Barra + Fritas Média com Calabresa e Cheddar", ingredientes: "Pão de Brioche, hambúrguer 130g, mussarela, alface, tomate, cebola." },
+        { nome: "Casal + Refri", preco: 50, img: "img/combocasalrefri.webp", desc: "2 Barra + Fritas Média com Calabresa e Cheddar + Guaraná 1L ", ingredientes: "Pão de Brioche, hambúrguer 130g, mussarela, alface, tomate, cebola." },       
+        { nome: "Amigos", preco: 55, img: "img/combo6.webp", desc: "3 Barra + Fritas Média com Calabresa e Cheddar", ingredientes: "Pão de Brioche, hambúrguer 130g, mussarela, alface, tomate, cebola." },
+        { nome: "Familia", preco: 78, img: "img/combo7.webp", desc: "4 Barra + Fritas Grande com Calabresa e Cheddar", ingredientes: "Pão de Brioche, hambúrguer 130g, mussarela, alface, tomate, cebola." }
     ],
     artesanais: [
-        { nome: "Barra", preco: 12, desc: "Pão de Brioche, hambúrguer 130g, mussarela, alface, tomate, cebola.", img: "img/barra.png" },
-        { nome: "Pôr do Sol", preco: 15, desc: "Pão de Brioche, hambúrguer 130g, ovo, mussarela, alface, tomate, cebola.", img: "img/pordosol.png" },
-        { nome: "Crôa da Viúva", preco: 18, desc: "Pão de Brioche, hambúrguer 130g, calabresa, mussarela, alface, tomate, cebola.", img: "img/croa.png" },
-        { nome: "Pedra da Galé", preco: 18, desc: "Pão de Brioche, hambúrguer 130g, frango desfiado, mussarela, alface, tomate, cebola.", img: "img/pedra.png" },
-        { nome: "Carrasco", preco: 18, desc: "Pão de Brioche, hambúrguer 160g, cheddar, cebola caramelizada.", img: "img/carrasco.png" },
-        { nome: "Maria-Dia", preco: 19, desc: "Pão de Brioche, hambúrguer 160g, bacon, mussarela, cream cheese, alface, tomate, cebola.", img: "img/mariadia.png" },
-        { nome: "Farol", preco: 24, desc: "Pão de Brioche, 2 hambúrgueres 160g, cheddar, farofa de bacon.", img: "img/farol.png" },
-        { nome: "Acaú Meu Amor", preco: 25, desc: "Pão de Brioche, hambúrguer 160g, bacon, ovo, calabresa, frango desfiado, mussarela, cream cheese, alface, tomate, cebola, batata palha, ervilha e milho.", img: "img/acau.png" },
-        { nome: "Praia Azul", preco: 25, desc: "Pão de Brioche, hambúrguer 160g, fatia de cheddar, creme especial.", img: "img/praiaazul.png" }
+        { nome: "Barra", preco: 12, desc: "Pão de Brioche, hambúrguer 130g, mussarela, alface, tomate, cebola.", img: "img/barra.webp" },
+        { nome: "Pôr do Sol", preco: 15, desc: "Pão de Brioche, hambúrguer 130g, ovo, mussarela, alface, tomate, cebola.", img: "img/pordosol.webp" },
+        { nome: "Crôa da Viúva", preco: 18, desc: "Pão de Brioche, hambúrguer 130g, calabresa, mussarela, alface, tomate, cebola.", img: "img/croa.webp" },
+        { nome: "Pedra da Galé", preco: 18, desc: "Pão de Brioche, hambúrguer 130g, frango desfiado, mussarela, alface, tomate, cebola.", img: "img/pedra.webp" },
+        { nome: "Carrasco", preco: 18, desc: "Pão de Brioche, hambúrguer 160g, cheddar, cebola caramelizada.", img: "img/carrasco.webp" },
+        { nome: "Maria-Dia", preco: 19, desc: "Pão de Brioche, hambúrguer 160g, bacon, mussarela, cream cheese, alface, tomate, cebola.", img: "img/mariadia.webp" },
+        { nome: "Farol", preco: 24, desc: "Pão de Brioche, 2 hambúrgueres 160g, cheddar, farofa de bacon.", img: "img/farol.webp" },
+        { nome: "Acaú Meu Amor", preco: 25, desc: "Pão de Brioche, hambúrguer 160g, bacon, ovo, calabresa, frango desfiado, mussarela, cream cheese, alface, tomate, cebola, batata palha, ervilha e milho.", img: "img/acau.webp" },
+        { nome: "Praia Azul", preco: 25, desc: "Pão de Brioche, hambúrguer 160g, fatia de cheddar, creme especial.", img: "img/praiaazul.webp" }
     ],
     tradicionais: [
-        { nome: "X-Burguer", preco: 10, img: "img/xburguer.png", desc: "Clássico", ingredientes: "Pão, carne, queijo, ovo e salada." },
-        { nome: "X-Salada", preco: 8, img: "img/xsalada.png", desc: "Simples e gostoso", ingredientes: "Pão, carne, queijo e salada." },
-        { nome: "X-Bacon", preco: 14, img: "img/xbacon.png", desc: "Muito bacon", ingredientes: "Pão, carne, queijo, bacon e salada." },
-        { nome: "X-Frango", preco: 12, img: "img/xfrango.png", desc: "Frango desfiado", ingredientes: "Pão, frango, queijo e salada." },
-        { nome: "X-Calabresa", preco: 12, img: "img/xcalabresa.png", desc: "Calabresa frita", ingredientes: "Pão, carne, calabresa e queijo." },
-        { nome: "X-Tudo", preco: 15, img: "img/xtudo.png", desc: "Completo", ingredientes: "Todos os ingredientes tradicionais." },
-        { nome: "Poderoso Cheddar", preco: 13, img: "img/cheddar.png", desc: "Muito cheddar", ingredientes: "Pão, carne e cheddar." }
+        { nome: "X-Burguer", preco: 10, img: "img/xburguer.webp", desc: "Clássico", ingredientes: "Pão, carne, queijo, ovo e salada." },
+        { nome: "X-Salada", preco: 8, img: "img/xsalada.webp", desc: "Simples e gostoso", ingredientes: "Pão, carne, queijo e salada." },
+        { nome: "X-Bacon", preco: 14, img: "img/xbacon.webp", desc: "Muito bacon", ingredientes: "Pão, carne, queijo, bacon e salada." },
+        { nome: "X-Frango", preco: 12, img: "img/xfrango.webp", desc: "Frango desfiado", ingredientes: "Pão, frango, queijo e salada." },
+        { nome: "X-Calabresa", preco: 12, img: "img/xcalabresa.webp", desc: "Calabresa frita", ingredientes: "Pão, carne, calabresa e queijo." },
+        { nome: "X-Tudo", preco: 15, img: "img/xtudo.webp", desc: "Completo", ingredientes: "Todos os ingredientes tradicionais." },
+        { nome: "Poderoso Cheddar", preco: 13, img: "img/cheddar.webp", desc: "Muito cheddar", ingredientes: "Pão, carne e cheddar." }
     ],
     sandubas: [
-        { nome: "Sanduba Frango", preco: 20, img: "img/sanduba-frango.png", desc: "Pão baguete de 20cm, frango com cream cheese, milho, batata palha, queijo mussarela maçaricado, maionese ou molho verde, e salada (alface e tomate)." },
-        { nome: "Sanduba Frango c/ Bacon", preco: 22, img: "img/sanduba-frangocombacon.png", desc: "Pão baguete de 20cm, frango com cream cheese, farofa de bacon, cheddar maçaricado, maionese ou molho verde, e salada (alface e tomate)." },
-        { nome: "Sanduba Carne de Sol", preco: 24, img: "img/sanduba-carnedesol.png", desc: "Pão baguete de 20cm, carne de sol na nata, queijo coalho maçaricado, maionese ou molho verde, e salada (alface e tomate)." },
-        { nome: "Sanduba Carne Seca", preco: 24, img: "img/sanduba-carneseca.png", desc: "Pão baguete de 20cm, carne seca, queijo coalho maçaricado, maionese ou molho verde, e salada (alface e tomate)." }
+        { nome: "Sanduba Frango", preco: 20, img: "img/sanduba-frango.webp", desc: "Pão baguete de 20cm, frango com cream cheese, milho, batata palha, queijo mussarela maçaricado, maionese ou molho verde, e salada (alface e tomate)." },
+        { nome: "Sanduba Frango c/ Bacon", preco: 22, img: "img/sanduba-frangocombacon.webp", desc: "Pão baguete de 20cm, frango com cream cheese, farofa de bacon, cheddar maçaricado, maionese ou molho verde, e salada (alface e tomate)." },
+        { nome: "Sanduba Carne de Sol", preco: 24, img: "img/sanduba-carnedesol.webp", desc: "Pão baguete de 20cm, carne de sol na nata, queijo coalho maçaricado, maionese ou molho verde, e salada (alface e tomate)." },
+        { nome: "Sanduba Carne Seca", preco: 24, img: "img/sanduba-carneseca.webp", desc: "Pão baguete de 20cm, carne seca, queijo coalho maçaricado, maionese ou molho verde, e salada (alface e tomate)." }
     ],
     pasteis: [
-        {nome:"Pastel Carne", preco:10, img:"img/pasteldecarne.png", desc: "Carne, vinagrete, milho e ervilha."}, {nome:"Pastel Frango", preco:10, img:"img/pasteldefrango.png", desc: "Frango, vinagrete, milho e ervilha."},
-        {nome:"Pastel Calabresa", preco:10, img:"img/calabresa.png", desc: "Calabresa, vinagrete, milho e ervilha."}, {nome:"Pastel Pizza", preco:10, img:"img/pizza.png", desc: "Queijo, presunto, orégano, vinagrete, milho e ervilha."},
-        {nome:"Pastel Presunto", preco:10, img:"img/presunto.png", desc: "Presunto, vinagrete, milho e ervilha."}, {nome:"Pastel Misto", preco:10, img:"img/pastelmisto.png", desc: "Frango, carne, presunto, calabresa, vinagrete, milho e ervilha."},
-        {nome:"Pastel 3 Queijos", preco:14, img:"img/4queijos.png", desc: "Queijo mussarela, cheddar, catupiry, vinagrete, milho e ervilha."}, {nome:"Pastel 4 Queijos", preco:14, img:"img/4queijos.png", desc: "Queijo mussarela, queijo coalho, cheddar, catupiry, vinagrete, milho e ervilha."},
-        {nome:"Pastel Charque", preco:14, img:"img/carnedesol.png", desc: "Charque, queijo, vinagrete, milho e ervilha."}, {nome:"Pastel Carne de Sol", preco:14, img:"img/carnedesol.png", desc: "Carne de sol, queijo, vinagrete, milho e ervilha."}, 
-        {nome:"Pastel Frango com Bacon", preco:14, img:"img/frangocombacon.png", desc: "Frango, bacon, queijo, vinagrete, milho e ervilha."}, {nome:"Pastel Queijo Coalho", preco:13, img:"img/queijocoalho.png", desc: "Queijo Coalho, vinagrete, milho e ervilha."}, 
-        {nome:"Pastel Chocolate", preco:14, img:"img/chocolate.png", desc: "Chocolate Cremoso."}
+        {nome:"Pastel Carne", preco:10, img:"img/pasteldecarne.webp", desc: "Carne, vinagrete, milho e ervilha."}, {nome:"Pastel Frango", preco:10, img:"img/pasteldefrango.webp", desc: "Frango, vinagrete, milho e ervilha."},
+        {nome:"Pastel Calabresa", preco:10, img:"img/calabresa.webp", desc: "Calabresa, vinagrete, milho e ervilha."}, {nome:"Pastel Pizza", preco:10, img:"img/pizza.webp", desc: "Queijo, presunto, orégano, vinagrete, milho e ervilha."},
+        {nome:"Pastel Presunto", preco:10, img:"img/presunto.webp", desc: "Presunto, vinagrete, milho e ervilha."}, {nome:"Pastel Misto", preco:10, img:"img/pastelmisto.webp", desc: "Frango, carne, presunto, calabresa, vinagrete, milho e ervilha."},
+        {nome:"Pastel 3 Queijos", preco:14, img:"img/4queijos.webp", desc: "Queijo mussarela, cheddar, catupiry, vinagrete, milho e ervilha."}, {nome:"Pastel 4 Queijos", preco:14, img:"img/4queijos.webp", desc: "Queijo mussarela, queijo coalho, cheddar, catupiry, vinagrete, milho e ervilha."},
+        {nome:"Pastel Charque", preco:14, img:"img/carnedesol.webp", desc: "Charque, queijo, vinagrete, milho e ervilha."}, {nome:"Pastel Carne de Sol", preco:14, img:"img/carnedesol.webp", desc: "Carne de sol, queijo, vinagrete, milho e ervilha."}, 
+        {nome:"Pastel Frango com Bacon", preco:14, img:"img/frangocombacon.webp", desc: "Frango, bacon, queijo, vinagrete, milho e ervilha."}, {nome:"Pastel Queijo Coalho", preco:13, img:"img/queijocoalho.webp", desc: "Queijo Coalho, vinagrete, milho e ervilha."}, 
+        {nome:"Pastel Chocolate", preco:14, img:"img/chocolate.webp", desc: "Chocolate Cremoso."}
     ],
     porcoespastel: [
-        { nome: "Mini Pastéis", img: "img/6minipastel.png", opcoes: [{label:"6 unidades", preco:7}, {label:"12 unidades", preco:14}], sabores: ["Pizza", "Queijo"] }
+        { nome: "Mini Pastéis", img: "img/6minipastel.webp", opcoes: [{label:"6 unidades", preco:7}, {label:"12 unidades", preco:14}], sabores: ["Pizza", "Queijo"] }
     ],
     porcoes: [
-        {nome:"Fritas Pequena", preco:10, img:"img/batata.png"}, {nome:"Fritas Média", preco:18, img:"img/batata.png"},
-        {nome:"Fritas Grande", preco:25, img:"img/batata.png"}, {nome:"Batata Cheddar Bacon", preco:25, img:"img/batatabacon.png"},
-        {nome:"Fritas Pequena com Calabresa", preco:15, img:"img/batatacalabresa.png"}, {nome:"Fritas Média com Calabresa", preco:20, img:"img/batatacalabresa.png"},
-        {nome:"Fritas Grande com Calabresa", preco:32, img:"img/batatacalabresa.png"}
+        {nome:"Fritas Pequena", preco:10, img:"img/batata.webp"}, {nome:"Fritas Média", preco:18, img:"img/batata.webp"},
+        {nome:"Fritas Grande", preco:25, img:"img/batata.webp"}, {nome:"Batata Cheddar Bacon", preco:25, img:"img/batatabacon.webp"},
+        {nome:"Fritas Pequena com Calabresa", preco:15, img:"img/batatacalabresa.webp"}, {nome:"Fritas Média com Calabresa", preco:20, img:"img/batatacalabresa.webp"},
+        {nome:"Fritas Grande com Calabresa", preco:32, img:"img/batatacalabresa.webp"}
     ],
     salgados: [
-        { nome: "Coxinha", preco: 6, img: "img/coxinha.png", desc: "Frango" },
-        { nome: "Cachorro Quente", preco: 6, img: "img/cachorro-quente.png", desc: "Pão, carne, salsicha, vinagrete, milho e evilha, batata palha, queijo ralado e molhos." },
-        { nome: "Misto Quente", preco: 7, img: "img/misto-quente.png", desc: "Queijo cremoso" }
+        { nome: "Coxinha", preco: 6, img: "img/coxinha.webp", desc: "Frango" },
+        { nome: "Cachorro Quente", preco: 6, img: "img/cachorro-quente.webp", desc: "Pão, carne, salsicha, vinagrete, milho e evilha, batata palha, queijo ralado e molhos." },
+        { nome: "Misto Quente", preco: 7, img: "img/misto-quente.webp", desc: "Queijo cremoso" }
     ],
     sucos: [
     { 
         nome: "Suco Natural (500ml)", 
         preco: 7, // Preço fixo
-        img: "img/suco.png", 
+        img: "img/suco.webp", 
         sabores: ["Cajá", "Abacaxi com Hortelã", "Maracujá", "Graviola", "Mangaba", "Acerola"] 
     },
     { 
         nome: "Suco com Leite (500ml)", 
         preco: 10, // Preço fixo
-        img: "img/suco.png", 
+        img: "img/suco.webp", 
         sabores: ["Cajá", "Abacaxi com Hortelã", "Maracujá", "Graviola", "Mangaba", "Acerola"]  
     }
     ],
     bebidas: [
-        { nome: "Mini Refri Guaraná", preco: 3, img: "img/minirefri.png", desc: "250ml" },
-        { nome: "Coca-Cola Lata", preco: 7, img: "img/coca-lata.png", desc: "350ml" },
-        { nome: "Coca-Cola Zero Lata ", preco: 7, img: "img/cocazero.png", desc: "350ml" },
-        { nome: "Guaraná Antartica Lata", preco: 7, img: "img/guaranalata.png", desc: "350ml" },
-        { nome: "Coca-Cola 1L", preco: 10, img: "img/coca1l.png", desc: "1000ml" },
-        { nome: "Coca-Cola Zero 1L", preco: 10, img: "img/cocazero1l.png", desc: "1000ml" },
-        { nome: "Guaraná Antartica 1L", preco: 10, img: "img/guarana1l.png", desc: "1000ml" },
-        { nome: "Coca-Cola 2L", preco: 16, img: "img/coca2l.png", desc: "2000ml" },
-        { nome: "Guaraná Antartica 2L", preco: 16, img: "img/guarana2l.png", desc: "2000ml" }  
+        { nome: "Mini Refri Guaraná", preco: 3, img: "img/minirefri.webp", desc: "250ml" },
+        { nome: "Coca-Cola Lata", preco: 7, img: "img/coca-lata.webp", desc: "350ml" },
+        { nome: "Coca-Cola Zero Lata ", preco: 7, img: "img/cocazero.webp", desc: "350ml" },
+        { nome: "Guaraná Antartica Lata", preco: 7, img: "img/guaranalata.webp", desc: "350ml" },
+        { nome: "Coca-Cola 1L", preco: 10, img: "img/coca1l.webp", desc: "1000ml" },
+        { nome: "Coca-Cola Zero 1L", preco: 10, img: "img/cocazero1l.webp", desc: "1000ml" },
+        { nome: "Guaraná Antartica 1L", preco: 10, img: "img/guarana1l.webp", desc: "1000ml" },
+        { nome: "Coca-Cola 2L", preco: 16, img: "img/coca2l.webp", desc: "2000ml" },
+        { nome: "Guaraná Antartica 2L", preco: 16, img: "img/guarana2l.webp", desc: "2000ml" }  
     ],
     acai: [
     { 
         nome: "Açaí na Tigela", 
-        img: "img/acai.png", 
+        img: "img/acai.webp", 
         desc: "Monte do seu jeito! Escolha entre bolas de Açaí e Ninho + acompanhamentos.",
         opcoes: [
             {label: "Pequeno (2 bolas)", preco: 5, limiteBolas: 2},
@@ -543,7 +543,7 @@ const produtos = {
     sorvete: [
     { 
         nome: "Sorvete", 
-        img: "img/sorvete.png",
+        img: "img/sorvete.webp",
         preco: 2.50,
         sabores: ["Consultar sabores disponíveis", "Chocolate", "Morango", "Creme"],
         categoria: "sorvete"
