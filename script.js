@@ -441,7 +441,7 @@ const adicionais = [
 
 const produtos = {
     combosTradicionais: [
-        { nome: "Pequeno", preco: 18, img: "img/combo1.vspng", desc: "1 X-Burguer + Fritas Pequena", ingredientes: "Pão, hambúrguer, ovo, presunto, mussarela, alface, tomate, cebola." },
+        { nome: "Pequeno", preco: 18, img: "img/combo1.webp", desc: "1 X-Burguer + Fritas Pequena", ingredientes: "Pão, hambúrguer, ovo, presunto, mussarela, alface, tomate, cebola." },
         { nome: "Médio", preco: 35, img: "img/combo2.webp", desc: "2 Hambúrguer + Fritas Média com Calabresa e Cheddar", ingredientes: "Pão, hambúrguer, mussarela, alface, tomate, cebola." },
         { nome: "Grande", preco: 45, img: "img/combo3.webp", desc: "3 Hambúrguer + Fritas Média com Calabresa e Cheddar", ingredientes: "Pão, hambúrguer, mussarela, alface, tomate, cebola." },
         { nome: "Gigante", preco: 60, img: "img/combo4.webp", desc: "4 Hambúrguer + Fritas Grande com Calabresa e Cheddar", ingredientes: "Pão, hambúrguer, mussarela, alface, tomate, cebola." }
